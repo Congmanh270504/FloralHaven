@@ -128,18 +128,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FloralHaven.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FloralHaven.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -169,14 +161,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Models\FloralHaven.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>FloralHaven.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="Models\FloralHaven.dbml.layout">
-      <DependentUpon>FloralHaven.dbml</DependentUpon>
-    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -202,12 +186,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="css\" />
+    <Folder Include="Imgs\" />
+    <Folder Include="lib\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
