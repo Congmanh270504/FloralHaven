@@ -7,14 +7,13 @@ using System.Web.Mvc;
 
 namespace FloralHaven.Controllers
 {
-    public class AdminController : Controller
+    public class ProductController : Controller
     {
-        FloralHavenDataContext db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
-
         // GET: Admin
+        FloralHavenDataContext db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
         public ActionResult Index()
         {
-            List<NHANVIEN> ds = db.NHANVIENs.ToList();
+            List<HOA> ds = db.HOAs.ToList();
             return View(ds);
         }
 
