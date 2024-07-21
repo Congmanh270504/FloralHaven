@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.25" name="FloralHaven">
+  <DataContextMoniker Name="/FloralHavenDataContext" />
+  <nestedChildShapes>
+    <classShape Id="5c344fe2-99eb-4908-ad12-f6e7b4ace8fb" absoluteBounds="6.25, 1.125, 2, 1.5785953776041663">
+      <DataClassMoniker Name="/FloralHavenDataContext/CHITIETHOADON" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ea1c2d1-f329-4c05-8c6e-8aa0ef611a45" absoluteBounds="6.265, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d58f639b-d628-45c1-a762-cf467bce574b" absoluteBounds="3.5, 6.875, 2, 2.1554996744791657">
+      <DataClassMoniker Name="/FloralHavenDataContext/HOA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f5c39423-f5f9-4c40-8151-45c0ba796d01" absoluteBounds="3.515, 7.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7d53d20f-dc83-469e-a2ec-aa02a123249f" absoluteBounds="3.5, 1, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/FloralHavenDataContext/HOADON" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c8d54ccb-ac76-495d-8dc8-02d3e86cd93a" absoluteBounds="3.515, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="21da9782-01fc-401c-a9de-c96ce92b28ca" absoluteBounds="0.75, 0.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/FloralHavenDataContext/KHACHHANG" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a5a730a0-2114-4293-aa68-79469b696474" absoluteBounds="0.765, 1.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="633470ad-62e2-497f-9a33-3a409204ce8d" absoluteBounds="0.75, 7.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/FloralHavenDataContext/LOAIHOA" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6b72a659-844d-4e55-9f5d-251048f6fe8e" absoluteBounds="0.765, 7.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1ce2d582-4b15-44a0-8c02-8e5235960a6b" absoluteBounds="0.75, 3.875, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/FloralHavenDataContext/NHANVIEN" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9a67cdc3-a8f9-4b1e-b35a-c94f13c18f6d" absoluteBounds="0.765, 4.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 7.95274983723958); (7.25 : 7.95274983723958); (7.25 : 2.70359537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/HOA/HOA_CHITIETHOADON" />
+      <nodes>
+        <classShapeMoniker Id="d58f639b-d628-45c1-a762-cf467bce574b" />
+        <classShapeMoniker Id="5c344fe2-99eb-4908-ad12-f6e7b4ace8fb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.91429768880208); (6.25 : 1.91429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/HOADON/HOADON_CHITIETHOADON" />
+      <nodes>
+        <classShapeMoniker Id="7d53d20f-dc83-469e-a2ec-aa02a123249f" />
+        <classShapeMoniker Id="5c344fe2-99eb-4908-ad12-f6e7b4ace8fb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.88544840494792); (3.5 : 1.88544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/KHACHHANG/KHACHHANG_HOADON" />
+      <nodes>
+        <classShapeMoniker Id="21da9782-01fc-401c-a9de-c96ce92b28ca" />
+        <classShapeMoniker Id="7d53d20f-dc83-469e-a2ec-aa02a123249f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.84699625651042); (3.5 : 7.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/LOAIHOA/LOAIHOA_HOA" />
+      <nodes>
+        <classShapeMoniker Id="633470ad-62e2-497f-9a33-3a409204ce8d" />
+        <classShapeMoniker Id="d58f639b-d628-45c1-a762-cf467bce574b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.85659912109375); (4.5 : 4.85659912109375); (4.5 : 2.77089680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/NHANVIEN/NHANVIEN_HOADON" />
+      <nodes>
+        <classShapeMoniker Id="1ce2d582-4b15-44a0-8c02-8e5235960a6b" />
+        <classShapeMoniker Id="7d53d20f-dc83-469e-a2ec-aa02a123249f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
