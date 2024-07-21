@@ -32,32 +32,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TENHOA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IMG)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SOLUONG)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MOTA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NSX)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MALOAI)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MAHOA }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MAHOA }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MAHOA })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TENHOA)
+            </td>
+            <td>
+                <img src="~/Imgs/@item.IMG" alt="@item.IMG"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SOLUONG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MOTA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NSX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MALOAI)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MAHOA }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MAHOA }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MAHOA })
+            </td>
+        </tr>
+    }
 
 </table>

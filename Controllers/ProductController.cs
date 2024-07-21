@@ -1,6 +1,7 @@
 ﻿using FloralHaven.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,53 +19,94 @@ namespace FloralHaven.Controllers
         }
 
         // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
+            ViewBag.mahoa = hoa.MAHOA;
+            if (hoa == null)
+            {
+                return null;
+            }
+            return View(hoa);
         }
 
         // GET: Admin/Create
+        [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
             return View();
         }
 
         // POST: Admin/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateInput(false)]
+        public ActionResult Create(HOA hoa, HttpPostedFileBase file)
         {
-            try
+            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
+            if (file == null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+                ViewBag.Thongbao = "Vui lòng chọn ảnh bìa";
                 return View();
             }
+            if (ModelState.IsValid)
+            {
+                var fileName=Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
+                if (System.IO.File.Exists(path))
+                {
+                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                }
+                else
+                {
+                    file.SaveAs(path);
+                }
+                hoa.IMG = fileName;
+                db.HOAs.InsertOnSubmit(hoa);
+                db.SubmitChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(string id)
         {
-            return View();
+            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
+            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
+
+            if (hoa == null)
+            {
+                return null;
+            }
+            return View(hoa);
+
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateInput(false)]
+        public ActionResult Edit(HOA hoa, HttpPostedFileBase file)
         {
-            try
+            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
+           
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
+                if (System.IO.File.Exists(path))
+                {
+                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                }
+                else
+                {
+                    file.SaveAs(path);
+                }
+                hoa.IMG = fileName;
+                UpdateModel(hoa);
+                db.SubmitChanges();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Delete/5
