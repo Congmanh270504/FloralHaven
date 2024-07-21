@@ -77,7 +77,7 @@
                                 @Html.ActionLink("Testimonial", "Testimonial", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-testimonial" ? " active" : "") })
                             </div>
                         </div>
-                        <a asp-area="" asp-controller="pages" asp-action="contact" class="nav-item nav-link">Contact</a>
+                        @Html.ActionLink("Contact", "Contact", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
                     </div>
                     <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
                 </div>
