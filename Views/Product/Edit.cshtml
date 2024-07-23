@@ -10,7 +10,7 @@
 @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+    @Html.ValidationSummary(true)
     <div class="form-horizontal">
         <h4>HOA</h4>
         <hr />
@@ -31,12 +31,6 @@
                 <img src="@Url.Content("~/Imgs/" + Model.IMG)" />
                 <label for="newImg">Thay đổi ảnh</label>
                 <input id="newImg" type="file" name="file" />
-                @*@{
-                    if (true)
-                    {
-
-                    }
-                }*@
                 @ViewBag.Thongbao
             </div>
         </div>

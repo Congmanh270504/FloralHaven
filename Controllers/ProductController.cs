@@ -51,7 +51,7 @@ namespace FloralHaven.Controllers
             }
             if (ModelState.IsValid)
             {
-                var fileName=Path.GetFileName(file.FileName);
+                var fileName = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
                 if (System.IO.File.Exists(path))
                 {
@@ -79,8 +79,8 @@ namespace FloralHaven.Controllers
             {
                 return null;
             }
-            return View(hoa);
 
+            return View(hoa);
         }
 
         // POST: Admin/Edit/5
@@ -89,46 +89,52 @@ namespace FloralHaven.Controllers
         public ActionResult Edit(HOA hoa, HttpPostedFileBase file)
         {
             ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
-           
-            if (ModelState.IsValid)
+            var hoaUpdate = db.HOAs.SingleOrDefault(x => x.MAHOA == hoa.MAHOA);
+            if (hoaUpdate != null)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
-                if (System.IO.File.Exists(path))
+                if (ModelState.IsValid && file != null)
                 {
-                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    }
+                    else
+                    {
+                        file.SaveAs(path);
+                    }
+                    hoaUpdate.IMG = fileName;
                 }
-                else
-                {
-                    file.SaveAs(path);
-                }
-                hoa.IMG = fileName;
-                UpdateModel(hoa);
-                db.SubmitChanges();
             }
+            UpdateModel(hoaUpdate);
+            db.SubmitChanges();
             return RedirectToAction("Index");
         }
-
         // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(string id)
         {
-            return View();
+            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
+            if (hoa == null)
+            {
+                return null;
+            }
+            return View(hoa);
         }
 
         // POST: Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(string id, FormCollection collection)
         {
-            try
+            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
+            if (hoa == null)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return null;
             }
-            catch
-            {
-                return View();
-            }
+            db.HOAs.DeleteOnSubmit(hoa);
+            db.SubmitChanges();
+            return RedirectToAction("Index");
         }
     }
 }
