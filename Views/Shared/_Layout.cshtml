@@ -33,7 +33,7 @@
 
 </head>
 <body>
-    <div class="container-xxl bg-white p-0">
+    <div class="container-fluid bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -42,10 +42,10 @@
         </div>
         <!-- Spinner End -->
         <!-- Navbar & Hero Start -->
-        <div class="container-xxl position-relative p-0">
+        <div class="container-fluid position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Restoran</h1>
+                    <h1 class="text-primary m-0">Floral Haven</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -61,7 +61,7 @@
                         @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "home-index" ? " active" : "") })
                         @Html.ActionLink("About", "About", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-about" ? " active" : "") })
                         @Html.ActionLink("Service", "Service", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-service" ? " active" : "") })
-                        @Html.ActionLink("Menu", "Menu", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
+                        @Html.ActionLink("Shop", "Menu", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
                         <div class="nav-item dropdown">
                             @if (currentPage == "pages-booking" || currentPage == "pages-team" || currentPage == "pages-testimonial")
                             {
@@ -79,11 +79,11 @@
                         </div>
                         @Html.ActionLink("Contact", "Contact", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
+                    <a href="" class="button-75">Shop Now</a>
                 </div>
             </nav>
 
-            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+            <div class="container-fluid py-5 bg-dark hero-header mb-5">
                 @RenderSection("Hero", required: false)
             </div>
         </div>
