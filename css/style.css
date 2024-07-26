@@ -2,7 +2,7 @@
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;
-    --dark: #0F172B;
+    --dark: #A78086;
 }
 
 .ff-secondary {
@@ -634,4 +634,39 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+
+.page-customer {
+    box-shadow: 0px 0px 6px 0px rgba(50,50,93,0.15),1px 1px 5px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 40px;
+}
+
+.page-customer .wpx {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 0;
+    background: #fff;
+    padding: 20px 15px;
+    border-radius: 10px;
+}
+
+.page-customer .wpx .title{
+    font-size:2rem;
+    text-transform:uppercase;
+    font-weight:500;
+    letter-spacing:0;
+    position:relative;
+    display:inline-block;
+    margin:0;
+    margin-bottom:10px;
+    text-align:center;
+}
+
+.page-customer input, .page-customer select, .page-customer textarea{
+    max-width:unset;
 }
