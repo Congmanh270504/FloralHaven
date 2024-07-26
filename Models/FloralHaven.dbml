@@ -1,66 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FloralHaven" Class="FloralHavenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.CHITIETHOADON" Member="CHITIETHOADONs">
-    <Type Name="CHITIETHOADON">
-      <Column Name="MAHD" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MAHOA" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SOLUONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DONGIA" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Association Name="HOA_CHITIETHOADON" Member="HOA" ThisKey="MAHOA" OtherKey="MAHOA" Type="HOA" IsForeignKey="true" />
-      <Association Name="HOADON_CHITIETHOADON" Member="HOADON" ThisKey="MAHD" OtherKey="MAHD" Type="HOADON" IsForeignKey="true" />
+  <Table Name="dbo.[USER]" Member="USERs">
+    <Type Name="USER">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(320) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="Char(128) NOT NULL" CanBeNull="false" />
+      <Column Name="firstname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lastname" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="isadmin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="USER_BILL" Member="BILLs" ThisKey="id" OtherKey="userid" Type="BILL" />
+      <Association Name="USER_ADDRESS" Member="ADDRESSes" ThisKey="id" OtherKey="customerid" Type="ADDRESS" />
     </Type>
   </Table>
-  <Table Name="dbo.HOA" Member="HOAs">
-    <Type Name="HOA">
-      <Column Name="MAHOA" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TENHOA" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IMG" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="SOLUONG" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MOTA" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="NSX" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="MALOAI" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="HOA_CHITIETHOADON" Member="CHITIETHOADONs" ThisKey="MAHOA" OtherKey="MAHOA" Type="CHITIETHOADON" />
-      <Association Name="LOAIHOA_HOA" Member="LOAIHOA" ThisKey="MALOAI" OtherKey="MALOAI" Type="LOAIHOA" IsForeignKey="true" />
+  <Table Name="dbo.PRODUCT" Member="PRODUCTs">
+    <Type Name="PRODUCT">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="handle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="categoryid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="sellprice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="sku" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="instock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PRODUCT_IMAGE" Member="IMAGEs" ThisKey="id" OtherKey="productid" Type="IMAGE" />
+      <Association Name="PRODUCT_BILLDETAIL" Member="BILLDETAILs" ThisKey="id" OtherKey="productid" Type="BILLDETAIL" />
+      <Association Name="CATEGORY_PRODUCT" Member="CATEGORY" ThisKey="categoryid" OtherKey="id" Type="CATEGORY" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.HOADON" Member="HOADONs">
-    <Type Name="HOADON">
-      <Column Name="MAHD" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MAKH" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="NGAYHD" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="TONGTIEN" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="MANV" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Association Name="HOADON_CHITIETHOADON" Member="CHITIETHOADONs" ThisKey="MAHD" OtherKey="MAHD" Type="CHITIETHOADON" />
-      <Association Name="KHACHHANG_HOADON" Member="KHACHHANG" ThisKey="MAKH" OtherKey="MAKH" Type="KHACHHANG" IsForeignKey="true" />
-      <Association Name="NHANVIEN_HOADON" Member="NHANVIEN" ThisKey="MANV" OtherKey="MANV" Type="NHANVIEN" IsForeignKey="true" />
+  <Table Name="dbo.IMAGE" Member="IMAGEs">
+    <Type Name="IMAGE">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="productid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="path" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="PRODUCT_IMAGE" Member="PRODUCT" ThisKey="productid" OtherKey="id" Type="PRODUCT" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.KHACHHANG" Member="KHACHHANGs">
-    <Type Name="KHACHHANG">
-      <Column Name="MAKH" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TENKH" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="TENDN" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="MK" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
-      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="SDT" Type="System.String" DbType="NChar(15)" CanBeNull="true" />
-      <Association Name="KHACHHANG_HOADON" Member="HOADONs" ThisKey="MAKH" OtherKey="MAKH" Type="HOADON" />
+  <Table Name="dbo.CATEGORY" Member="CATEGORies">
+    <Type Name="CATEGORY">
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="CATEGORY_PRODUCT" Member="PRODUCTs" ThisKey="id" OtherKey="categoryid" Type="PRODUCT" />
     </Type>
   </Table>
-  <Table Name="dbo.LOAIHOA" Member="LOAIHOAs">
-    <Type Name="LOAIHOA">
-      <Column Name="MALOAI" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TENLOAI" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="LOAIHOA_HOA" Member="HOAs" ThisKey="MALOAI" OtherKey="MALOAI" Type="HOA" />
+  <Table Name="dbo.BILLDETAIL" Member="BILLDETAILs">
+    <Type Name="BILLDETAIL">
+      <Column Name="billid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="productid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unitprice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="PRODUCT_BILLDETAIL" Member="PRODUCT" ThisKey="productid" OtherKey="id" Type="PRODUCT" IsForeignKey="true" />
+      <Association Name="BILL_BILLDETAIL" Member="BILL" ThisKey="billid" OtherKey="id" Type="BILL" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.NHANVIEN" Member="NHANVIENs">
-    <Type Name="NHANVIEN">
-      <Column Name="MANV" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TENNV" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
-      <Column Name="DNNV" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="MKNV" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="EMAILNV" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="SDTNV" Type="System.String" DbType="NChar(15) NOT NULL" CanBeNull="false" />
-      <Association Name="NHANVIEN_HOADON" Member="HOADONs" ThisKey="MANV" OtherKey="MANV" Type="HOADON" />
+  <Table Name="dbo.BILL" Member="BILLs">
+    <Type Name="BILL">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="subtotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="BILL_BILLDETAIL" Member="BILLDETAILs" ThisKey="id" OtherKey="billid" Type="BILLDETAIL" />
+      <Association Name="USER_BILL" Member="USER" ThisKey="userid" OtherKey="id" Type="USER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ADDRESS" Member="ADDRESSes">
+    <Type Name="ADDRESS">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="customerid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="address" Member="address1" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="province" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="district" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ward" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="note" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="USER_ADDRESS" Member="USER" ThisKey="customerid" OtherKey="id" Type="USER" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

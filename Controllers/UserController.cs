@@ -1,91 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FloralHaven.Models;
+using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using FloralHaven.Models;
+
 namespace FloralHaven.Controllers
 {
-    public class UserController : Controller
-    {
-        FloralHavenDataContext db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
-        // GET: User
-        public ActionResult Index()
-        {
-            List<KHACHHANG> ds = db.KHACHHANGs.ToList();
-            return View(ds);
-        }
+	public class UserController : Controller
+	{
+		FloralHavenDataContext _db = new FloralHavenDataContext(ConfigurationManager.ConnectionStrings["FloralHaven"].ConnectionString);
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+		// GET: User
+		[HttpGet]
+		public ActionResult Index()
+		{
+			if (Session["User"] == null)
+			{
+				return RedirectToAction("Login");
+			}
 
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+			return View();
+		}
 
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+		[HttpGet]
+		public ActionResult Register()
+		{
+			return View();
+		}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		[HttpPost]
+		public ActionResult Register(UserRegisterViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				if (_db.USERs.Any(u => u.email == model.Email))
+				{
+					ModelState.AddModelError("Email", "Email already exists");
+					return View(model);
+				}
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+				// TODO: Hash password
+				//var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+				USER user = new USER
+				{
+					email = model.Email,
+					password = model.Password,
+					firstname = model.FirstName,
+					lastname = model.LastName
+				};
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+				_db.USERs.InsertOnSubmit(user);
+				_db.SubmitChanges();
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+				return RedirectToAction("Login");
+			}
 
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+			return View(model);
+		}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+		[HttpGet]
+		public ActionResult Login()
+		{
+			return View();
+		}
+	}
 }
