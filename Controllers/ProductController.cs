@@ -34,7 +34,7 @@ namespace FloralHaven.Controllers
 					products = products.OrderByDescending(p => p.price);
 					break;
 				case "date":
-					products = products.OrderBy(p => p.id);
+					products = products.OrderByDescending(p => p.id);
 					break;
 				case "date_desc":
 					products = products.OrderByDescending(p => p.id);
