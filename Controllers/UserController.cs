@@ -1,5 +1,4 @@
 ﻿using FloralHaven.Models;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,7 +8,7 @@ namespace FloralHaven.Controllers
 {
 	public class UserController : Controller
 	{
-		FloralHavenDataContext _db = new FloralHavenDataContext(ConfigurationManager.ConnectionStrings["FloralHaven"].ConnectionString);
+		FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
 
 		// GET: User
 		[HttpGet]
