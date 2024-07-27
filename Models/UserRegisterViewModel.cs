@@ -10,6 +10,8 @@ namespace FloralHaven.Models
 		public string Email { get; set; }
 
 		[DataType(DataType.Password)]
+		[Required(ErrorMessage = "Password is required")]
+		[StringLength(50, MinimumLength = 6)]
 		public string Password { get; set; }
 
 		[DataType(DataType.Password)]

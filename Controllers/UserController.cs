@@ -1,7 +1,9 @@
 ﻿using FloralHaven.Models;
 using System.Configuration;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace FloralHaven.Controllers
 {
@@ -13,12 +15,24 @@ namespace FloralHaven.Controllers
 		[HttpGet]
 		public ActionResult Index()
 		{
-			if (Session["User"] == null)
+			HttpCookie authCookie = Request.Cookies["dqe34j"];
+			if (authCookie == null)
 			{
 				return RedirectToAction("Login");
 			}
 
-			return View();
+			FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+			if (ticket == null || ticket.Expired)
+			{
+				return RedirectToAction("Login");
+			}
+
+			var user = _db.USERs.FirstOrDefault(u => u.email == ticket.Name);
+			if (user == null)
+			{
+				return RedirectToAction("Login");
+			}
+			return View(user);
 		}
 
 		[HttpGet]
@@ -38,13 +52,17 @@ namespace FloralHaven.Controllers
 					return View(model);
 				}
 
-				// TODO: Hash password
-				//var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+				var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+				if (hashedPassword == null)
+				{
+					ModelState.AddModelError("Password", "Password could not be hashed");
+					return View(model);
+				}
 
 				USER user = new USER
 				{
 					email = model.Email,
-					password = model.Password,
+					password = hashedPassword,
 					firstname = model.FirstName,
 					lastname = model.LastName
 				};
@@ -62,6 +80,34 @@ namespace FloralHaven.Controllers
 		public ActionResult Login()
 		{
 			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Login(UserLoginViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = _db.USERs.FirstOrDefault(u => u.email == model.Email);
+				if (user == null)
+				{
+					ModelState.AddModelError("Email", "Email does not exist");
+					return View(model);
+				}
+
+				if (!BCrypt.Net.BCrypt.Verify(model.Password, user.password.Trim()))
+				{
+					ModelState.AddModelError("Password", "Password is incorrect");
+					return View(model);
+				}
+
+				FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.email, System.DateTime.Now, System.DateTime.Now.AddMinutes(30), false, "User");
+				string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+				HttpCookie cookie = new HttpCookie("dqe34j", encryptedTicket);
+				Response.Cookies.Add(cookie);
+				return RedirectToAction("Index");
+			}
+
+			return View(model);
 		}
 	}
 }
