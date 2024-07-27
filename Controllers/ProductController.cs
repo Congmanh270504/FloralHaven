@@ -6,7 +6,8 @@ namespace FloralHaven.Controllers
 {
 	public class ProductController : Controller
 	{
-		FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+		//FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+		FloralHavenDataContext _db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
 		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
 		// GET: Product

@@ -22,7 +22,7 @@
                                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                             <fieldset class="form-group mb-2">
                                                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
-                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control rounded" } })
                                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                             </fieldset>
                                         </div>
@@ -30,7 +30,7 @@
                                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                             <fieldset class="form-group mb-2">
                                                 @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded" } })
                                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                             </fieldset>
                                         </div>
