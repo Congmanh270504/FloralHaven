@@ -1,64 +1,182 @@
-﻿@model IEnumerable<FloralHaven.Models.HOA>
-
+﻿@model FloralHaven.Models.ProductsViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products";
+
+
 }
+@section styles{
+    <link href="~/css/products.css" rel="stylesheet" />
+}
+<div class="layout-collection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-title">
+                <h1>Tất cả sản phẩm</h1>
+            </div>
+            <div class="block-collection col-lg-12 col-12">
+                <div class="category-products products-view products-view-grid list_hover_pro">
+                    <div class="filter-containers">
+                        <div class="sort-cate clearfix">
+                            <div class="sort-cate-right">
+                                <h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"></path>
+                                        <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"></path>
+                                    </svg> Xếp theo
+                                </h3>
+                                <ul>
+                                    <li class="btn-quick-sort default active">
+                                        <a href="javascript:;" onclick="sortby('default')" title="Mặc định"><i></i>Mặc định</a>
+                                    </li>
+                                    <li class="btn-quick-sort alpha-asc">
+                                        <a href="javascript:;" onclick="sortby('alpha-asc')" title="Tên A-Z"><i></i>Tên A-Z</a>
+                                    </li>
+                                    <li class="btn-quick-sort alpha-desc">
+                                        <a href="javascript:;" onclick="sortby('alpha-desc')" title="Tên Z-A"><i></i>Tên Z-A</a>
+                                    </li>
+                                    <li class="btn-quick-sort position-desc">
+                                        <a href="javascript:;" onclick="sortby('created-desc')" title="Hàng mới"><i></i>Hàng mới</a>
+                                    </li>
+                                    <li class="btn-quick-sort price-asc">
+                                        <a href="javascript:;" onclick="sortby('price-asc')" title="Giá thấp đến cao"><i></i>Giá thấp đến cao</a>
+                                    </li>
+                                    <li class="btn-quick-sort price-desc">
+                                        <a href="javascript:;" onclick="sortby('price-desc')" title="Giá cao xuống thấp"><i></i>Giá cao xuống thấp</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-<h2>Index</h2>
+                        <script>
+                            function countFilterItem() {
+                                var countFilter = $('.filter-container__selected-filter-list ul li').length;
+                                $(".count-filter-val").text(countFilter);
+                            }
+                            countFilterItem();
+                        </script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TENHOA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IMG)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SOLUONG)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MOTA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NSX)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MALOAI)
-        </th>
-        <th></th>
-    </tr>
+                        <div class="products-view products-view-grid list_hover_pro">
+                            <div class="row">
+                                @if (Model == null || Model.List.Count < 1)
+                                {
+                                    <p class="col-12">
+                                        No products found
+                                    </p>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model.List)
+                                    {
+                                        <div class="col-6 col-md-3">
+                                            <div class="item_product_main">
+                                                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "variants product-action item-product-main duration-300", data_id = "product-actions-" + item.ProductID }))
+                                                {
+                                                    if (item.SalePrice != null)
+                                                    {
+                                                        var salepercent = (item.Price - item.SalePrice) / item.Price * 100;
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TENHOA)
-            </td>
-            <td>
-                <img src="~/Imgs/@item.IMG" alt="@item.IMG"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SOLUONG)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MOTA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NSX)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MALOAI)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MAHOA }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MAHOA }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MAHOA })
-            </td>
-        </tr>
-    }
+                                                        <span class="flash-sale">
+                                                            Sale @salepercent.ToString()%
+                                                        </span>
+                                                    }
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb scale_hover" href="/product/@item.Handle" title="@item.Name">
+                                                            <img class="lazyload duration-300" src="@item.MainImage" alt="@item.Name" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <h3 class="product-name line-clamp line-clamp-2">
+                                                            <a href="/product/@item.Handle" title="@item.Name">@item.Name</a>
+                                                        </h3>
+                                                        <div class="product-price-cart">
+                                                            <div class="price-box">
+                                                                @if (item.SalePrice != null)
+                                                                {
+                                                                    <span class="compare-price">@item.Price.ToString("N0")₫</span>
+                                                                    <span class="price">@item.SalePrice.GetValueOrDefault().ToString("N0")₫</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="price">@item.Price.ToString("N0")₫</span>
+                                                                }
+                                                            </div>
+                                                            <div class="product-button">
+                                                                @if (item.Stock != null)
+                                                                {
+                                                                    <button class="btn-cart btn-views add_to_cart" title="Thêm vào giỏ hàng">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                                            <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+                                                                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button class="btn-cart btn-views add_to_cart disable" title="Hết hàng" disabled>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                                            <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+                                                                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                }
 
-</table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        @*<div class="pagenav">
+
+                                <nav class="collection-paginate clearfix relative nav_pagi w_100">
+                                    <ul class="pagination clearfix">
+
+                                        <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
+
+
+
+
+
+                                        <li class="active page-item disabled"><a class="page-link" href="javascript:;" style="pointer-events:none">1</a></li>
+
+
+
+
+                                        <li class="page-item"><a class="page-link" onclick="doSearch(2)" href="javascript:;">2</a></li>
+
+
+
+                                        <li class="page-item"><a class="page-link" onclick="doSearch(3)" href="javascript:;">3</a></li>
+
+
+
+                                        <li class="page-item"><a class="page-link" onclick="doSearch(4)" href="javascript:;">4</a></li>
+
+
+
+                                        <li class="page-item"><a class="page-link" onclick="doSearch(5)" href="javascript:;">5</a></li>
+
+
+
+                                        <li class="page-item"><a class="page-link" onclick="doSearch(6)" href="javascript:;">6</a></li>
+
+
+
+                                        <li class="page-item"><a class="page-link link-next-pre" onclick="doSearch(2)" href="javascript:;" title="2">»</a></li>
+
+                                    </ul>
+                                </nav>
+
+                            </div>*@
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

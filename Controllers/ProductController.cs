@@ -1,140 +1,55 @@
 ﻿using FloralHaven.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FloralHaven.Controllers
 {
-    public class ProductController : Controller
-    {
-        // GET: Admin
-        FloralHavenDataContext db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
-        public ActionResult Index()
-        {
-            List<HOA> ds = db.HOAs.ToList();
-            return View(ds);
-        }
+	public class ProductController : Controller
+	{
+		FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
-        // GET: Admin/Details/5
-        public ActionResult Details(string id)
-        {
-            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
-            ViewBag.mahoa = hoa.MAHOA;
-            if (hoa == null)
-            {
-                return null;
-            }
-            return View(hoa);
-        }
+		// GET: Product
+		[HttpGet]
+		public ActionResult Index()
+		{
+			int page = Request.ContentLength == 0 ? 0 : int.Parse(Request.QueryString["page"]);
+			ProductsViewModel products = new ProductsViewModel();
+			foreach (var product in _db.PRODUCTs.Skip(page * 20).Take(20))
+			{
+				string MainImage = _imgPrefix + product.handle + "/";
+				var productImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id);
+				if (productImage != null)
+				{
+					MainImage += productImage.path;
+				}
+				string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
+				products.List.Add(new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, MainImage, product.categoryid, CategoryName));
+			}
+			return View(products);
+		}
 
-        // GET: Admin/Create
-        [HttpGet]
-        public ActionResult Create()
-        {
-            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
-            return View();
-        }
+		// URL
+		[HttpGet]
+		[Route("Product/{handle}")]
+		public ActionResult Product(string handle)
+		{
+			var product = _db.PRODUCTs.FirstOrDefault(p => p.handle == handle);
+			if (product == null)
+			{
+				return RedirectToAction("Index");
+			}
+			string MainImage = _imgPrefix + product.handle + "/";
+			var productImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id);
+			if (productImage != null)
+			{
+				MainImage += productImage.path;
+			}
 
-        // POST: Admin/Create
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Create(HOA hoa, HttpPostedFileBase file)
-        {
-            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
-            if (file == null)
-            {
-                ViewBag.Thongbao = "Vui lòng chọn ảnh bìa";
-                return View();
-            }
-            if (ModelState.IsValid)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
-                if (System.IO.File.Exists(path))
-                {
-                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
-                }
-                else
-                {
-                    file.SaveAs(path);
-                }
-                hoa.IMG = fileName;
-                db.HOAs.InsertOnSubmit(hoa);
-                db.SubmitChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
-        // GET: Admin/Edit/5
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
-            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
-
-            if (hoa == null)
-            {
-                return null;
-            }
-
-            return View(hoa);
-        }
-
-        // POST: Admin/Edit/5
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Edit(HOA hoa, HttpPostedFileBase file)
-        {
-            ViewBag.maloai = new SelectList(db.LOAIHOAs.ToList(), "MALOAI", "TENLOAI");
-            var hoaUpdate = db.HOAs.SingleOrDefault(x => x.MAHOA == hoa.MAHOA);
-            if (hoaUpdate != null)
-            {
-                if (ModelState.IsValid && file != null)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
-                    if (System.IO.File.Exists(path))
-                    {
-                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
-                    }
-                    else
-                    {
-                        file.SaveAs(path);
-                    }
-                    hoaUpdate.IMG = fileName;
-                }
-            }
-            UpdateModel(hoaUpdate);
-            db.SubmitChanges();
-            return RedirectToAction("Index");
-        }
-        // GET: Admin/Delete/5
-        [HttpGet]
-        public ActionResult Delete(string id)
-        {
-            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
-            if (hoa == null)
-            {
-                return null;
-            }
-            return View(hoa);
-        }
-
-        // POST: Admin/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public ActionResult Delete(string id, FormCollection collection)
-        {
-            HOA hoa = db.HOAs.SingleOrDefault(x => x.MAHOA == id);
-            if (hoa == null)
-            {
-                return null;
-            }
-            db.HOAs.DeleteOnSubmit(hoa);
-            db.SubmitChanges();
-            return RedirectToAction("Index");
-        }
-    }
+			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product
+			.categoryid).name;
+			ProductsViewModel_Product productViewModel = new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock.GetValueOrDefault(), product.price, product.saleprice.GetValueOrDefault(), MainImage, product.categoryid, CategoryName);
+			return View(productViewModel);
+		}
+	}
 }

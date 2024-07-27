@@ -1,91 +1,112 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FloralHaven.Models;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FloralHaven.Models;
+using System.Web.Security;
+
 namespace FloralHaven.Controllers
 {
-    public class UserController : Controller
-    {
-        FloralHavenDataContext db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
-        // GET: User
-        public ActionResult Index()
-        {
-            List<KHACHHANG> ds = db.KHACHHANGs.ToList();
-            return View(ds);
-        }
+	public class UserController : Controller
+	{
+		FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+		// GET: User
+		[HttpGet]
+		public ActionResult Index()
+		{
+			HttpCookie authCookie = Request.Cookies["dqe34j"];
+			if (authCookie == null)
+			{
+				return RedirectToAction("Login");
+			}
 
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+			FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+			if (ticket == null || ticket.Expired)
+			{
+				return RedirectToAction("Login");
+			}
 
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+			var user = _db.USERs.FirstOrDefault(u => u.email == ticket.Name);
+			if (user == null)
+			{
+				return RedirectToAction("Login");
+			}
+			return View(user);
+		}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		[HttpGet]
+		public ActionResult Register()
+		{
+			return View();
+		}
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+		[HttpPost]
+		public ActionResult Register(UserRegisterViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				if (_db.USERs.Any(u => u.email == model.Email))
+				{
+					ModelState.AddModelError("Email", "Email already exists");
+					return View(model);
+				}
 
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+				var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+				if (hashedPassword == null)
+				{
+					ModelState.AddModelError("Password", "Password could not be hashed");
+					return View(model);
+				}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+				USER user = new USER
+				{
+					email = model.Email,
+					password = hashedPassword,
+					firstname = model.FirstName,
+					lastname = model.LastName
+				};
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+				_db.USERs.InsertOnSubmit(user);
+				_db.SubmitChanges();
 
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+				return RedirectToAction("Login");
+			}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+			return View(model);
+		}
+
+		[HttpGet]
+		public ActionResult Login()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Login(UserLoginViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = _db.USERs.FirstOrDefault(u => u.email == model.Email);
+				if (user == null)
+				{
+					ModelState.AddModelError("Email", "Email does not exist");
+					return View(model);
+				}
+
+				if (!BCrypt.Net.BCrypt.Verify(model.Password, user.password.Trim()))
+				{
+					ModelState.AddModelError("Password", "Password is incorrect");
+					return View(model);
+				}
+
+				FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.email, System.DateTime.Now, System.DateTime.Now.AddMinutes(30), false, "User");
+				string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+				HttpCookie cookie = new HttpCookie("dqe34j", encryptedTicket);
+				Response.Cookies.Add(cookie);
+				return RedirectToAction("Index");
+			}
+
+			return View(model);
+		}
+	}
 }
