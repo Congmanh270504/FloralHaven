@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Floral Haven", "FloralHaven\Floral Haven.csproj", "{F675A13E-36B5-47F0-8FAA-1F586D199482}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Floral Haven", "Floral Haven.csproj", "{8A969EFE-285F-40B5-94E1-1A66C96EFC80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F675A13E-36B5-47F0-8FAA-1F586D199482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F675A13E-36B5-47F0-8FAA-1F586D199482}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F675A13E-36B5-47F0-8FAA-1F586D199482}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F675A13E-36B5-47F0-8FAA-1F586D199482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A969EFE-285F-40B5-94E1-1A66C96EFC80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A969EFE-285F-40B5-94E1-1A66C96EFC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A969EFE-285F-40B5-94E1-1A66C96EFC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A969EFE-285F-40B5-94E1-1A66C96EFC80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {150839E4-A650-4385-BBEE-97F9B7A80A37}
+		SolutionGuid = {B97A4A3A-B2DA-4F4F-9B05-5A78512B1B51}
 	EndGlobalSection
 EndGlobal
