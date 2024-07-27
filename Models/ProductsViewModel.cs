@@ -9,6 +9,16 @@ namespace FloralHaven.Models
 		{
 			List = new List<ProductsViewModel_Product>();
 		}
+
+		public void Add(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
+		{
+			List.Add(new ProductsViewModel_Product(productID, name, handle, stock, price, salePrice, mainImage, categoryID, categoryName));
+		}
+
+		public void Add(ProductsViewModel_Product product)
+		{
+			List.Add(product);
+		}
 	}
 
 	public class ProductsViewModel_Product
