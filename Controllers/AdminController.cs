@@ -1,6 +1,7 @@
 ﻿using FloralHaven.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,12 +20,19 @@ namespace FloralHaven.Controllers
         }
 
         // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            NHANVIEN nv = db.NHANVIENs.SingleOrDefault(x => x.MANV == id);
+            ViewBag.manv = nv.MANV;
+            if (nv == null)
+            {
+                return null;
+            }
+            return View(nv);
         }
 
         // GET: Admin/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -32,62 +40,77 @@ namespace FloralHaven.Controllers
 
         // POST: Admin/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateInput(false)]
+        public ActionResult Create(NHANVIEN nv)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.NHANVIENs.InsertOnSubmit(nv);
+            db.SubmitChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(string id)
         {
-            return View();
+            NHANVIEN nv = db.NHANVIENs.SingleOrDefault(x => x.MANV == id);
+            if (nv == null)
+            {
+                return null;
+            }
+            return View(nv);
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateInput(false)]
+        public ActionResult Edit(NHANVIEN nv, HttpPostedFileBase file)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var nvUpdate = db.NHANVIENs.SingleOrDefault(x => x.MANV == nv.MANV);
+            //if (nvUpdate != null)
+            //{
+            //    if (ModelState.IsValid && file != null)
+            //    {
+            //        var fileName = Path.GetFileName(file.FileName);
+            //        var path = Path.Combine(Server.MapPath("~/Imgs"), fileName);
+            //        if (System.IO.File.Exists(path))
+            //        {
+            //            ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+            //        }
+            //        else
+            //        {
+            //            file.SaveAs(path);
+            //        }
+            //        nvUpdate.IMG = fileName;
+            //    }
+            //}
+            UpdateModel(nvUpdate);
+            db.SubmitChanges();
+            return RedirectToAction("Index");
         }
-
         // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(string id)
         {
-            return View();
+            NHANVIEN nv = db.NHANVIENs.SingleOrDefault(x => x.MANV == id);
+            if (nv == null)
+            {
+                return null;
+            }
+            return View(nv);
         }
 
         // POST: Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(string id, FormCollection collection)
         {
-            try
+            NHANVIEN nv = db.NHANVIENs.SingleOrDefault(x => x.MANV == id);
+            if (nv == null)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return null;
             }
-            catch
-            {
-                return View();
-            }
+            db.NHANVIENs.DeleteOnSubmit(nv);
+            db.SubmitChanges();
+            return RedirectToAction("Index");
         }
     }
 }
