@@ -150,6 +150,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductsViewModel.cs" />
     <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="Models\UserRegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +173,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="css\custombootstrap.min.css" />
+    <Content Include="css\products.css" />
     <Content Include="css\site.css" />
     <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
@@ -361,11 +363,12 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="lib\tempusdominus\NewFolder\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
