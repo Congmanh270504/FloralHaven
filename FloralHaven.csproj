@@ -180,9 +180,14 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Slick\ajax-loader.gif" />
+    <Content Include="Content\Slick\fonts\slick.svg" />
+    <Content Include="Content\Slick\slick-theme.css" />
+    <Content Include="Content\Slick\slick.css" />
     <Content Include="css\breadcrumb.css" />
     <Content Include="css\custombootstrap.min.css" />
     <Content Include="css\products.css" />
+    <Content Include="css\product_detail.css" />
     <Content Include="css\site.css" />
     <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
@@ -215,6 +220,7 @@
     <Content Include="Imgs\testimonial-4.jpg" />
     <Content Include="Imgs\video.jpg" />
     <Content Include="js\main.js" />
+    <Content Include="js\product_detail.js" />
     <Content Include="js\site.js" />
     <Content Include="lib\animate\animate.css" />
     <Content Include="lib\animate\animate.min.css" />
@@ -332,6 +338,11 @@
       <LastGenOutput>FloralHaven.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\Slick\slick.scss" />
+    <Content Include="Content\Slick\slick-theme.scss" />
+    <Content Include="Content\Slick\fonts\slick.woff" />
+    <Content Include="Content\Slick\fonts\slick.ttf" />
+    <Content Include="Content\Slick\fonts\slick.eot" />
     <None Include="Models\FloralHaven.dbml.layout">
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </None>
@@ -348,6 +359,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Slick\slick.js" />
+    <Content Include="Scripts\Slick\slick.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

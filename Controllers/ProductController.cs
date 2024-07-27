@@ -71,16 +71,12 @@ namespace FloralHaven.Controllers
 			{
 				return RedirectToAction("Index");
 			}
-			string MainImage = _imgPrefix + product.handle + "/";
-			var productImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id);
-			if (productImage != null)
-			{
-				MainImage += productImage.path;
-			}
+			ViewBag.Title = product.title + "- FloralHaven";
+			string _imgPath = _imgPrefix + product.handle + "/";
+			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => _imgPath + image.path).ToList();
 
-			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product
-			.categoryid).name;
-			ProductsViewModel_Product productViewModel = new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, MainImage, product.categoryid, CategoryName);
+			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
+			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName);
 			return View(productViewModel);
 		}
 	}
