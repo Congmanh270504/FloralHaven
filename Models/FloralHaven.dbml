@@ -18,7 +18,7 @@
       <Column Name="handle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="categoryid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="sellprice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="saleprice" Storage="_sellprice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="sku" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="instock" Type="System.Int32" DbType="Int" CanBeNull="true" />

@@ -416,8 +416,8 @@ namespace FloralHaven.Models
     partial void OncategoryidChanged();
     partial void OnpriceChanging(decimal value);
     partial void OnpriceChanged();
-    partial void OnsellpriceChanging(System.Nullable<decimal> value);
-    partial void OnsellpriceChanged();
+    partial void OnsalepriceChanging(System.Nullable<decimal> value);
+    partial void OnsalepriceChanged();
     partial void OnskuChanging(string value);
     partial void OnskuChanged();
     partial void OndescriptionChanging(string value);
@@ -539,7 +539,7 @@ namespace FloralHaven.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sellprice", DbType="Money")]
-		public System.Nullable<decimal> sellprice
+		public System.Nullable<decimal> saleprice
 		{
 			get
 			{
@@ -549,11 +549,11 @@ namespace FloralHaven.Models
 			{
 				if ((this._sellprice != value))
 				{
-					this.OnsellpriceChanging(value);
+					this.OnsalepriceChanging(value);
 					this.SendPropertyChanging();
 					this._sellprice = value;
-					this.SendPropertyChanged("sellprice");
-					this.OnsellpriceChanged();
+					this.SendPropertyChanged("saleprice");
+					this.OnsalepriceChanged();
 				}
 			}
 		}

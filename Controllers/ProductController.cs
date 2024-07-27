@@ -24,7 +24,7 @@ namespace FloralHaven.Controllers
 					MainImage += productImage.path;
 				}
 				string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
-				products.List.Add(new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock, product.price, product.sellprice, MainImage, product.categoryid, CategoryName));
+				products.List.Add(new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, MainImage, product.categoryid, CategoryName));
 			}
 			return View(products);
 		}
@@ -48,7 +48,7 @@ namespace FloralHaven.Controllers
 
 			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product
 			.categoryid).name;
-			ProductsViewModel_Product productViewModel = new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock.GetValueOrDefault(), product.price, product.sellprice.GetValueOrDefault(), MainImage, product.categoryid, CategoryName);
+			ProductsViewModel_Product productViewModel = new ProductsViewModel_Product(product.id, product.title, product.handle, product.instock.GetValueOrDefault(), product.price, product.saleprice.GetValueOrDefault(), MainImage, product.categoryid, CategoryName);
 			return View(productViewModel);
 		}
 	}
