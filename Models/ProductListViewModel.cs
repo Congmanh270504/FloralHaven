@@ -2,26 +2,26 @@
 
 namespace FloralHaven.Models
 {
-	public class ProductsViewModel
+	public class ProductListViewModel
 	{
-		public List<ProductsViewModel_Product> List { get; set; }
-		public ProductsViewModel()
+		public List<ProductListViewModel_Product> List { get; set; }
+		public ProductListViewModel()
 		{
-			List = new List<ProductsViewModel_Product>();
+			List = new List<ProductListViewModel_Product>();
 		}
 
 		public void Add(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
 		{
-			List.Add(new ProductsViewModel_Product(productID, name, handle, stock, price, salePrice, mainImage, categoryID, categoryName));
+			List.Add(new ProductListViewModel_Product(productID, name, handle, stock, price, salePrice, mainImage, categoryID, categoryName));
 		}
 
-		public void Add(ProductsViewModel_Product product)
+		public void Add(ProductListViewModel_Product product)
 		{
 			List.Add(product);
 		}
 	}
 
-	public class ProductsViewModel_Product
+	public class ProductListViewModel_Product
 	{
 		public int ProductID { get; set; }
 		public string Name { get; set; }
@@ -33,7 +33,7 @@ namespace FloralHaven.Models
 		public string CategoryID { get; set; }
 		public string CategoryName { get; set; }
 
-		public ProductsViewModel_Product(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
+		public ProductListViewModel_Product(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
 		{
 			ProductID = productID;
 			Name = name;

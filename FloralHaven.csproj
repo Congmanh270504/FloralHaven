@@ -156,7 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductsViewModel.cs" />
+    <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="Models\UserRegisterViewModel.cs" />

@@ -45,7 +45,7 @@ namespace FloralHaven.Controllers
 
 			int pageSize = 20;
 			int pageNumber = (page ?? 1);
-			ProductsViewModel productsViewModel = new ProductsViewModel();
+			ProductListViewModel productsViewModel = new ProductListViewModel();
 			foreach (var product in products)
 			{
 				string MainImage = _imgPrefix + product.handle + "/";
