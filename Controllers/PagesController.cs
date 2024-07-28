@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using FloralHaven.Controllers;
@@ -8,9 +9,11 @@ namespace Floral_Haven.Controllers
     public class PagesController : Controller
     {
         FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+        string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
+
         public ActionResult About()
         {
-           
+
             return View();
         }
         public ActionResult Intro()
@@ -33,9 +36,47 @@ namespace Floral_Haven.Controllers
 
         public ActionResult Menu()
         {
-            return View();
+            return PartialView();
         }
-
+        public ActionResult PopularFl()
+        {
+            List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Hoa xinh giá tốt")).Take(8).ToList();
+            ViewBag.bestSeller = prod;
+            List<string> img = new List<string>();
+            foreach (var item in prod)
+            {
+                var image = _db.IMAGEs.FirstOrDefault(t => t.productid == item.id);
+                img.Add(_imgPrefix + item.handle + "/" + image.path);
+            }
+            ViewBag.img = img;
+            return PartialView();
+        }
+        public ActionResult TeacherDay()
+        {
+            List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Ngày phụ nữ Việt Nam 20/10")).Take(8).ToList();
+            ViewBag.bestSeller = prod;
+            List<string> img = new List<string>();
+            foreach (var item in prod)
+            {
+                var image = _db.IMAGEs.FirstOrDefault(t => t.productid == item.id);
+                img.Add(_imgPrefix + item.handle + "/" + image.path);
+            }
+            ViewBag.img = img;
+            return PartialView();
+        }
+        public ActionResult FlowerFarm()
+        {
+            List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Cánh đồng hoa")).Take(8).ToList();
+            ViewBag.bestSeller = prod;
+            List<string> img = new List<string>();
+            foreach (var item in prod)
+            {
+                var image = _db.IMAGEs.FirstOrDefault(t => t.productid == item.id);
+                img.Add(_imgPrefix + item.handle + "/" + image.path);
+            }
+            ViewBag.img = img;
+            return PartialView();
+        }
         public ActionResult Booking()
         {
             return View();

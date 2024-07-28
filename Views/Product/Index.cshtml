@@ -9,7 +9,7 @@
     <link href="~/css/breadcrumb.css" rel="stylesheet" />
     <style>
         .hero-header {
-            margin-bottom: 0!important;
+            margin-bottom: 0 !important;
         }
     </style>
 }
@@ -59,7 +59,7 @@
                                                 break;
                                         }
                                     }
-                                    <li class="btn-quick-sort default @if (sortOrder== "") { <text>active</text> }">
+                                    <li class="btn-quick-sort default @if (sortOrder == "") { <text>active</text> }">
                                         @Html.ActionLink("Mặc định", "Index", "Product", new { sortOrder = "" }, new { title = "Mặc định" })
                                     </li>
                                     <li class="btn-quick-sort name_asc @if (sortOrder == "name_asc") { <text>active</text> }">
