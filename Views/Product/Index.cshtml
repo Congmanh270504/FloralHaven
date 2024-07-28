@@ -1,12 +1,30 @@
-﻿@model FloralHaven.Models.ProductsViewModel
+﻿@model PagedList.IPagedList<FloralHaven.Models.ProductsViewModel_Product>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Products";
-
 }
 @section styles{
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
     <link href="~/css/products.css" rel="stylesheet" />
+    <link href="~/css/breadcrumb.css" rel="stylesheet" />
+    <style>
+        .hero-header {
+            margin-bottom: 0!important;
+        }
+    </style>
 }
 <div class="layout-collection">
+    <section class="bread-crumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    @Html.ActionLink("Trang chủ", "Index", "Home", null, new { title = "Trang chủ" })
+                    <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
+                </li>
+                <li><strong><span>Tất cả sản phẩm</span></strong></li>
+            </ul>
+        </div>
+    </section>
     <div class="container">
         <div class="row">
             <div class="col-12 col-title">
@@ -24,23 +42,40 @@
                                     </svg> Xếp theo
                                 </h3>
                                 <ul>
-                                    <li class="btn-quick-sort default active">
-                                        <a href="javascript:;" onclick="sortby('default')" title="Mặc định"><i></i>Mặc định</a>
+                                    @{
+                                        var sortOrder = ViewBag.CurrentSort;
+
+                                        switch (sortOrder)
+                                        {
+                                            case "name_desc":
+                                            case "name_asc":
+                                            case "price_asc":
+                                            case "price_desc":
+                                            case "date":
+                                            case "date_desc":
+                                                break;
+                                            default:
+                                                sortOrder = "";
+                                                break;
+                                        }
+                                    }
+                                    <li class="btn-quick-sort default @if (sortOrder== "") { <text>active</text> }">
+                                        @Html.ActionLink("Mặc định", "Index", "Product", new { sortOrder = "" }, new { title = "Mặc định" })
                                     </li>
-                                    <li class="btn-quick-sort alpha-asc">
-                                        <a href="javascript:;" onclick="sortby('alpha-asc')" title="Tên A-Z"><i></i>Tên A-Z</a>
+                                    <li class="btn-quick-sort name_asc @if (sortOrder == "name_asc") { <text>active</text> }">
+                                        @Html.ActionLink("Tên A-Z", "Index", "Product", new { sortOrder = "name_asc" }, new { title = "Tên A-Z" })
                                     </li>
-                                    <li class="btn-quick-sort alpha-desc">
-                                        <a href="javascript:;" onclick="sortby('alpha-desc')" title="Tên Z-A"><i></i>Tên Z-A</a>
+                                    <li class="btn-quick-sort name_desc @if (sortOrder == "name_desc") { <text>active</text> }">
+                                        @Html.ActionLink("Tên Z-A", "Index", "Product", new { sortOrder = "name_desc" }, new { title = "Tên Z-A" })
                                     </li>
-                                    <li class="btn-quick-sort position-desc">
-                                        <a href="javascript:;" onclick="sortby('created-desc')" title="Hàng mới"><i></i>Hàng mới</a>
+                                    <li class="btn-quick-sort date @if (sortOrder == "date") { <text>active</text> }">
+                                        @Html.ActionLink("Hàng mới", "Index", "Product", new { sortOrder = "date" }, new { title = "Hàng mới" })
                                     </li>
-                                    <li class="btn-quick-sort price-asc">
-                                        <a href="javascript:;" onclick="sortby('price-asc')" title="Giá thấp đến cao"><i></i>Giá thấp đến cao</a>
+                                    <li class="btn-quick-sort price_asc @if (sortOrder == "price_asc") { <text>active</text> }">
+                                        @Html.ActionLink("Giá thấp đến cao", "Index", "Product", new { sortOrder = "price_asc" }, new { title = "Giá thấp đến cao" })
                                     </li>
-                                    <li class="btn-quick-sort price-desc">
-                                        <a href="javascript:;" onclick="sortby('price-desc')" title="Giá cao xuống thấp"><i></i>Giá cao xuống thấp</a>
+                                    <li class="btn-quick-sort price_desc @if (sortOrder == "price_desc") { <text>active</text> }">
+                                        @Html.ActionLink("Giá cao xuống thấp", "Index", "Product", new { sortOrder = "price_desc" }, new { title = "Giá cao xuống thấp" })
                                     </li>
                                 </ul>
                             </div>
@@ -56,7 +91,7 @@
 
                         <div class="products-view products-view-grid list_hover_pro">
                             <div class="row">
-                                @if (Model == null || Model.List.Count < 1)
+                                @if (Model == null || Model.Count < 1)
                                 {
                                     <p class="col-12">
                                         No products found
@@ -64,7 +99,7 @@
                                 }
                                 else
                                 {
-                                    foreach (var item in Model.List)
+                                    foreach (var item in Model)
                                     {
                                         <div class="col-6 col-md-3">
                                             <div class="item_product_main">
@@ -129,50 +164,19 @@
                                 }
                             </div>
                         </div>
-                        @*<div class="pagenav">
+                        <div class="pagenav">
+                            <nav class="collection-paginate clearfix relative nav_pagi w_100">
+                                @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+                                @{
+                                    PagedListRenderOptions pagedListRenderOptions = new PagedListRenderOptions();
+                                    pagedListRenderOptions.MaximumPageNumbersToDisplay = 5;
+                                    pagedListRenderOptions.UlElementClasses = new[] { "pagination", "clearfix" };
+                                    pagedListRenderOptions.LiElementClasses = new[] { "page-item" };
+                                }
 
-                                <nav class="collection-paginate clearfix relative nav_pagi w_100">
-                                    <ul class="pagination clearfix">
-
-                                        <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
-
-
-
-
-
-                                        <li class="active page-item disabled"><a class="page-link" href="javascript:;" style="pointer-events:none">1</a></li>
-
-
-
-
-                                        <li class="page-item"><a class="page-link" onclick="doSearch(2)" href="javascript:;">2</a></li>
-
-
-
-                                        <li class="page-item"><a class="page-link" onclick="doSearch(3)" href="javascript:;">3</a></li>
-
-
-
-                                        <li class="page-item"><a class="page-link" onclick="doSearch(4)" href="javascript:;">4</a></li>
-
-
-
-                                        <li class="page-item"><a class="page-link" onclick="doSearch(5)" href="javascript:;">5</a></li>
-
-
-
-                                        <li class="page-item"><a class="page-link" onclick="doSearch(6)" href="javascript:;">6</a></li>
-
-
-
-                                        <li class="page-item"><a class="page-link link-next-pre" onclick="doSearch(2)" href="javascript:;" title="2">»</a></li>
-
-                                    </ul>
-                                </nav>
-
-                            </div>*@
-
-
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }), pagedListRenderOptions)
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>

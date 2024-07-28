@@ -8,18 +8,14 @@ namespace FloralHaven.Controllers
 			return View();
 		}
 
-		public ActionResult About()
+		public ActionResult Login()
 		{
-			ViewBag.Message = "Your application description page.";
-
-			return View();
+			return RedirectToAction("Login", "User");
 		}
 
-		public ActionResult Contact()
+		public ActionResult Register()
 		{
-			ViewBag.Message = "Your contact page.";
-
-			return View();
+			return RedirectToAction("Register", "User");
 		}
 	}
 }
