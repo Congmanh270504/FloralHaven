@@ -26,4 +26,7 @@
         $('.slider-nav-thumbnails .slick-slide').removeClass('slick-active');
         $('.slider-nav-thumbnails .slick-slide').eq(mySlideNumber).addClass('slick-active');
     });
+    $(".product-info input[name='quantity']").TouchSpin({
+        initval: 40
+    });
 }

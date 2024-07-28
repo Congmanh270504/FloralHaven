@@ -199,6 +199,8 @@
     <Content Include="Imgs\about-4.jpg" />
     <Content Include="Imgs\banner-hero.jpg" />
     <Content Include="Imgs\bg-hero.jpg" />
+    <Content Include="Imgs\delivery.png" />
+    <Content Include="Imgs\eco-nature.png" />
     <Content Include="Imgs\flower.png" />
     <Content Include="Imgs\hero.jpg" />
     <Content Include="Imgs\hero.png" />
@@ -210,6 +212,7 @@
     <Content Include="Imgs\menu-6.jpg" />
     <Content Include="Imgs\menu-7.jpg" />
     <Content Include="Imgs\menu-8.jpg" />
+    <Content Include="Imgs\present-box.png" />
     <Content Include="Imgs\team-1.jpg" />
     <Content Include="Imgs\team-2.jpg" />
     <Content Include="Imgs\team-3.jpg" />
@@ -219,6 +222,7 @@
     <Content Include="Imgs\testimonial-3.jpg" />
     <Content Include="Imgs\testimonial-4.jpg" />
     <Content Include="Imgs\video.jpg" />
+    <Content Include="js\jquery.bootstrap-touchspin.js" />
     <Content Include="js\main.js" />
     <Content Include="js\product_detail.js" />
     <Content Include="js\site.js" />

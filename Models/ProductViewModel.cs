@@ -13,13 +13,15 @@ namespace FloralHaven.Models
 		public List<string> Images { get; set; }
 		public string CategoryId { get; set; }
 		public string CategoryName { get; set; }
+		public string Description { get; set; }
+		public string SKU { get; set; }
 
 		public ProductViewModel()
 		{
 			Images = new List<string>();
 		}
 
-		public ProductViewModel(int id, string title, string handle, int? instock, decimal price, decimal? salePrice, List<string> images, string categoryId, string categoryName)
+		public ProductViewModel(int id, string title, string handle, int? instock, decimal price, decimal? salePrice, List<string> images, string categoryId, string categoryName, string description, string sku)
 		{
 			Id = id;
 			Title = title;
@@ -30,6 +32,8 @@ namespace FloralHaven.Models
 			Images = images;
 			CategoryId = categoryId;
 			CategoryName = categoryName;
+			Description = description;
+			SKU = sku;
 		}
 	}
 }

@@ -76,7 +76,7 @@ namespace FloralHaven.Controllers
 			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => _imgPath + image.path).ToList();
 
 			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
-			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName);
+			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);
 			return View(productViewModel);
 		}
 	}
