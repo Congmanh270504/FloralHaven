@@ -44,42 +44,42 @@
         <elementListCompartment Id="6ad11d41-d685-4a9b-906c-28132fc60937" absoluteBounds="3.515, 10.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 4.56814697265625); (5.79166666666667 : 4.56814697265625 : JumpStart); (5.95833333333333 : 4.56814697265625 : JumpEnd); (6.25 : 4.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 4.56814697265625); (5.79166666666667 : 4.56814697265625 : JumpStart); (5.95833333333333 : 4.56814697265625 : JumpEnd); (6.25 : 4.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/PRODUCT/PRODUCT_IMAGE" />
       <nodes>
         <classShapeMoniker Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" />
         <classShapeMoniker Id="ab9e8693-6589-4e53-a2fe-f74d54b43599" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.59699625651042); (3.5 : 4.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.59699625651042); (3.5 : 4.59699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/CATEGORY/CATEGORY_PRODUCT" />
       <nodes>
         <classShapeMoniker Id="d7b725fb-751f-4dbd-8b66-b9b7091b2640" />
         <classShapeMoniker Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 3.25); (4.5 : 1.53929768880208); (6.25 : 1.53929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 3.25); (4.5 : 1.53929768880208); (6.25 : 1.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/PRODUCT/PRODUCT_BILLDETAIL" />
       <nodes>
         <classShapeMoniker Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" />
         <classShapeMoniker Id="cbe15b21-4523-4a77-9808-032a65a81fac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.125); (5.875 : 6.75); (5.875 : 1.96519853320312); (6.25 : 1.96519853320312)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 7.125); (5.875 : 6.75); (5.875 : 1.96519853320312); (6.25 : 1.96519853320312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/BILL/BILL_BILLDETAIL" />
       <nodes>
         <classShapeMoniker Id="39dd9e30-9d1e-4520-a194-cf17376b9407" />
         <classShapeMoniker Id="cbe15b21-4523-4a77-9808-032a65a81fac" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 7.91429768880208); (3.5 : 7.91429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 7.91429768880208); (3.5 : 7.91429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/USER/USER_BILL" />
       <nodes>
         <classShapeMoniker Id="acd9e16b-ea04-497e-b772-1d10d0635c0a" />
         <classShapeMoniker Id="39dd9e30-9d1e-4520-a194-cf17376b9407" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 8.9631982421875); (1.75 : 10.8950512695312); (3.5 : 10.8950512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 8.9631982421875); (1.75 : 10.8950512695312); (3.5 : 10.8950512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/USER/USER_ADDRESS" />
       <nodes>
         <classShapeMoniker Id="acd9e16b-ea04-497e-b772-1d10d0635c0a" />
