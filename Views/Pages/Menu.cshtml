@@ -3,6 +3,23 @@
     ViewBag.Title = "Menu - Floral Haven";
     List<PRODUCT> prod1 = ViewBag.bestSeller as List<PRODUCT>;
     List<string> img = ViewBag.img as List<string>;
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    @*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/products.css" rel="stylesheet" />
+        <link href="~/css/breadcrumb.css" rel="stylesheet" />*@
+    <style>
+        .hero-header {
+            margin-bottom: 0 !important;
+        }
+
+        a.button-75.btn {
+            width: fit-content;
+            margin:auto;
+        }
+    </style>
 }
 @section Hero {
     <div class="container text-center my-5 pt-5 pb-4">
@@ -50,7 +67,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
-                        <img  src="https://img.icons8.com/pulsar-color/48/spa-flower.png" alt="spa-flower" />
+                        <img src="https://img.icons8.com/pulsar-color/48/spa-flower.png" alt="spa-flower" />
                         <div class="ps-3">
                             <small class="text-body">Đáng yêu</small>
                             <h6 class="mt-n1 mb-0">Tiết kiệm</h6>
@@ -71,5 +88,9 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    @Html.ActionLink("More Product", "Index", "Product", new { @class = "button-75 btn" })
+    @*<a href="~/Views/Product/Index" class="button-75 btn">More Product </a>*@
 </div>
 <!-- Menu End -->

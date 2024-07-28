@@ -33,10 +33,9 @@ namespace Floral_Haven.Controllers
         {
             return View();
         }
-
         public ActionResult Menu()
         {
-            return PartialView();
+            return View();
         }
         public ActionResult PopularFl()
         {

@@ -378,7 +378,6 @@
     <Content Include="Views\Pages\About.cshtml" />
     <Content Include="Views\Pages\Booking.cshtml" />
     <Content Include="Views\Pages\Contact.cshtml" />
-    <Content Include="Views\Pages\Menu.cshtml" />
     <Content Include="Views\Pages\Service.cshtml" />
     <Content Include="Views\Pages\Testimonial.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
@@ -391,6 +390,7 @@
     <Content Include="Views\Pages\PopularFl.cshtml" />
     <Content Include="Views\Pages\TeacherDay.cshtml" />
     <Content Include="Views\Pages\FlowerFarm.cshtml" />
+    <Content Include="Views\Pages\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

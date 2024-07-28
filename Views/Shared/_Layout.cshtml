@@ -62,7 +62,21 @@
                         @Html.ActionLink("About", "About", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-about" ? " active" : "") })
                         @Html.ActionLink("Service", "Service", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-service" ? " active" : "") })
 
-                        @Html.ActionLink("Shop", "Index", "Product", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
+                        @*@Html.ActionLink("Shop", "Index", "Product", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })*@
+                        <div class="nav-item dropdown">
+                            @if (currentPage == "pages-booking" || currentPage == "pages-team" || currentPage == "pages-testimonial")
+                            {
+                                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Shop</a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                            }
+                            <div class="dropdown-menu m-0">
+                                @Html.ActionLink("Quick Menu", "Menu", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-booking" ? " active" : "") })
+                                @Html.ActionLink("All Product", "Index", "Product", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-team" ? " active" : "") })
+                            </div>
+                        </div>
                         <div class="nav-item dropdown">
                             @if (currentPage == "pages-booking" || currentPage == "pages-team" || currentPage == "pages-testimonial")
                             {
