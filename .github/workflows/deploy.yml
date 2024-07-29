@@ -31,7 +31,7 @@ jobs:
         run: nuget restore .\FloralHaven.sln
 
       - name: Build with MSBuild
-        run: msbuild .\FloralHaven.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
+        run: msbuild .\FloralHaven.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="/_build"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
