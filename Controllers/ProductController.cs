@@ -58,7 +58,8 @@ namespace FloralHaven.Controllers
 				string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
 				productsViewModel.Add(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, MainImage, product.categoryid, CategoryName);
 			}
-			return View(productsViewModel.List.ToPagedList(pageNumber, pageSize));
+			var pagedlist = new StaticPagedList<ProductListViewModel_Product>(productsViewModel.List, pageNumber, pageSize, products.Count());
+			return View(pagedlist);
 		}
 
 		// URL
