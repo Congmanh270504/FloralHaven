@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: webapp
-          path: _build
+          path: ${{ github.workspace }}/_build
           if-no-files-found: error
 
   deploy:
