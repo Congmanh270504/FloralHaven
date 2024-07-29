@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/floralhaven/providers/Microsoft.ServiceLinker/linkers/FloralHaven_ACE6BC70B1",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/florahaven/databases/FloralHaven",
+      "type": "mssql.azure",
+      "connectionId": "FloralHaven"
+    }
+  }
+}
