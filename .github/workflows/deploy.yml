@@ -49,10 +49,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: webapp
+          path: artifacts
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: "floralhaven" # Replace with your Azure Web App name
           publish-profile: ${{ secrets.FLORAL_HAVEN_PUBLISH_PROFILE }}
-          package: ./webapp
+          package: artifacts
