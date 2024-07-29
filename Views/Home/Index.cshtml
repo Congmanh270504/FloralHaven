@@ -7,7 +7,7 @@
             <div class="col-lg-6 text-center text-lg-start">
                 <h1 class="display-6 text-white animated slideInLeft"> 🌸 Thiên Đường Hoa 🌸</h1>
                 <p class="text-white animated slideInLeft mb-4 pb-2">Chào mừng bạn đến với Thiên Đường Hoa, nơi mang đến những bông hoa tươi thắm và đẹp nhất cho mọi dịp. Chúng tôi tự hào cung cấp đa dạng các loại hoa từ hoa hồng, hoa lan, đến hoa cẩm chướng, tất cả đều được chọn lọc kỹ lưỡng và chăm sóc tận tình. Hãy để Thiên Đường Hoa giúp bạn gửi gắm những thông điệp yêu thương qua từng cánh hoa.🌷</p>
-                <a href="" class="button-77 animated slideInLeft">Shop Now</a>
+                @Html.ActionLink("Shop Now", "Menu", "Pages", new { area = "" }, new { @class = "button-77 animated slideInLeft" })
             </div>
             <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                 <img class="img-fluid" src="~/Imgs/flower.png" alt="">
@@ -63,9 +63,9 @@
 <!-- About Start -->
 @Html.Action("Intro", "Pages")
 <!-- About End -->
-<!-- Menu Start -->
-@Html.Action("Menu","Pages")
-<!-- Menu End -->
+<!--Sub Menu Start -->
+@Html.Action("SubMenu", "Pages")
+<!--Sub Menu End -->
 <!-- Reservation Start -->
 <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
     <div class="row g-0">

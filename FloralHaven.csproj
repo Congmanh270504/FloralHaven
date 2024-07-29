@@ -396,6 +396,7 @@
     <Content Include="Views\Pages\TeacherDay.cshtml" />
     <Content Include="Views\Pages\FlowerFarm.cshtml" />
     <Content Include="Views\Pages\Menu.cshtml" />
+    <Content Include="Views\Pages\SubMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

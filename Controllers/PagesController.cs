@@ -13,7 +13,6 @@ namespace Floral_Haven.Controllers
 
         public ActionResult About()
         {
-
             return View();
         }
         public ActionResult Intro()
@@ -36,6 +35,10 @@ namespace Floral_Haven.Controllers
         public ActionResult Menu()
         {
             return View();
+        }
+        public ActionResult SubMenu()
+        {
+            return PartialView();
         }
         public ActionResult PopularFl()
         {
