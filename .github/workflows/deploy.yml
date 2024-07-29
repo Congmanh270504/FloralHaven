@@ -1,10 +1,5 @@
 name: Build and deploy the Web App
 
-env:
-  AZURE_WEBAPP_NAME: floralhaven # set this to the name of your Azure Web App
-  AZURE_WEBAPP_PACKAGE_PATH: "." # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: "5.0" # set this to the .NET Core version to use
-
 on:
   push:
     branches: ["master"]
@@ -12,46 +7,48 @@ on:
     branches: ["master"]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
+        uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
-        run: nuget restore .\FloralHaven.sln
+        run: nuget restore
 
-      - name: Build the solution
-        run: msbuild .\FloralHaven.sln /p:Configuration=Release
+      - name: Build with MSBuild
+        run: msbuild /p:Configuration=Release
+
+      - name: Publish to folder
+        run: msbuild /p:Configuration=Release /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:publishUrl=./publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: webapp
+          path: ./publish
 
   deploy:
-    permissions:
-      contents: none
     runs-on: windows-latest
     needs: build
-    environment:
-      name: "production"
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: webapp
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-          slot-name: "production"
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: "floralhaven" # Replace with your Azure Web App name
+          publish-profile: ${{ secrets.FLORAL_HAVEN_PUBLISH_PROFILE }}
+          package: ./webapp
