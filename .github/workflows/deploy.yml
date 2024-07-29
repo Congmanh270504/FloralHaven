@@ -21,20 +21,23 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
 
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Create Build Directory
+        run: mkdir _build
+
       - name: Restore NuGet packages
-        run: nuget restore
+        run: nuget restore .\FloralHaven.sln
 
       - name: Build with MSBuild
-        run: msbuild /p:Configuration=Release
-
-      - name: Publish to folder
-        run: msbuild /p:Configuration=Release /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:publishUrl=./publish
+        run: msbuild .\FloralHaven.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: webapp
-          path: ./publish
+          path: ./_build
 
   deploy:
     runs-on: windows-latest
