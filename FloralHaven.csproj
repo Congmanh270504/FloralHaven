@@ -223,6 +223,8 @@
     <Content Include="Imgs\testimonial-4.jpg" />
     <Content Include="Imgs\video.jpg" />
     <Content Include="js\jquery.bootstrap-touchspin.js" />
+    <Content Include="js\lazyload.js" />
+    <Content Include="js\lazyload.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\product_detail.js" />
     <Content Include="js\site.js" />

@@ -7,7 +7,7 @@ namespace FloralHaven.Controllers
 {
 	public class ProductController : Controller
 	{
-		FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
 		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
 		// GET: Product
@@ -46,7 +46,7 @@ namespace FloralHaven.Controllers
 			int pageSize = 20;
 			int pageNumber = (page ?? 1);
 			ProductListViewModel productsViewModel = new ProductListViewModel();
-			foreach (var product in products)
+			foreach (var product in products.Skip((pageNumber - 1) * pageSize).Take(pageSize))
 			{
 				string MainImage = _imgPrefix + product.handle + "/";
 				var productImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id);
