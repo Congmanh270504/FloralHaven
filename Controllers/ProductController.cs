@@ -46,7 +46,7 @@ namespace FloralHaven.Controllers
 
 			int pageSize = 20;
 			int pageNumber = (page ?? 1);
-			ProductsViewModel productsViewModel = new ProductsViewModel();
+			ProductListViewModel productsViewModel = new ProductListViewModel();
 			foreach (var product in products)
 			{
 				string MainImage = _imgPrefix + product.handle + "/";
@@ -59,7 +59,8 @@ namespace FloralHaven.Controllers
 				string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
 				productsViewModel.Add(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, MainImage, product.categoryid, CategoryName);
 			}
-			return View(productsViewModel.List.ToPagedList(pageNumber, pageSize));
+			var pagedlist = new StaticPagedList<ProductListViewModel_Product>(productsViewModel.List, pageNumber, pageSize, products.Count());
+			return View(pagedlist);
 		}
 
 		// URL
@@ -77,7 +78,7 @@ namespace FloralHaven.Controllers
 			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => _imgPath + image.path).ToList();
 
 			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
-			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName);
+			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);
 			return View(productViewModel);
 		}
 	}

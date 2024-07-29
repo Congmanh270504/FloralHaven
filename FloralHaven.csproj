@@ -156,7 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductsViewModel.cs" />
+    <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\UserLoginViewModel.cs" />
     <Compile Include="Models\UserRegisterViewModel.cs" />
@@ -201,6 +201,8 @@
     <Content Include="Imgs\about-4.jpg" />
     <Content Include="Imgs\banner-hero.jpg" />
     <Content Include="Imgs\bg-hero.jpg" />
+    <Content Include="Imgs\delivery.png" />
+    <Content Include="Imgs\eco-nature.png" />
     <Content Include="Imgs\flower.png" />
     <Content Include="Imgs\hero.jpg" />
     <Content Include="Imgs\hero.png" />
@@ -212,6 +214,7 @@
     <Content Include="Imgs\menu-6.jpg" />
     <Content Include="Imgs\menu-7.jpg" />
     <Content Include="Imgs\menu-8.jpg" />
+    <Content Include="Imgs\present-box.png" />
     <Content Include="Imgs\team-1.jpg" />
     <Content Include="Imgs\team-2.jpg" />
     <Content Include="Imgs\team-3.jpg" />
@@ -221,6 +224,7 @@
     <Content Include="Imgs\testimonial-3.jpg" />
     <Content Include="Imgs\testimonial-4.jpg" />
     <Content Include="Imgs\video.jpg" />
+    <Content Include="js\jquery.bootstrap-touchspin.js" />
     <Content Include="js\main.js" />
     <Content Include="js\product_detail.js" />
     <Content Include="js\site.js" />
@@ -348,6 +352,7 @@
     <None Include="Models\FloralHaven.dbml.layout">
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\floralhaven - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
