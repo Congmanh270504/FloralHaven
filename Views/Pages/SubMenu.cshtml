@@ -1,15 +1,4 @@
-﻿@section styles{
-    <style>
-        .hero-header {
-            margin-bottom: 0 !important;
-        }
-
-        button-75 {
-            width: fit-content;
-            margin: auto;
-        }
-    </style>
-}
+﻿
 <!-- Menu Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -49,19 +38,19 @@
             </ul>
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
-                    @Html.Action("PopularFl", "Pages")
+                    @Html.Action("GetProductsByCategory", "Pages", new { categoryName = "Hoa xinh giá tốt" })
                 </div>
                 <div id="tab-2" class="tab-pane fade show p-0">
-                    @Html.Action("TeacherDay", "Pages")
+                    @Html.Action("GetProductsByCategory", "Pages", new { categoryName = "Ngày phụ nữ Việt Nam 20/10" })
                 </div>
                 <div id="tab-3" class="tab-pane fade show p-0">
-                    @Html.Action("FlowerFarm", "Pages")
+                    @Html.Action("GetProductsByCategory", "Pages", new { categoryName = "Cánh đồng hoa" })
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div>
-    <a href="/Product/Index" class="button-75 m-auto" style="width:fit-content !important">More Product</a>
+    @Html.ActionLink("More Product", "Index", "Product", null, new { @class = "button-75 m-auto", style = "width:fit-content !important" })
 </div>
 <!-- Menu End -->

@@ -1,15 +1,4 @@
-﻿@using FloralHaven.Models;
-@{
-    ViewBag.Title = "Menu - Floral Haven";
-    List<PRODUCT> prod1 = ViewBag.bestSeller as List<PRODUCT>;
-    List<string> img = ViewBag.img as List<string>;
-
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@section styles{
-    @*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-        <link href="~/css/products.css" rel="stylesheet" />
-        <link href="~/css/breadcrumb.css" rel="stylesheet" />*@
+﻿@section styles{
     <style>
         .hero-header {
             margin-bottom: 0 !important;
@@ -17,7 +6,19 @@
 
         a.button-75.btn {
             width: fit-content;
-            margin:auto;
+            margin: auto;
+        }
+        .hero-header {
+            margin-bottom: 0 !important;
+        }
+
+        .prod-link {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .prod-link:hover, .prod-link:focus {
+            color: #FEA116;
         }
     </style>
 }
