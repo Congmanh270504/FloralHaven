@@ -13,6 +13,10 @@
         }
     </style>
 }
+@section scripts{
+    <script src="~/js/lazyload.min.js"></script>
+    <script src="~/js/lazyload.js"></script>
+}
 <div class="layout-collection">
     <section class="bread-crumb">
         <div class="container">
@@ -81,14 +85,6 @@
                             </div>
                         </div>
 
-                        <script>
-                            function countFilterItem() {
-                                var countFilter = $('.filter-container__selected-filter-list ul li').length;
-                                $(".count-filter-val").text(countFilter);
-                            }
-                            countFilterItem();
-                        </script>
-
                         <div class="products-view products-view-grid list_hover_pro">
                             <div class="row">
                                 @if (Model == null || Model.Count < 1)
@@ -115,7 +111,8 @@
                                                     }
                                                     <div class="product-thumbnail">
                                                         <a class="image_thumb scale_hover" href="/product/@item.Handle" title="@item.Name">
-                                                            <img class="lazyload duration-300" src="@item.MainImage" alt="@item.Name" />
+                                                            <img class="lazyload duration-300" data-src="@item.MainImage" alt="@item.Name" />
+                                                            <span class="loader"></span>
                                                         </a>
                                                     </div>
                                                     <div class="product-info">
