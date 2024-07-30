@@ -2,88 +2,88 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12.375" name="FloralHaven">
   <DataContextMoniker Name="/FloralHavenDataContext" />
   <nestedChildShapes>
-    <classShape Id="acd9e16b-ea04-497e-b772-1d10d0635c0a" absoluteBounds="0.75, 7, 2, 1.9631982421875005">
-      <DataClassMoniker Name="/FloralHavenDataContext/USER" />
-      <nestedChildShapes>
-        <elementListCompartment Id="e9b1876e-9dfb-47cd-8354-67422298fa1c" absoluteBounds="0.765, 7.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" absoluteBounds="3.5, 3.25, 2, 2.5401025390625005">
-      <DataClassMoniker Name="/FloralHavenDataContext/PRODUCT" />
-      <nestedChildShapes>
-        <elementListCompartment Id="8b88381c-e9eb-462d-af7e-251f9fb9905d" absoluteBounds="3.515, 3.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="ab9e8693-6589-4e53-a2fe-f74d54b43599" absoluteBounds="6.25, 3.875, 2, 1.3862939453125005">
-      <DataClassMoniker Name="/FloralHavenDataContext/IMAGE" />
-      <nestedChildShapes>
-        <elementListCompartment Id="1a2648b0-be33-4c4a-a8c6-c1a764c94075" absoluteBounds="6.265, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="d7b725fb-751f-4dbd-8b66-b9b7091b2640" absoluteBounds="0.75, 4, 2, 1.193992513020834">
-      <DataClassMoniker Name="/FloralHavenDataContext/CATEGORY" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a94e91d2-ee0f-46d4-8822-1491bc0fba89" absoluteBounds="0.765, 4.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="cbe15b21-4523-4a77-9808-032a65a81fac" absoluteBounds="6.25, 0.75, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/FloralHavenDataContext/BILLDETAIL" />
-      <nestedChildShapes>
-        <elementListCompartment Id="965a6d3f-0dc1-469e-b6f4-68abadf60734" absoluteBounds="6.265, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="39dd9e30-9d1e-4520-a194-cf17376b9407" absoluteBounds="3.5, 7.125, 2, 1.5785953776041675">
-      <DataClassMoniker Name="/FloralHavenDataContext/BILL" />
-      <nestedChildShapes>
-        <elementListCompartment Id="bbe871fc-a4a0-4df1-859a-a90e7f5c24af" absoluteBounds="3.515, 7.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="94df55f6-362b-4596-800e-9a5579e5cbec" absoluteBounds="3.5, 9.625, 2, 2.5401025390624987">
+    <classShape Id="cdce1a1c-9bb7-4b65-b721-e984d4ccde04" absoluteBounds="3.5, 9.625, 2, 2.5401025390624987">
       <DataClassMoniker Name="/FloralHavenDataContext/ADDRESS" />
       <nestedChildShapes>
-        <elementListCompartment Id="6ad11d41-d685-4a9b-906c-28132fc60937" absoluteBounds="3.515, 10.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="459c38bd-b0eb-4ad3-96cc-725c5a2632df" absoluteBounds="3.515, 10.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 4.56814697265625); (5.79166666666667 : 4.56814697265625 : JumpStart); (5.95833333333333 : 4.56814697265625 : JumpEnd); (6.25 : 4.56814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FloralHavenDataContext/PRODUCT/PRODUCT_IMAGE" />
-      <nodes>
-        <classShapeMoniker Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" />
-        <classShapeMoniker Id="ab9e8693-6589-4e53-a2fe-f74d54b43599" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.59699625651042); (3.5 : 4.59699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FloralHavenDataContext/CATEGORY/CATEGORY_PRODUCT" />
-      <nodes>
-        <classShapeMoniker Id="d7b725fb-751f-4dbd-8b66-b9b7091b2640" />
-        <classShapeMoniker Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 3.25); (4.5 : 1.53929768880208); (6.25 : 1.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FloralHavenDataContext/PRODUCT/PRODUCT_BILLDETAIL" />
-      <nodes>
-        <classShapeMoniker Id="306bd6de-2fdf-4bd1-a5d3-2ce67cb5bc91" />
-        <classShapeMoniker Id="cbe15b21-4523-4a77-9808-032a65a81fac" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.125); (5.875 : 6.75); (5.875 : 1.96519853320312); (6.25 : 1.96519853320312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <classShape Id="02f42c26-f613-49a3-aa33-acf77b4da5c3" absoluteBounds="3.5, 7.125, 2, 1.5785953776041675">
+      <DataClassMoniker Name="/FloralHavenDataContext/BILL" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a81d0247-c968-49be-b40e-caf03ad8d50d" absoluteBounds="3.515, 7.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d9f9fb90-90b6-4273-99b6-c06aad0935d5" absoluteBounds="6.25, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/FloralHavenDataContext/BILLDETAIL" />
+      <nestedChildShapes>
+        <elementListCompartment Id="228f9a22-8447-49ac-a788-bae87552311c" absoluteBounds="6.265, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1ca70711-eb01-4bb6-b2cc-ee86ade21850" absoluteBounds="0.75, 4, 2, 1.193992513020834">
+      <DataClassMoniker Name="/FloralHavenDataContext/CATEGORY" />
+      <nestedChildShapes>
+        <elementListCompartment Id="100e360a-a8f7-440b-8d5e-80d8bcba6a77" absoluteBounds="0.765, 4.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e6ae9816-208b-429f-8977-e41c1e227067" absoluteBounds="6.25, 3.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/FloralHavenDataContext/IMAGE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cd0408ae-857e-4213-9f73-c08fac9fd041" absoluteBounds="6.265, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3580491f-1db3-419f-a144-0da0fda53eea" absoluteBounds="3.5, 3.25, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/FloralHavenDataContext/PRODUCT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0fc2e774-e4b8-476c-bab2-85700e6d2198" absoluteBounds="3.515, 3.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f1cd98cf-4199-421c-8e2a-50690d916581" absoluteBounds="0.75, 7, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/FloralHavenDataContext/USER" />
+      <nestedChildShapes>
+        <elementListCompartment Id="43e035e5-ed42-4c13-a578-68cc7faba887" absoluteBounds="0.765, 7.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 7.125); (5.875 : 6.75); (5.875 : 1.53929768880208); (6.25 : 1.53929768880208)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/FloralHavenDataContext/BILL/BILL_BILLDETAIL" />
       <nodes>
-        <classShapeMoniker Id="39dd9e30-9d1e-4520-a194-cf17376b9407" />
-        <classShapeMoniker Id="cbe15b21-4523-4a77-9808-032a65a81fac" />
+        <classShapeMoniker Id="02f42c26-f613-49a3-aa33-acf77b4da5c3" />
+        <classShapeMoniker Id="d9f9fb90-90b6-4273-99b6-c06aad0935d5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 7.91429768880208); (3.5 : 7.91429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/FloralHavenDataContext/USER/USER_BILL" />
+    <associationConnector edgePoints="[(4.5 : 3.25); (4.5 : 1.96519903320312); (5.79166666666667 : 1.96519903320312 : JumpStart); (5.95833333333333 : 1.96519903320312 : JumpEnd); (6.25 : 1.96519903320312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/PRODUCT/PRODUCT_BILLDETAIL" />
       <nodes>
-        <classShapeMoniker Id="acd9e16b-ea04-497e-b772-1d10d0635c0a" />
-        <classShapeMoniker Id="39dd9e30-9d1e-4520-a194-cf17376b9407" />
+        <classShapeMoniker Id="3580491f-1db3-419f-a144-0da0fda53eea" />
+        <classShapeMoniker Id="d9f9fb90-90b6-4273-99b6-c06aad0935d5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 8.9631982421875); (1.75 : 10.8950512695312); (3.5 : 10.8950512695312)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 4.56814697265625); (5.79166666666667 : 4.56814697265625 : JumpStart); (5.95833333333333 : 4.56814697265625 : JumpEnd); (6.25 : 4.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/PRODUCT/PRODUCT_IMAGE" />
+      <nodes>
+        <classShapeMoniker Id="3580491f-1db3-419f-a144-0da0fda53eea" />
+        <classShapeMoniker Id="e6ae9816-208b-429f-8977-e41c1e227067" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.59699625651042); (3.5 : 4.59699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/CATEGORY/CATEGORY_PRODUCT" />
+      <nodes>
+        <classShapeMoniker Id="1ca70711-eb01-4bb6-b2cc-ee86ade21850" />
+        <classShapeMoniker Id="3580491f-1db3-419f-a144-0da0fda53eea" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 8.9631982421875); (1.75 : 10.8950512695312); (3.5 : 10.8950512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/FloralHavenDataContext/USER/USER_ADDRESS" />
       <nodes>
-        <classShapeMoniker Id="acd9e16b-ea04-497e-b772-1d10d0635c0a" />
-        <classShapeMoniker Id="94df55f6-362b-4596-800e-9a5579e5cbec" />
+        <classShapeMoniker Id="f1cd98cf-4199-421c-8e2a-50690d916581" />
+        <classShapeMoniker Id="cdce1a1c-9bb7-4b65-b721-e984d4ccde04" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.91429768880208); (3.5 : 7.91429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FloralHavenDataContext/USER/USER_BILL" />
+      <nodes>
+        <classShapeMoniker Id="f1cd98cf-4199-421c-8e2a-50690d916581" />
+        <classShapeMoniker Id="02f42c26-f613-49a3-aa33-acf77b4da5c3" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

@@ -23,13 +23,14 @@
     <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-
     <!-- Customized Bootstrap Stylesheet -->
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link href="~/css/custombootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet" asp-append-version="true">
+    <!-- Favicon -->
+    <link href="~/favicon.ico" rel="icon" />
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -45,8 +46,7 @@
         <div class="container-fluid position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <h1 class="text-primary m-0">Floral Haven</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                    <h1 class="text-primary m-0">Floral Haven <img width="45" height="45" src="https://img.icons8.com/doodle/48/spa-flower.png" alt="spa-flower" /></h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -61,7 +61,21 @@
                         @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "home-index" ? " active" : "") })
                         @Html.ActionLink("About", "About", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-about" ? " active" : "") })
                         @Html.ActionLink("Service", "Service", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-service" ? " active" : "") })
-                        @Html.ActionLink("Shop", "Menu", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
+
+                        <div class="nav-item dropdown">
+                            @if (currentPage == "pages-booking" || currentPage == "pages-team" || currentPage == "pages-testimonial")
+                            {
+                                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Shop</a>
+                            }
+                            else
+                            {
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                            }
+                            <div class="dropdown-menu m-0">
+                                @Html.ActionLink("Quick Menu", "Menu", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-booking" ? " active" : "") })
+                                @Html.ActionLink("All Product", "Index", "Product", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-team" ? " active" : "") })
+                            </div>
+                        </div>
                         <div class="nav-item dropdown">
                             @if (currentPage == "pages-booking" || currentPage == "pages-team" || currentPage == "pages-testimonial")
                             {
@@ -79,7 +93,7 @@
                         </div>
                         @Html.ActionLink("Contact", "Contact", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
                     </div>
-                    <a href="" class="button-75">Shop Now</a>
+                    @Html.ActionLink("Log In", "Login", "User", new { area = "" }, new { @class = "button-75" })
                 </div>
             </nav>
 
@@ -124,10 +138,10 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                        <p>Đăng nhập ngay tại đây</p>
                         <div class="position-relative mx-auto" style="max-width: 400px;">
                             <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Sign Up</button>
                         </div>
                     </div>
                 </div>

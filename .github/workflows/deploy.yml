@@ -1,0 +1,57 @@
+name: Build and deploy the Web App
+
+on:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - name: Restore NuGet packages
+        run: nuget restore .\FloralHaven.sln
+
+      - name: Build with MSBuild
+        run: msbuild .\FloralHaven.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl=".\_build"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: webapp
+          path: ${{ github.workspace }}/_build
+          if-no-files-found: error
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: webapp
+          path: artifacts
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "floralhaven" # Replace with your Azure Web App name
+          publish-profile: ${{ secrets.FLORAL_HAVEN_PUBLISH_PROFILE }}
+          package: artifacts
