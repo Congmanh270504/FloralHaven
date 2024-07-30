@@ -7,8 +7,7 @@ namespace FloralHaven.Controllers
 {
 	public class ProductController : Controller
 	{
-		//FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
-		FloralHavenDataContext _db = new FloralHavenDataContext("Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True");
+		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
 		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
 		// GET: Product
@@ -17,8 +16,7 @@ namespace FloralHaven.Controllers
 		{
 			ViewBag.CurrentSort = sortOrder;
 
-			var products = from p in _db.PRODUCTs
-						   select p;
+			IQueryable<PRODUCT> products = _db.PRODUCTs;
 
 			switch (sortOrder)
 			{
@@ -41,27 +39,31 @@ namespace FloralHaven.Controllers
 					products = products.OrderByDescending(p => p.id);
 					break;
 				default:
-
 					break;
 			}
 
 			int pageSize = 20;
-			int pageNumber = (page ?? 1);
-			ProductListViewModel productsViewModel = new ProductListViewModel();
-			foreach (var product in products.Skip((pageNumber - 1) * pageSize).Take(pageSize))
-			{
-				string MainImage = _imgPrefix + product.handle + "/";
-				var productImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id);
-				if (productImage != null)
-				{
-					MainImage += productImage.path;
-				}
+			int pageNumber = page ?? 1;
 
-				string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
-				productsViewModel.Add(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, MainImage, product.categoryid, CategoryName);
-			}
-			var pagedlist = new StaticPagedList<ProductListViewModel_Product>(productsViewModel.List.Take(80), pageNumber, pageSize, products.Count());
-			return View(pagedlist);
+			var productViewModels = products
+				.Skip((pageNumber - 1) * pageSize)
+				.Take(pageSize)
+				.Select(product => new ProductListViewModel
+				{
+					ProductID = product.id,
+					Name = product.title,
+					Handle = product.handle,
+					Stock = product.instock,
+					Price = product.price,
+					SalePrice = product.saleprice,
+					MainImage = _imgPrefix + product.handle + "/" + _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
+					CategoryID = product.categoryid,
+					CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name ?? "",
+				})
+				.ToList();
+
+			var pagedList = new StaticPagedList<ProductListViewModel>(productViewModels, pageNumber, pageSize, products.Count());
+			return View(pagedList);
 		}
 
 		// URL
@@ -72,13 +74,13 @@ namespace FloralHaven.Controllers
 			var product = _db.PRODUCTs.FirstOrDefault(p => p.handle == handle);
 			if (product == null)
 			{
-				return RedirectToAction("Index");
+				return HttpNotFound();
 			}
 			ViewBag.Title = product.title + "- FloralHaven";
 			string _imgPath = _imgPrefix + product.handle + "/";
 			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => _imgPath + image.path).ToList();
 
-			string CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name;
+			string CategoryName = (_db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid)?.name) ?? "";
 			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);
 			return View(productViewModel);
 		}

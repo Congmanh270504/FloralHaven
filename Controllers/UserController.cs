@@ -8,7 +8,7 @@ namespace FloralHaven.Controllers
 {
 	public class UserController : Controller
 	{
-		FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
 
 		// GET: User
 		[HttpGet]
