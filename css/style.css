@@ -4,7 +4,10 @@
     --light: #f1f8ff;
     --dark: #a78086;
 }
-
+.show-more {
+    width: fit-content;
+    margin: auto;
+}
 
 .ff-secondary {
     font-family: "Pacifico", cursive;
