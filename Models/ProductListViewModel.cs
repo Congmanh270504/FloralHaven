@@ -1,27 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace FloralHaven.Models
+﻿namespace FloralHaven.Models
 {
 	public class ProductListViewModel
-	{
-		public List<ProductListViewModel_Product> List { get; set; }
-		public ProductListViewModel()
-		{
-			List = new List<ProductListViewModel_Product>();
-		}
-
-		public void Add(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
-		{
-			List.Add(new ProductListViewModel_Product(productID, name, handle, stock, price, salePrice, mainImage, categoryID, categoryName));
-		}
-
-		public void Add(ProductListViewModel_Product product)
-		{
-			List.Add(product);
-		}
-	}
-
-	public class ProductListViewModel_Product
 	{
 		public int ProductID { get; set; }
 		public string Name { get; set; }
@@ -33,7 +12,13 @@ namespace FloralHaven.Models
 		public string CategoryID { get; set; }
 		public string CategoryName { get; set; }
 
-		public ProductListViewModel_Product(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
+		public ProductListViewModel()
+		{
+			Stock = null;
+			SalePrice = null;
+		}
+
+		public ProductListViewModel(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
 		{
 			ProductID = productID;
 			Name = name;
