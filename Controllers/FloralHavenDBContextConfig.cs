@@ -5,7 +5,8 @@ namespace FloralHaven.Controllers
 {
 	public class FloralHavenDBContextConfig
 	{
-		static string _connectionString = "Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True";
+		//static string _connectionString = "Data Source=CongManhPC\\MSSQLSERVER01;Initial Catalog=FloralHaven;Integrated Security=True;TrustServerCertificate=True";
+		static string _connectionString = "FloralHaven";
 		public static FloralHavenDataContext GetFloralHavenDataContext()
 		{
 			return new FloralHavenDataContext(_connectionString);
