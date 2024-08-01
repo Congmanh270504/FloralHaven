@@ -6,10 +6,6 @@ using System.Linq;
 using System.Web.Mvc;
 namespace Floral_Haven.Controllers
 {
-    public class PagesController : Controller
-    {
-        private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
-        string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 	public class PagesController : Controller
 	{
 		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
@@ -67,18 +63,6 @@ namespace Floral_Haven.Controllers
         {
             return View();
         }
-		public ActionResult Service()
-		{
-			return View();
-		}
-		public ActionResult Menu()
-		{
-			return View();
-		}
-		public ActionResult SubMenu()
-		{
-			return PartialView();
-		}
 		public ActionResult PopularFl()
 		{
 			List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Hoa xinh giá tốt")).Take(8).ToList();
@@ -118,11 +102,6 @@ namespace Floral_Haven.Controllers
 			ViewBag.img = img;
 			return PartialView();
 		}
-		public ActionResult Booking()
-		{
-			return View();
-		}
-
         public ActionResult GetProductsByCategory(string categoryName, int take = 8)
         {
             var category = _db.CATEGORies.FirstOrDefault(c => c.name == categoryName);
@@ -130,10 +109,7 @@ namespace Floral_Haven.Controllers
             {
                 return PartialView(new List<ProductListViewModel>());
             }
-		public ActionResult Team()
-		{
-			return PartialView();
-		}
+	
 
             var products = _db.PRODUCTs.Where(p => p.categoryid == category.id)
                 .OrderByDescending(p => p.id)
@@ -151,13 +127,8 @@ namespace Floral_Haven.Controllers
                     CategoryName = categoryName
                 })
                 .ToList();
-
             return PartialView("_SubmenuProductList", products);
         }
     }
-		public ActionResult Testimonial()
-		{
-			return View();
-		}
-	}
+		
 }
