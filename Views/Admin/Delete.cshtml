@@ -1,64 +1,114 @@
-﻿@model FloralHaven.Models.NHANVIEN
+﻿@model FloralHaven.Models.ProductViewModel
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>NHANVIEN</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TENNV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TENNV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DNNV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DNNV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MKNV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MKNV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EMAILNV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EMAILNV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDTNV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SDTNV)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+@section scripts{
+    <script src="~/Scripts/Slick/slick.min.js"></script>
+    <script src="~/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/js/product_detail.js"></script>
+}
+@section styles{
+    <link href="~/Content/Slick/slick.css" rel="stylesheet" />
+    <link href="~/css/products.css" rel="stylesheet" />
+    <link href="~/css/breadcrumb.css" rel="stylesheet" />
+    <link href="~/css/product_detail.css" rel="stylesheet" />
+    <style>
+        .hero-header {
+            margin-bottom: 0 !important;
+        }
+    </style>
+}
+<div class="container">
+    <section class="bread-crumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    @Html.ActionLink("Trang chủ", "Index", "Home", null, new { title = "Trang chủ" })
+                    <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
+                </li>
+                <li class="category">
+                    @Html.ActionLink(Model.CategoryName, "Index", "Home", null, new { title = Model.CategoryName })
+                    <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
+                </li>
+                <li><strong><span>@Model.Title</span></strong></li>
+            </ul>
         </div>
-    }
+    </section>
+    <div class="top-detail-product">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="detail-slider">
+                    @foreach (var image in Model.Images)
+                    {
+                        <figure>
+                            <img src="@image" alt="@image">
+                        </figure>
+                    }
+                </div>
+                <div class="slider-nav-thumbnails">
+                    @foreach (var image in Model.Images)
+                    {
+                        <div class="thumb-item">
+                            <img src="@image" alt="@image" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h2 class="title">@Model.Title</h2>
+                <div class="product-feature">
+                    @Html.Raw(Model.Description)
+                </div>
+                <hr />
+                <div class="product-info sku">
+                    <p>SKU</p>
+                    <p itemprop="sku">@Model.SKU</p>
+                </div>
+                <hr />
+                <div class="price-box clearfix">
+                    @if (Model.SalePrice != null)
+                    {
+                        <span class="special-price">
+                            <span class="price product-price">@Model.Price.ToString("N0")₫</span>
+                            <meta itemprop="price" content="@Model.Price">
+                            <meta itemprop="priceCurrency" content="VND">
+                        </span>
+                        <!-- Giá Khuyến mại -->
+                        <span class="old-price" itemprop="priceSpecification" itemscope="" itemtype="http://schema.org/priceSpecification">
+                            <del class="price product-price-old">
+                                @Model.SalePrice.GetValueOrDefault().ToString("N0")₫
+                            </del>
+                            <meta itemprop="price" content="@Model.SalePrice">
+                            <meta itemprop="priceCurrency" content="VND">
+                        </span>
+                        <!-- Giá gốc -->
+                    }
+                    else
+                    {
+                        <div class="special-price">
+                            <span class="price product-price">@Model.Price.ToString("N0")₫</span>
+                            <meta itemprop="price" content="@Model.Price">
+                            <meta itemprop="priceCurrency" content="VND">
+                        </div>
+                        <!-- Giá -->
+                    }
+                </div>
+                <div class="btn-box">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions d-flex align-content-center justify-content-evenly">
+                            <input type="submit" value="Delete" class="btn btn-success " /> 
+                            @Html.ActionLink("Back to List", "Index",null,new {@class= "btn btn-light text-black" })
+                        </div>
+                    }
+                    <hr />
+                </div>
+        </div>
+    </div>
+    
 </div>

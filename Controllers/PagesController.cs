@@ -63,45 +63,6 @@ namespace Floral_Haven.Controllers
         {
             return View();
         }
-		public ActionResult PopularFl()
-		{
-			List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Hoa xinh giá tốt")).Take(8).ToList();
-			ViewBag.bestSeller = prod;
-			List<string> img = new List<string>();
-			foreach (var item in prod)
-			{
-				var image = _db.IMAGEs.FirstOrDefault(t => t.productid == item.id);
-				img.Add(_imgPrefix + item.handle + "/" + image.path);
-			}
-			ViewBag.img = img;
-			return PartialView();
-		}
-		public ActionResult TeacherDay()
-		{
-			List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Ngày phụ nữ Việt Nam 20/10")).Take(8).ToList();
-			ViewBag.bestSeller = prod;
-			List<string> img = new List<string>();
-			foreach (var item in prod)
-			{
-				var image = _db.IMAGEs.FirstOrDefault(t => t.productid == item.id);
-				img.Add(_imgPrefix + item.handle + "/" + image.path);
-			}
-			ViewBag.img = img;
-			return PartialView();
-		}
-		public ActionResult FlowerFarm()
-		{
-			List<PRODUCT> prod = _db.PRODUCTs.OrderByDescending(t => t.id).Where(t => t.CATEGORY.name.Equals("Cánh đồng hoa")).Take(8).ToList();
-			ViewBag.bestSeller = prod;
-			List<string> img = new List<string>();
-			foreach (var item in prod)
-			{
-				var image = _db.IMAGEs.FirstOrDefault(t => t.productid == item.id);
-				img.Add(_imgPrefix + item.handle + "/" + image.path);
-			}
-			ViewBag.img = img;
-			return PartialView();
-		}
         public ActionResult GetProductsByCategory(string categoryName, int take = 8)
         {
             var category = _db.CATEGORies.FirstOrDefault(c => c.name == categoryName);
