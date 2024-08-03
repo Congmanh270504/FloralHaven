@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FloralHaven.Models;
+using System.Globalization;
+using System.Text;
 namespace FloralHaven.Controllers
 {
 
@@ -31,7 +33,6 @@ namespace FloralHaven.Controllers
         public ActionResult Create(PRODUCT prd, FormCollection collection)
         {
             ViewBag.Categories = _db.CATEGORies.ToList();
-            //ViewBag.Categories = new SelectList(_db.CATEGORies.ToList().OrderBy(n => n.id),"id", "name");
             if (ModelState.IsValid)
             {
                 _db.PRODUCTs.InsertOnSubmit(prd);
@@ -43,7 +44,30 @@ namespace FloralHaven.Controllers
                 return View(prd);
             }
         }
-
+        public ActionResult CreateNewCategoryItem()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNewCategoryItem(CATEGORY category)
+        {
+            if (category.name == null)
+            {
+                ViewBag.Error = "Category name is required";
+                return View(category);
+            }
+            category.id = RemoveDiacritics(category.name).ToLower().Replace(" ", "-");
+            if (ModelState.IsValid)
+            {
+                _db.CATEGORies.InsertOnSubmit(category);
+                _db.SubmitChanges();
+                return RedirectToAction("Index", "Product", null);
+            }
+            else
+            {
+                return View(category);
+            }
+        }
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
@@ -96,6 +120,22 @@ namespace FloralHaven.Controllers
             _db.SubmitChanges();
             return RedirectToAction("Index", "Product", null);
 
+        }
+
+        public static string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }

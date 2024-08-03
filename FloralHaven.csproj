@@ -407,6 +407,7 @@
     <Content Include="Views\Pages\Team.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\CreateNewCategoryItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
