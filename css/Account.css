@@ -58,3 +58,6 @@
 .text-color-secondary {
 	color: #666;
 }
+.flex-wrap2{
+	flex-wrap:wrap;
+}
