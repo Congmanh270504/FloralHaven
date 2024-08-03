@@ -55,6 +55,7 @@ main {
 	outline: none;
 	transition: all 0.32s;
 	display: inline-block;
+	color:black;
 }
 
 .btn-link:focus,

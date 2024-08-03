@@ -44,9 +44,10 @@
 					LockoutEndDateUtc = c.DateTime(),
 					LockoutEnabled = c.Boolean(nullable: false),
 					AccessFailedCount = c.Int(nullable: false),
+					UserName = c.String(nullable: false, maxLength: 256),
 				})
 				.PrimaryKey(t => t.Id)
-				.Index(t => t.Email, unique: true, name: "EmailIndex");
+				.Index(t => t.UserName, unique: true, name: "UserNameIndex");
 
 			CreateTable(
 				"dbo.UserClaims",
@@ -83,7 +84,7 @@
 			DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
 			DropIndex("dbo.UserLogins", new[] { "UserId" });
 			DropIndex("dbo.UserClaims", new[] { "UserId" });
-			DropIndex("dbo.Users", "EmailIndex");
+			DropIndex("dbo.Users", "UserNameIndex");
 			DropIndex("dbo.UserRoles", new[] { "RoleId" });
 			DropIndex("dbo.UserRoles", new[] { "UserId" });
 			DropIndex("dbo.Roles", "RoleNameIndex");
