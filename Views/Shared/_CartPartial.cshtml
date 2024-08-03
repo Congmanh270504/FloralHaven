@@ -1,0 +1,36 @@
+﻿<!-- Cart Drawer -->
+<div class="cart-container">
+    <div id="cart-drawer">
+        <div style="--tw-bg-opacity: 0" class="cart__wrapper touch-none transition-colors duration-300 bg-black fixed z-[100] inset-0 hidden">
+            <div class="cart__content transition-transform duration-300 ml-auto translate-x-0 min-h-full md:w-[450px] bg-white z-50">
+                <button class="cart__close p-2 cursor-pointer absolute">
+                    <svg class="w-[24px] h-[24px]" fill="currentColor" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"></path>
+                    </svg>
+                </button>
+                <div class="flex flex-col h-full">
+                    <div class="cart__header mx-6 py-4 md:pt-6">
+                        <h3 class="text-2xl font-medium">Your Cart</h3>
+                    </div>
+                    <div class="cart__body custom_scroll overscroll-contain px-6 pb-4 flex flex-col flex-grow"></div>
+                    <div class="cart__footer py-4 px-6">
+                        <div class="cart__summary mb-4 pt-4">
+                            <ul class="cart-cart__discounts" role="list"></ul>
+                            <div class="cart__subtotal flex justify-between">
+                                <span class="font-medium">Subtotal</span>
+                                <span class="cart__subtotal-price font-medium"></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <button class="btn btn-primary w-full cart__checkout relative" name="checkout">
+                                <span>Check out</span>
+                            </button>
+                            <a class="underline mt-2" href="./cart">View Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/CartDrawer.js"></script>
+</div>

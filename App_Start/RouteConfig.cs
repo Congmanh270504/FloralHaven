@@ -9,7 +9,6 @@ namespace FloralHaven
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
 			routes.MapRoute(
 				name: "ProductIndex",
 				url: "Product",

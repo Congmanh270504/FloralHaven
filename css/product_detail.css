@@ -139,6 +139,10 @@ ul {
     padding: 0;
     text-align: center;
     flex:0 1 auto;
+    margin:0 0px 0 0px;
+}
+.input-group-btn.input-group-append{
+    margin-left:0!important;
 }
 .input-group-btn > .btn:active, .input-group-btn > .btn:focus, .input-group-btn > .btn:hover {
     z-index: 2;
