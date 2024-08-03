@@ -1,11 +1,16 @@
 {
   "dependencies": {
     "mssql1": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/floralhaven/providers/Microsoft.ServiceLinker/linkers/FloralHaven_ACE6BC70B1",
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "FloralHaven"
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/floralhaven/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsFloralHaven_6C994C0E00",
       "secretStore": "AzureAppSettings",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/florahaven/databases/FloralHaven",
       "type": "mssql.azure",
-      "connectionId": "FloralHaven"
+      "connectionId": "ConnectionStrings:FloralHaven"
     }
   }
 }
