@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+    var statusCode = ViewBag.StatusCode ?? 500; // Default to 500 if no status code is provided
+}
+
+<section class="section-error">
+    <div class="pageerror | flex flex-col justify-center items-center h-full py-32 lg:py-48 text-center">
+        <h1 class="pageerror-title text-3xl lg:text-6xl lg:leading-tight font-bold">@statusCode</h1>
+        <p class="text-2xl lg:text-5xl lg:leading-tight font-light mb-8">An error occurred while processing your request.</p>
+        <a href="@Url.Action("Index", "Home")" class="text-xl mt-2 text-blue-400">Go back to Home</a>
+    </div>
+</section>

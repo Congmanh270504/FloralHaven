@@ -2,15 +2,17 @@
     ViewBag.Title = "Floral Haven";
 }
 @section Hero{
-    <div class="container my-5 py-5">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="display-6 text-white animated slideInLeft"> 🌸 Thiên Đường Hoa 🌸</h1>
-                <p class="text-white animated slideInLeft mb-4 pb-2">Chào mừng bạn đến với Thiên Đường Hoa, nơi mang đến những bông hoa tươi thắm và đẹp nhất cho mọi dịp. Chúng tôi tự hào cung cấp đa dạng các loại hoa từ hoa hồng, hoa lan, đến hoa cẩm chướng, tất cả đều được chọn lọc kỹ lưỡng và chăm sóc tận tình. Hãy để Thiên Đường Hoa giúp bạn gửi gắm những thông điệp yêu thương qua từng cánh hoa.🌷</p>
-                @Html.ActionLink("Shop Now", "Menu", "Pages", new { area = "" }, new { @class = "button-77 animated slideInLeft" })
-            </div>
-            <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                <img class="img-fluid" src="~/Imgs/flower.png" alt="">
+    <div class=" py-5 bg-dark hero-header mb-5">
+        <div class="container my-5 py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="display-6 text-white animated slideInLeft"> 🌸 Thiên Đường Hoa 🌸</h1>
+                    <p class="text-white animated slideInLeft mb-4 pb-2">Chào mừng bạn đến với Thiên Đường Hoa, nơi mang đến những bông hoa tươi thắm và đẹp nhất cho mọi dịp. Chúng tôi tự hào cung cấp đa dạng các loại hoa từ hoa hồng, hoa lan, đến hoa cẩm chướng, tất cả đều được chọn lọc kỹ lưỡng và chăm sóc tận tình. Hãy để Thiên Đường Hoa giúp bạn gửi gắm những thông điệp yêu thương qua từng cánh hoa.🌷</p>
+                    @Html.ActionLink("Shop Now", "Menu", "Pages", new { area = "" }, new { @class = "button-77 animated slideInLeft" })
+                </div>
+                <div class="col-lg-6 text-center text-lg-end overflow-hidden">
+                    <img class="img-fluid" src="~/Imgs/flower.png" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -72,8 +74,8 @@
         <div class="col-md-6">
             <div class="video">
                 @*<button type="button" class="btn-play" data-bs-toggle="modal" data-src="~/Movie/Y2meta.app-Bl%c3%bcher%202-(1080p).mp4" data-bs-target="#videoModal">
-                    <span></span>
-                </button>*@
+                        <span></span>
+                    </button>*@
                 <video autoplay muted loop class="w-100 h-100">
                     <source src="~/Movie/Y2meta.app-Bl%c3%bcher%202-(1080p).mp4" type="video/mp4" />
                 </video>

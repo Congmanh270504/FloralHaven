@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A03381CF-91F0-473C-BD2E-93108C570146}</ProjectGuid>
+    <ProjectGuid>{6691F2F1-5C54-41CD-885F-479831B2D122}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44354</IISExpressSSLPort>
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -45,9 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
-      <HintPath>packages\BCrypt.Net-Next.4.0.3\lib\net48\BCrypt.Net-Next.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -65,24 +62,15 @@
       <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -116,9 +104,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-      <HintPath>packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <HintPath>packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -140,27 +128,91 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>packages\Microsoft.Owin.Host.SystemWeb.4.2.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>packages\Microsoft.Owin.Security.Facebook.4.2.2\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>packages\Microsoft.Owin.Security.Google.4.2.2\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>packages\Microsoft.Owin.Security.Twitter.4.2.2\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>packages\Microsoft.Owin.Security.MicrosoftAccount.4.2.2\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FloralHavenDBContextConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UserHelper.cs" />
+    <Compile Include="Migrations\202408030718373_RenameUserTable.cs" />
+    <Compile Include="Migrations\202408030718373_RenameUserTable.Designer.cs">
+      <DependentUpon>202408030718373_RenameUserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408030724009_AddName.cs" />
+    <Compile Include="Migrations\202408030724009_AddName.Designer.cs">
+      <DependentUpon>202408030724009_AddName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408030747171_CleanUp.cs" />
+    <Compile Include="Migrations\202408030747171_CleanUp.Designer.cs">
+      <DependentUpon>202408030747171_CleanUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408030754100_AddAvatar.cs" />
+    <Compile Include="Migrations\202408030754100_AddAvatar.Designer.cs">
+      <DependentUpon>202408030754100_AddAvatar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FloralHaven.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
-    <Compile Include="Models\UserLoginViewModel.cs" />
-    <Compile Include="Models\UserRegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -179,22 +231,46 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Slick\ajax-loader.gif" />
     <Content Include="Content\Slick\fonts\slick.svg" />
     <Content Include="Content\Slick\slick-theme.css" />
     <Content Include="Content\Slick\slick.css" />
+    <Content Include="css\Account.css" />
+    <Content Include="css\Announcement.css" />
     <Content Include="css\breadcrumb.css" />
+    <Content Include="css\Carousel.css" />
+    <Content Include="css\Cart.css" />
+    <Content Include="css\Categories.css" />
+    <Content Include="css\Checkout.css" />
+    <Content Include="css\chunk.css" />
+    <Content Include="css\Collections.css" />
     <Content Include="css\custombootstrap.min.css" />
+    <Content Include="css\Footer.css" />
+    <Content Include="css\Guarantees.css" />
+    <Content Include="css\LoginRegister.css" />
+    <Content Include="css\Navbar.css" />
+    <Content Include="css\Page.css" />
+    <Content Include="css\photoswipe.css" />
+    <Content Include="css\ProductDetails.css" />
     <Content Include="css\products.css" />
+    <Content Include="css\ProductTabs.css" />
+    <Content Include="css\ProductView.css" />
     <Content Include="css\product_detail.css" />
+    <Content Include="css\Register.css" />
     <Content Include="css\site.css" />
+    <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
+    <Content Include="css\swiper-bundle.min.css" />
+    <Content Include="css\tailwind.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Imgs-Banner\about-1.jpg" />
     <Content Include="Imgs-Banner\about-2.jpg" />
+    <Content Include="Imgs-Banner\about-3.jpg" />
+    <Content Include="Imgs-Banner\about-4.jpg" />
+    <Content Include="Imgs-Banner\about-5.jpg" />
+    <Content Include="Imgs\30.jpg" />
     <Content Include="Imgs\about-1.jpg" />
     <Content Include="Imgs\about-2.jpg" />
     <Content Include="Imgs\about-3.jpg" />
@@ -206,6 +282,7 @@
     <Content Include="Imgs\flower.png" />
     <Content Include="Imgs\hero.jpg" />
     <Content Include="Imgs\hero.png" />
+    <Content Include="Imgs\images.jfif" />
     <Content Include="Imgs\menu-1.jpg" />
     <Content Include="Imgs\menu-2.jpg" />
     <Content Include="Imgs\menu-3.jpg" />
@@ -224,49 +301,45 @@
     <Content Include="Imgs\testimonial-3.jpg" />
     <Content Include="Imgs\testimonial-4.jpg" />
     <Content Include="Imgs\video.jpg" />
+    <Content Include="js\Accordion.js" />
+    <Content Include="js\Carousel.js" />
+    <Content Include="js\Cart.js" />
+    <Content Include="js\CartDrawer.js" />
+    <Content Include="js\Categories.js" />
+    <Content Include="js\Collection.js" />
+    <Content Include="js\CollectionsList.js" />
+    <Content Include="js\currencyConvert.js" />
+    <Content Include="js\data.js" />
     <Content Include="js\jquery.bootstrap-touchspin.js" />
     <Content Include="js\lazyload.js" />
     <Content Include="js\lazyload.min.js" />
     <Content Include="js\main.js" />
+    <Content Include="js\Navbar.js" />
+    <Content Include="js\photoswipe-lightbox.esm.js" />
+    <Content Include="js\photoswipe.esm.js" />
+    <Content Include="js\price-range.js" />
+    <Content Include="js\ProductDetails.js" />
+    <Content Include="js\ProductInfo.js" />
+    <Content Include="js\ProductList.js" />
+    <Content Include="js\ProductMedia.js" />
+    <Content Include="js\products.js" />
+    <Content Include="js\productsData.min.js" />
+    <Content Include="js\ProductTabs.js" />
     <Content Include="js\product_detail.js" />
+    <Content Include="js\responsive.js" />
+    <Content Include="js\scroll-animation.js" />
+    <Content Include="js\searchData.js" />
+    <Content Include="js\searchProduct.js" />
     <Content Include="js\site.js" />
+    <Content Include="js\smoothscroll.min.js" />
+    <Content Include="js\StickyATC.js" />
+    <Content Include="js\swiper-bundle.min.js" />
+    <Content Include="js\VariantPicker.js" />
     <Content Include="lib\animate\animate.css" />
     <Content Include="lib\animate\animate.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.rtl.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.rtl.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.rtl.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.rtl.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.rtl.min.css" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.js" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.esm.js" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.esm.min.js" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.js" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js" />
     <Content Include="lib\counterup\counterup.min.js" />
     <Content Include="lib\easing\easing.js" />
     <Content Include="lib\easing\easing.min.js" />
-    <Content Include="lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <Content Include="lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <Content Include="lib\jquery-validation-unobtrusive\LICENSE.txt" />
-    <Content Include="lib\jquery-validation\dist\additional-methods.js" />
-    <Content Include="lib\jquery-validation\dist\additional-methods.min.js" />
-    <Content Include="lib\jquery-validation\dist\jquery.validate.js" />
-    <Content Include="lib\jquery-validation\dist\jquery.validate.min.js" />
-    <Content Include="lib\jquery\dist\jquery.js" />
-    <Content Include="lib\jquery\dist\jquery.min.js" />
-    <Content Include="lib\jquery\LICENSE.txt" />
     <Content Include="lib\owlcarousel\assets\ajax-loader.gif" />
     <Content Include="lib\owlcarousel\assets\owl.carousel.css" />
     <Content Include="lib\owlcarousel\assets\owl.carousel.min.css" />
@@ -287,18 +360,18 @@
     <Content Include="lib\wow\wow.js" />
     <Content Include="lib\wow\wow.min.js" />
     <Content Include="Movie\Y2meta.app-Blüher 2-%281080p%29.mp4" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.esm.js" />
-    <Content Include="Scripts\bootstrap.esm.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Models\FloralHaven.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>FloralHaven.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\Slick\fonts\slick.eot" />
+    <Content Include="Content\Slick\fonts\slick.ttf" />
+    <Content Include="Content\Slick\fonts\slick.woff" />
+    <Content Include="Content\Slick\slick-theme.scss" />
+    <Content Include="Content\Slick\slick.scss" />
+    <Content Include="lib\owlcarousel\LICENSE" />
+    <Content Include="lib\waypoints\links.php" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
@@ -315,54 +388,26 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.esm.js.map" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.js.map" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js.map" />
-    <Content Include="lib\bootstrap\LICENSE" />
-    <Content Include="lib\jquery-validation\LICENSE.md" />
-    <Content Include="lib\jquery\dist\jquery.min.map" />
-    <Content Include="lib\owlcarousel\LICENSE" />
-    <Content Include="lib\waypoints\links.php" />
-    <Content Include="Models\FloralHaven.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>FloralHaven.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\Slick\slick.scss" />
-    <Content Include="Content\Slick\slick-theme.scss" />
-    <Content Include="Content\Slick\fonts\slick.woff" />
-    <Content Include="Content\Slick\fonts\slick.ttf" />
-    <Content Include="Content\Slick\fonts\slick.eot" />
     <None Include="Models\FloralHaven.dbml.layout">
       <DependentUpon>FloralHaven.dbml</DependentUpon>
     </None>
-    <None Include="Properties\PublishProfiles\floralhaven - Web Deploy.pubxml" />
+    <Content Include="README.md" />
+    <Content Include="Properties\ServiceDependencies\floralhaven - Web Deploy\mssql1.arm.json" />
+    <Content Include="Properties\ServiceDependencies\floralhaven - Web Deploy\profile.arm.json" />
+    <Content Include="Properties\serviceDependencies.floralhaven - Web Deploy.json" />
+    <Content Include="Properties\serviceDependencies.json" />
+    <Content Include="Properties\serviceDependencies.local.json" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.7.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -382,41 +427,77 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_AccountBlockPartial.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Pages\About.cshtml" />
     <Content Include="Views\Pages\Booking.cshtml" />
     <Content Include="Views\Pages\Contact.cshtml" />
+    <Content Include="Views\Pages\Intro.cshtml" />
+    <Content Include="Views\Pages\Menu.cshtml" />
     <Content Include="Views\Pages\Service.cshtml" />
+    <Content Include="Views\Pages\SubMenu.cshtml" />
+    <Content Include="Views\Pages\Team.cshtml" />
     <Content Include="Views\Pages\Testimonial.cshtml" />
-    <Content Include="Views\User\Register.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Pages\_SubmenuProductList.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
-    <Content Include="Views\Pages\Team.cshtml" />
-    <Content Include="Views\Pages\Intro.cshtml" />
-    <Content Include="Views\Pages\_SubmenuProductList.cshtml" />
-    <Content Include="Views\Pages\Menu.cshtml" />
-    <Content Include="Views\Pages\SubMenu.cshtml" />
-    <Content Include="Views\Admin\Create.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Admin\Details.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\Delete.cshtml" />
-    <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="lib\tempusdominus\NewFolder\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202408030718373_RenameUserTable.resx">
+      <DependentUpon>202408030718373_RenameUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408030724009_AddName.resx">
+      <DependentUpon>202408030724009_AddName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408030747171_CleanUp.resx">
+      <DependentUpon>202408030747171_CleanUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408030754100_AddAvatar.resx">
+      <DependentUpon>202408030754100_AddAvatar.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -434,9 +515,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53092</DevelopmentServerPort>
+          <DevelopmentServerPort>59135</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44354/</IISUrl>
+          <IISUrl>https://localhost:44378/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

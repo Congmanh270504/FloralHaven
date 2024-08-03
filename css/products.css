@@ -1281,3 +1281,6 @@ a:hover {
 img.lazyload {
 	filter: blur(5px);
 }
+.sort-cate-right svg{
+	display:unset;
+}

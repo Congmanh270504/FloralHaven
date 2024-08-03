@@ -30,27 +30,15 @@ namespace FloralHaven.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertADDRESS(ADDRESS instance);
-    partial void UpdateADDRESS(ADDRESS instance);
-    partial void DeleteADDRESS(ADDRESS instance);
-    partial void InsertBILL(BILL instance);
-    partial void UpdateBILL(BILL instance);
-    partial void DeleteBILL(BILL instance);
-    partial void InsertBILLDETAIL(BILLDETAIL instance);
-    partial void UpdateBILLDETAIL(BILLDETAIL instance);
-    partial void DeleteBILLDETAIL(BILLDETAIL instance);
-    partial void InsertCATEGORY(CATEGORY instance);
-    partial void UpdateCATEGORY(CATEGORY instance);
-    partial void DeleteCATEGORY(CATEGORY instance);
-    partial void InsertIMAGE(IMAGE instance);
-    partial void UpdateIMAGE(IMAGE instance);
-    partial void DeleteIMAGE(IMAGE instance);
     partial void InsertPRODUCT(PRODUCT instance);
     partial void UpdatePRODUCT(PRODUCT instance);
     partial void DeletePRODUCT(PRODUCT instance);
-    partial void InsertUSER(USER instance);
-    partial void UpdateUSER(USER instance);
-    partial void DeleteUSER(USER instance);
+    partial void InsertIMAGE(IMAGE instance);
+    partial void UpdateIMAGE(IMAGE instance);
+    partial void DeleteIMAGE(IMAGE instance);
+    partial void InsertCATEGORY(CATEGORY instance);
+    partial void UpdateCATEGORY(CATEGORY instance);
+    partial void DeleteCATEGORY(CATEGORY instance);
     #endregion
 		
 		public FloralHavenDataContext(string connection) : 
@@ -77,35 +65,11 @@ namespace FloralHaven.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<ADDRESS> ADDRESSes
+		public System.Data.Linq.Table<PRODUCT> PRODUCTs
 		{
 			get
 			{
-				return this.GetTable<ADDRESS>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BILL> BILLs
-		{
-			get
-			{
-				return this.GetTable<BILL>();
-			}
-		}
-		
-		public System.Data.Linq.Table<BILLDETAIL> BILLDETAILs
-		{
-			get
-			{
-				return this.GetTable<BILLDETAIL>();
-			}
-		}
-		
-		public System.Data.Linq.Table<CATEGORY> CATEGORies
-		{
-			get
-			{
-				return this.GetTable<CATEGORY>();
+				return this.GetTable<PRODUCT>();
 			}
 		}
 		
@@ -117,998 +81,11 @@ namespace FloralHaven.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<PRODUCT> PRODUCTs
+		public System.Data.Linq.Table<CATEGORY> CATEGORies
 		{
 			get
 			{
-				return this.GetTable<PRODUCT>();
-			}
-		}
-		
-		public System.Data.Linq.Table<USER> USERs
-		{
-			get
-			{
-				return this.GetTable<USER>();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ADDRESS")]
-	public partial class ADDRESS : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _customerid;
-		
-		private string _address1;
-		
-		private string _province;
-		
-		private string _district;
-		
-		private string _ward;
-		
-		private string _note;
-		
-		private string _phone;
-		
-		private string _name;
-		
-		private EntityRef<USER> _USER;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OncustomeridChanging(int value);
-    partial void OncustomeridChanged();
-    partial void Onaddress1Changing(string value);
-    partial void Onaddress1Changed();
-    partial void OnprovinceChanging(string value);
-    partial void OnprovinceChanged();
-    partial void OndistrictChanging(string value);
-    partial void OndistrictChanged();
-    partial void OnwardChanging(string value);
-    partial void OnwardChanged();
-    partial void OnnoteChanging(string value);
-    partial void OnnoteChanged();
-    partial void OnphoneChanging(string value);
-    partial void OnphoneChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    #endregion
-		
-		public ADDRESS()
-		{
-			this._USER = default(EntityRef<USER>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customerid", DbType="Int NOT NULL")]
-		public int customerid
-		{
-			get
-			{
-				return this._customerid;
-			}
-			set
-			{
-				if ((this._customerid != value))
-				{
-					if (this._USER.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OncustomeridChanging(value);
-					this.SendPropertyChanging();
-					this._customerid = value;
-					this.SendPropertyChanged("customerid");
-					this.OncustomeridChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="address", Storage="_address1", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string address1
-		{
-			get
-			{
-				return this._address1;
-			}
-			set
-			{
-				if ((this._address1 != value))
-				{
-					this.Onaddress1Changing(value);
-					this.SendPropertyChanging();
-					this._address1 = value;
-					this.SendPropertyChanged("address1");
-					this.Onaddress1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_province", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string province
-		{
-			get
-			{
-				return this._province;
-			}
-			set
-			{
-				if ((this._province != value))
-				{
-					this.OnprovinceChanging(value);
-					this.SendPropertyChanging();
-					this._province = value;
-					this.SendPropertyChanged("province");
-					this.OnprovinceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_district", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string district
-		{
-			get
-			{
-				return this._district;
-			}
-			set
-			{
-				if ((this._district != value))
-				{
-					this.OndistrictChanging(value);
-					this.SendPropertyChanging();
-					this._district = value;
-					this.SendPropertyChanged("district");
-					this.OndistrictChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ward", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string ward
-		{
-			get
-			{
-				return this._ward;
-			}
-			set
-			{
-				if ((this._ward != value))
-				{
-					this.OnwardChanging(value);
-					this.SendPropertyChanging();
-					this._ward = value;
-					this.SendPropertyChanged("ward");
-					this.OnwardChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string note
-		{
-			get
-			{
-				return this._note;
-			}
-			set
-			{
-				if ((this._note != value))
-				{
-					this.OnnoteChanging(value);
-					this.SendPropertyChanging();
-					this._note = value;
-					this.SendPropertyChanged("note");
-					this.OnnoteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
-		public string phone
-		{
-			get
-			{
-				return this._phone;
-			}
-			set
-			{
-				if ((this._phone != value))
-				{
-					this.OnphoneChanging(value);
-					this.SendPropertyChanging();
-					this._phone = value;
-					this.SendPropertyChanged("phone");
-					this.OnphoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="USER_ADDRESS", Storage="_USER", ThisKey="customerid", OtherKey="id", IsForeignKey=true)]
-		public USER USER
-		{
-			get
-			{
-				return this._USER.Entity;
-			}
-			set
-			{
-				USER previousValue = this._USER.Entity;
-				if (((previousValue != value) 
-							|| (this._USER.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._USER.Entity = null;
-						previousValue.ADDRESSes.Remove(this);
-					}
-					this._USER.Entity = value;
-					if ((value != null))
-					{
-						value.ADDRESSes.Add(this);
-						this._customerid = value.id;
-					}
-					else
-					{
-						this._customerid = default(int);
-					}
-					this.SendPropertyChanged("USER");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BILL")]
-	public partial class BILL : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _userid;
-		
-		private System.DateTime _createdate;
-		
-		private System.Nullable<decimal> _subtotal;
-		
-		private EntitySet<BILLDETAIL> _BILLDETAILs;
-		
-		private EntityRef<USER> _USER;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnuseridChanging(int value);
-    partial void OnuseridChanged();
-    partial void OncreatedateChanging(System.DateTime value);
-    partial void OncreatedateChanged();
-    partial void OnsubtotalChanging(System.Nullable<decimal> value);
-    partial void OnsubtotalChanged();
-    #endregion
-		
-		public BILL()
-		{
-			this._BILLDETAILs = new EntitySet<BILLDETAIL>(new Action<BILLDETAIL>(this.attach_BILLDETAILs), new Action<BILLDETAIL>(this.detach_BILLDETAILs));
-			this._USER = default(EntityRef<USER>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userid", DbType="Int NOT NULL")]
-		public int userid
-		{
-			get
-			{
-				return this._userid;
-			}
-			set
-			{
-				if ((this._userid != value))
-				{
-					if (this._USER.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnuseridChanging(value);
-					this.SendPropertyChanging();
-					this._userid = value;
-					this.SendPropertyChanged("userid");
-					this.OnuseridChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdate", DbType="DateTime NOT NULL")]
-		public System.DateTime createdate
-		{
-			get
-			{
-				return this._createdate;
-			}
-			set
-			{
-				if ((this._createdate != value))
-				{
-					this.OncreatedateChanging(value);
-					this.SendPropertyChanging();
-					this._createdate = value;
-					this.SendPropertyChanged("createdate");
-					this.OncreatedateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subtotal", DbType="Money")]
-		public System.Nullable<decimal> subtotal
-		{
-			get
-			{
-				return this._subtotal;
-			}
-			set
-			{
-				if ((this._subtotal != value))
-				{
-					this.OnsubtotalChanging(value);
-					this.SendPropertyChanging();
-					this._subtotal = value;
-					this.SendPropertyChanged("subtotal");
-					this.OnsubtotalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BILL_BILLDETAIL", Storage="_BILLDETAILs", ThisKey="id", OtherKey="billid")]
-		public EntitySet<BILLDETAIL> BILLDETAILs
-		{
-			get
-			{
-				return this._BILLDETAILs;
-			}
-			set
-			{
-				this._BILLDETAILs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="USER_BILL", Storage="_USER", ThisKey="userid", OtherKey="id", IsForeignKey=true)]
-		public USER USER
-		{
-			get
-			{
-				return this._USER.Entity;
-			}
-			set
-			{
-				USER previousValue = this._USER.Entity;
-				if (((previousValue != value) 
-							|| (this._USER.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._USER.Entity = null;
-						previousValue.BILLs.Remove(this);
-					}
-					this._USER.Entity = value;
-					if ((value != null))
-					{
-						value.BILLs.Add(this);
-						this._userid = value.id;
-					}
-					else
-					{
-						this._userid = default(int);
-					}
-					this.SendPropertyChanged("USER");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_BILLDETAILs(BILLDETAIL entity)
-		{
-			this.SendPropertyChanging();
-			entity.BILL = this;
-		}
-		
-		private void detach_BILLDETAILs(BILLDETAIL entity)
-		{
-			this.SendPropertyChanging();
-			entity.BILL = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BILLDETAIL")]
-	public partial class BILLDETAIL : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _billid;
-		
-		private int _productid;
-		
-		private System.Nullable<int> _quantity;
-		
-		private System.Nullable<decimal> _unitprice;
-		
-		private EntityRef<BILL> _BILL;
-		
-		private EntityRef<PRODUCT> _PRODUCT;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnbillidChanging(int value);
-    partial void OnbillidChanged();
-    partial void OnproductidChanging(int value);
-    partial void OnproductidChanged();
-    partial void OnquantityChanging(System.Nullable<int> value);
-    partial void OnquantityChanged();
-    partial void OnunitpriceChanging(System.Nullable<decimal> value);
-    partial void OnunitpriceChanged();
-    #endregion
-		
-		public BILLDETAIL()
-		{
-			this._BILL = default(EntityRef<BILL>);
-			this._PRODUCT = default(EntityRef<PRODUCT>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_billid", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int billid
-		{
-			get
-			{
-				return this._billid;
-			}
-			set
-			{
-				if ((this._billid != value))
-				{
-					if (this._BILL.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnbillidChanging(value);
-					this.SendPropertyChanging();
-					this._billid = value;
-					this.SendPropertyChanged("billid");
-					this.OnbillidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productid", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int productid
-		{
-			get
-			{
-				return this._productid;
-			}
-			set
-			{
-				if ((this._productid != value))
-				{
-					if (this._PRODUCT.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnproductidChanging(value);
-					this.SendPropertyChanging();
-					this._productid = value;
-					this.SendPropertyChanged("productid");
-					this.OnproductidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
-		public System.Nullable<int> quantity
-		{
-			get
-			{
-				return this._quantity;
-			}
-			set
-			{
-				if ((this._quantity != value))
-				{
-					this.OnquantityChanging(value);
-					this.SendPropertyChanging();
-					this._quantity = value;
-					this.SendPropertyChanged("quantity");
-					this.OnquantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unitprice", DbType="Money")]
-		public System.Nullable<decimal> unitprice
-		{
-			get
-			{
-				return this._unitprice;
-			}
-			set
-			{
-				if ((this._unitprice != value))
-				{
-					this.OnunitpriceChanging(value);
-					this.SendPropertyChanging();
-					this._unitprice = value;
-					this.SendPropertyChanged("unitprice");
-					this.OnunitpriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BILL_BILLDETAIL", Storage="_BILL", ThisKey="billid", OtherKey="id", IsForeignKey=true)]
-		public BILL BILL
-		{
-			get
-			{
-				return this._BILL.Entity;
-			}
-			set
-			{
-				BILL previousValue = this._BILL.Entity;
-				if (((previousValue != value) 
-							|| (this._BILL.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BILL.Entity = null;
-						previousValue.BILLDETAILs.Remove(this);
-					}
-					this._BILL.Entity = value;
-					if ((value != null))
-					{
-						value.BILLDETAILs.Add(this);
-						this._billid = value.id;
-					}
-					else
-					{
-						this._billid = default(int);
-					}
-					this.SendPropertyChanged("BILL");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_BILLDETAIL", Storage="_PRODUCT", ThisKey="productid", OtherKey="id", IsForeignKey=true)]
-		public PRODUCT PRODUCT
-		{
-			get
-			{
-				return this._PRODUCT.Entity;
-			}
-			set
-			{
-				PRODUCT previousValue = this._PRODUCT.Entity;
-				if (((previousValue != value) 
-							|| (this._PRODUCT.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PRODUCT.Entity = null;
-						previousValue.BILLDETAILs.Remove(this);
-					}
-					this._PRODUCT.Entity = value;
-					if ((value != null))
-					{
-						value.BILLDETAILs.Add(this);
-						this._productid = value.id;
-					}
-					else
-					{
-						this._productid = default(int);
-					}
-					this.SendPropertyChanged("PRODUCT");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CATEGORY")]
-	public partial class CATEGORY : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _id;
-		
-		private string _name;
-		
-		private EntitySet<PRODUCT> _PRODUCTs;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(string value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    #endregion
-		
-		public CATEGORY()
-		{
-			this._PRODUCTs = new EntitySet<PRODUCT>(new Action<PRODUCT>(this.attach_PRODUCTs), new Action<PRODUCT>(this.detach_PRODUCTs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_PRODUCTs", ThisKey="id", OtherKey="categoryid")]
-		public EntitySet<PRODUCT> PRODUCTs
-		{
-			get
-			{
-				return this._PRODUCTs;
-			}
-			set
-			{
-				this._PRODUCTs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PRODUCTs(PRODUCT entity)
-		{
-			this.SendPropertyChanging();
-			entity.CATEGORY = this;
-		}
-		
-		private void detach_PRODUCTs(PRODUCT entity)
-		{
-			this.SendPropertyChanging();
-			entity.CATEGORY = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IMAGE")]
-	public partial class IMAGE : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _productid;
-		
-		private string _path;
-		
-		private EntityRef<PRODUCT> _PRODUCT;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnproductidChanging(int value);
-    partial void OnproductidChanged();
-    partial void OnpathChanging(string value);
-    partial void OnpathChanged();
-    #endregion
-		
-		public IMAGE()
-		{
-			this._PRODUCT = default(EntityRef<PRODUCT>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productid", DbType="Int NOT NULL")]
-		public int productid
-		{
-			get
-			{
-				return this._productid;
-			}
-			set
-			{
-				if ((this._productid != value))
-				{
-					if (this._PRODUCT.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnproductidChanging(value);
-					this.SendPropertyChanging();
-					this._productid = value;
-					this.SendPropertyChanged("productid");
-					this.OnproductidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_path", DbType="VarChar(100)")]
-		public string path
-		{
-			get
-			{
-				return this._path;
-			}
-			set
-			{
-				if ((this._path != value))
-				{
-					this.OnpathChanging(value);
-					this.SendPropertyChanging();
-					this._path = value;
-					this.SendPropertyChanged("path");
-					this.OnpathChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_IMAGE", Storage="_PRODUCT", ThisKey="productid", OtherKey="id", IsForeignKey=true)]
-		public PRODUCT PRODUCT
-		{
-			get
-			{
-				return this._PRODUCT.Entity;
-			}
-			set
-			{
-				PRODUCT previousValue = this._PRODUCT.Entity;
-				if (((previousValue != value) 
-							|| (this._PRODUCT.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PRODUCT.Entity = null;
-						previousValue.IMAGEs.Remove(this);
-					}
-					this._PRODUCT.Entity = value;
-					if ((value != null))
-					{
-						value.IMAGEs.Add(this);
-						this._productid = value.id;
-					}
-					else
-					{
-						this._productid = default(int);
-					}
-					this.SendPropertyChanged("PRODUCT");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<CATEGORY>();
 			}
 		}
 	}
@@ -1136,8 +113,6 @@ namespace FloralHaven.Models
 		private string _description;
 		
 		private System.Nullable<int> _instock;
-		
-		private EntitySet<BILLDETAIL> _BILLDETAILs;
 		
 		private EntitySet<IMAGE> _IMAGEs;
 		
@@ -1169,7 +144,6 @@ namespace FloralHaven.Models
 		
 		public PRODUCT()
 		{
-			this._BILLDETAILs = new EntitySet<BILLDETAIL>(new Action<BILLDETAIL>(this.attach_BILLDETAILs), new Action<BILLDETAIL>(this.detach_BILLDETAILs));
 			this._IMAGEs = new EntitySet<IMAGE>(new Action<IMAGE>(this.attach_IMAGEs), new Action<IMAGE>(this.detach_IMAGEs));
 			this._CATEGORY = default(EntityRef<CATEGORY>);
 			OnCreated();
@@ -1359,19 +333,6 @@ namespace FloralHaven.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_BILLDETAIL", Storage="_BILLDETAILs", ThisKey="id", OtherKey="productid")]
-		public EntitySet<BILLDETAIL> BILLDETAILs
-		{
-			get
-			{
-				return this._BILLDETAILs;
-			}
-			set
-			{
-				this._BILLDETAILs.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_IMAGE", Storage="_IMAGEs", ThisKey="id", OtherKey="productid")]
 		public EntitySet<IMAGE> IMAGEs
 		{
@@ -1439,18 +400,6 @@ namespace FloralHaven.Models
 			}
 		}
 		
-		private void attach_BILLDETAILs(BILLDETAIL entity)
-		{
-			this.SendPropertyChanging();
-			entity.PRODUCT = this;
-		}
-		
-		private void detach_BILLDETAILs(BILLDETAIL entity)
-		{
-			this.SendPropertyChanging();
-			entity.PRODUCT = null;
-		}
-		
 		private void attach_IMAGEs(IMAGE entity)
 		{
 			this.SendPropertyChanging();
@@ -1464,27 +413,19 @@ namespace FloralHaven.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[USER]")]
-	public partial class USER : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IMAGE")]
+	public partial class IMAGE : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _id;
 		
-		private string _email;
+		private int _productid;
 		
-		private string _password;
+		private string _path;
 		
-		private string _firstname;
-		
-		private string _lastname;
-		
-		private bool _isadmin;
-		
-		private EntitySet<ADDRESS> _ADDRESSes;
-		
-		private EntitySet<BILL> _BILLs;
+		private EntityRef<PRODUCT> _PRODUCT;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1492,22 +433,15 @@ namespace FloralHaven.Models
     partial void OnCreated();
     partial void OnidChanging(int value);
     partial void OnidChanged();
-    partial void OnemailChanging(string value);
-    partial void OnemailChanged();
-    partial void OnpasswordChanging(string value);
-    partial void OnpasswordChanged();
-    partial void OnfirstnameChanging(string value);
-    partial void OnfirstnameChanged();
-    partial void OnlastnameChanging(string value);
-    partial void OnlastnameChanged();
-    partial void OnisadminChanging(bool value);
-    partial void OnisadminChanged();
+    partial void OnproductidChanging(int value);
+    partial void OnproductidChanged();
+    partial void OnpathChanging(string value);
+    partial void OnpathChanged();
     #endregion
 		
-		public USER()
+		public IMAGE()
 		{
-			this._ADDRESSes = new EntitySet<ADDRESS>(new Action<ADDRESS>(this.attach_ADDRESSes), new Action<ADDRESS>(this.detach_ADDRESSes));
-			this._BILLs = new EntitySet<BILL>(new Action<BILL>(this.attach_BILLs), new Action<BILL>(this.detach_BILLs));
+			this._PRODUCT = default(EntityRef<PRODUCT>);
 			OnCreated();
 		}
 		
@@ -1531,129 +465,183 @@ namespace FloralHaven.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(320) NOT NULL", CanBeNull=false)]
-		public string email
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productid", DbType="Int NOT NULL")]
+		public int productid
 		{
 			get
 			{
-				return this._email;
+				return this._productid;
 			}
 			set
 			{
-				if ((this._email != value))
+				if ((this._productid != value))
 				{
-					this.OnemailChanging(value);
+					if (this._PRODUCT.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnproductidChanging(value);
 					this.SendPropertyChanging();
-					this._email = value;
-					this.SendPropertyChanged("email");
-					this.OnemailChanged();
+					this._productid = value;
+					this.SendPropertyChanged("productid");
+					this.OnproductidChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="Char(128) NOT NULL", CanBeNull=false)]
-		public string password
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_path", DbType="VarChar(100)")]
+		public string path
 		{
 			get
 			{
-				return this._password;
+				return this._path;
 			}
 			set
 			{
-				if ((this._password != value))
+				if ((this._path != value))
 				{
-					this.OnpasswordChanging(value);
+					this.OnpathChanging(value);
 					this.SendPropertyChanging();
-					this._password = value;
-					this.SendPropertyChanged("password");
-					this.OnpasswordChanged();
+					this._path = value;
+					this.SendPropertyChanged("path");
+					this.OnpathChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstname", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string firstname
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_IMAGE", Storage="_PRODUCT", ThisKey="productid", OtherKey="id", IsForeignKey=true)]
+		public PRODUCT PRODUCT
 		{
 			get
 			{
-				return this._firstname;
+				return this._PRODUCT.Entity;
 			}
 			set
 			{
-				if ((this._firstname != value))
+				PRODUCT previousValue = this._PRODUCT.Entity;
+				if (((previousValue != value) 
+							|| (this._PRODUCT.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnfirstnameChanging(value);
 					this.SendPropertyChanging();
-					this._firstname = value;
-					this.SendPropertyChanged("firstname");
-					this.OnfirstnameChanged();
+					if ((previousValue != null))
+					{
+						this._PRODUCT.Entity = null;
+						previousValue.IMAGEs.Remove(this);
+					}
+					this._PRODUCT.Entity = value;
+					if ((value != null))
+					{
+						value.IMAGEs.Add(this);
+						this._productid = value.id;
+					}
+					else
+					{
+						this._productid = default(int);
+					}
+					this.SendPropertyChanged("PRODUCT");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lastname", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string lastname
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CATEGORY")]
+	public partial class CATEGORY : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _id;
+		
+		private string _name;
+		
+		private EntitySet<PRODUCT> _PRODUCTs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(string value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    #endregion
+		
+		public CATEGORY()
+		{
+			this._PRODUCTs = new EntitySet<PRODUCT>(new Action<PRODUCT>(this.attach_PRODUCTs), new Action<PRODUCT>(this.detach_PRODUCTs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string id
 		{
 			get
 			{
-				return this._lastname;
+				return this._id;
 			}
 			set
 			{
-				if ((this._lastname != value))
+				if ((this._id != value))
 				{
-					this.OnlastnameChanging(value);
+					this.OnidChanging(value);
 					this.SendPropertyChanging();
-					this._lastname = value;
-					this.SendPropertyChanged("lastname");
-					this.OnlastnameChanged();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isadmin", DbType="Bit NOT NULL")]
-		public bool isadmin
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string name
 		{
 			get
 			{
-				return this._isadmin;
+				return this._name;
 			}
 			set
 			{
-				if ((this._isadmin != value))
+				if ((this._name != value))
 				{
-					this.OnisadminChanging(value);
+					this.OnnameChanging(value);
 					this.SendPropertyChanging();
-					this._isadmin = value;
-					this.SendPropertyChanged("isadmin");
-					this.OnisadminChanged();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="USER_ADDRESS", Storage="_ADDRESSes", ThisKey="id", OtherKey="customerid")]
-		public EntitySet<ADDRESS> ADDRESSes
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_PRODUCTs", ThisKey="id", OtherKey="categoryid")]
+		public EntitySet<PRODUCT> PRODUCTs
 		{
 			get
 			{
-				return this._ADDRESSes;
+				return this._PRODUCTs;
 			}
 			set
 			{
-				this._ADDRESSes.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="USER_BILL", Storage="_BILLs", ThisKey="id", OtherKey="userid")]
-		public EntitySet<BILL> BILLs
-		{
-			get
-			{
-				return this._BILLs;
-			}
-			set
-			{
-				this._BILLs.Assign(value);
+				this._PRODUCTs.Assign(value);
 			}
 		}
 		
@@ -1677,28 +665,16 @@ namespace FloralHaven.Models
 			}
 		}
 		
-		private void attach_ADDRESSes(ADDRESS entity)
+		private void attach_PRODUCTs(PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.USER = this;
+			entity.CATEGORY = this;
 		}
 		
-		private void detach_ADDRESSes(ADDRESS entity)
+		private void detach_PRODUCTs(PRODUCT entity)
 		{
 			this.SendPropertyChanging();
-			entity.USER = null;
-		}
-		
-		private void attach_BILLs(BILL entity)
-		{
-			this.SendPropertyChanging();
-			entity.USER = this;
-		}
-		
-		private void detach_BILLs(BILL entity)
-		{
-			this.SendPropertyChanging();
-			entity.USER = null;
+			entity.CATEGORY = null;
 		}
 	}
 }

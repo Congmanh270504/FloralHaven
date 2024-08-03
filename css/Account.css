@@ -1,0 +1,60 @@
+:root {
+	--color-field-background: #ffffff;
+	--color-border: #dedede;
+	--color-primary: #000;
+}
+
+.notification {
+	align-items: center;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	display: flex;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	max-height: 0;
+	opacity: 0;
+	padding: 0 0.75rem;
+}
+
+.notification.show {
+	max-height: 96px;
+	opacity: 1;
+	padding: 0.5rem 0.75rem;
+	transition:
+		max-height 0.3s,
+		padding 0.3s,
+		opacity 0.3s 0.2s;
+}
+
+.notification.success {
+	background-color: #eaf7e6;
+	color: #3a8735;
+}
+
+.page-header {
+	padding: 2rem 1rem;
+	text-align: center;
+}
+
+.page-header__title {
+	font-size: 1.875rem;
+	font-weight: 600;
+	line-height: 2.25rem;
+}
+
+.customer__nav > a {
+	color: #666;
+	margin-bottom: 0.75rem;
+}
+
+.customer__nav > a.active {
+	color: #000;
+	font-weight: 700;
+}
+
+.customer__nav > a:hover {
+	color: #000;
+}
+
+.text-color-secondary {
+	color: #666;
+}
