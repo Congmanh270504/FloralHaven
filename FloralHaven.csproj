@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressSSLPort>44354</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -207,13 +207,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-<<<<<<< HEAD
-    <Compile Include="Controllers\AdminController.cs" />
-=======
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
->>>>>>> origin/Nora
     <Compile Include="Controllers\FloralHavenDBContextConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -553,11 +549,6 @@
     <Content Include="lib\wow\wow.js" />
     <Content Include="lib\wow\wow.min.js" />
     <Content Include="Movie\Y2meta.app-Blüher 2-%281080p%29.mp4" />
-    <Content Include="Models\FloralHaven.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>FloralHaven.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\Slick\fonts\slick.eot" />
     <Content Include="Content\Slick\fonts\slick.ttf" />
     <Content Include="Content\Slick\fonts\slick.woff" />
@@ -591,9 +582,6 @@
     <Content Include="adminassets\json\locales\en.json" />
     <Content Include="adminassets\json\search-vertical.json" />
     <Content Include="adminassets\vendor\fonts\tabler\tabler-icons.woff2" />
-    <None Include="Models\FloralHaven.dbml.layout">
-      <DependentUpon>FloralHaven.dbml</DependentUpon>
-    </None>
     <Content Include="README.md" />
     <Content Include="Properties\ServiceDependencies\floralhaven - Web Deploy\mssql1.arm.json" />
     <Content Include="Properties\ServiceDependencies\floralhaven - Web Deploy\profile.arm.json" />
@@ -606,6 +594,14 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Models\FloralHaven.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>FloralHaven.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\FloralHaven.dbml.layout">
+      <DependentUpon>FloralHaven.dbml</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\floralhaven - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
@@ -659,7 +655,7 @@
     <Content Include="Views\Shared\_CartPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Pages\About.cshtml" />
-    <Content Include="Views\Pages\BookingMenu.cshtml" />
+    <Content Include="Views\Pages\Booking.cshtml" />
     <Content Include="Views\Pages\Contact.cshtml" />
     <Content Include="Views\Pages\Intro.cshtml" />
     <Content Include="Views\Pages\Menu.cshtml" />
@@ -670,22 +666,6 @@
     <Content Include="Views\Pages\_SubmenuProductList.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Pages\TeamMember.cshtml" />
-    <Content Include="Views\Pages\Intro.cshtml" />
-    <Content Include="Views\Pages\_SubmenuProductList.cshtml" />
-    <Content Include="Views\Pages\Menu.cshtml" />
-    <Content Include="Views\Pages\SubMenu.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\Delete.cshtml" />
-    <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Pages\Booking.cshtml" />
-    <Content Include="Views\Pages\Team.cshtml" />
-    <Content Include="Views\Admin\Create.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Admin\CreateNewCategoryItem.cshtml" />
-=======
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.esm.min.js.map" />
@@ -698,7 +678,11 @@
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
->>>>>>> origin/Nora
+    <Content Include="Views\Pages\BookingMenu.cshtml" />
+    <Content Include="Views\Pages\TeamMember.cshtml" />
+    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\Admin\CreateNewCategoryItem.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

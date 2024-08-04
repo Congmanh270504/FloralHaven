@@ -28,7 +28,7 @@
                 @*<button type="button" class="btn-play" data-bs-toggle="modal" data-src="~/Movie/Y2meta.app-Bl%c3%bcher%202-(1080p).mp4" data-bs-target="#videoModal">
                         <span></span>
                     </button>*@
-                <video autoplay muted loop class="w-100 h-100">
+                <video autoplay muted loop class="w-100 h-100 object-cover">
                     <source src="~/Movie/Y2meta.app-Bl%c3%bcher%202-(1080p).mp4" type="video/mp4" />
                 </video>
             </div>
@@ -41,7 +41,7 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                <input type="text" class="form-control" id="name" placeholder="Your Name" name="txtName">
                                 <label for="name">Your Name</label>
                             </div>
                         </div>
@@ -53,8 +53,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating date" id="date3" data-target-input="nearest">
-                                <input type="text" class="form-control" id="flower" placeholder="Flower Name" />
-                                <label for="flower">Flower Name</label>
+                                <input type="email" class="form-control" id="email" placeholder="Your Email" />
+                                <label for="email">Email</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -88,7 +88,7 @@
     <div class="modal-dialog">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Flower Video</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

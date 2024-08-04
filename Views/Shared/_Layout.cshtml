@@ -15,7 +15,6 @@
     <link href="~/lib/animate/animate.min.css" rel="stylesheet">
     <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Customized Bootstrap Stylesheet -->
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link href="~/css/custombootstrap.min.css" rel="stylesheet">
@@ -80,44 +79,7 @@
         <main role="main" id="MainContent">
             @RenderSection("Hero", required: false)
 
-<<<<<<< HEAD
-                        <div class="nav-item dropdown">
-                            @if (currentPage == "pages-quick menu" || currentPage == "pages-all product")
-                            {
-                                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Shop</a>
-                            }
-                            else
-                            {
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-                            }
-                            <div class="dropdown-menu m-0">
-                                @Html.ActionLink("Quick Menu", "Menu", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-booking" ? " active" : "") })
-                                @Html.ActionLink("All Product", "Index", "Product", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-team" ? " active" : "") })
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            @if (currentPage == "pages-booking" || currentPage == "pages-team" || currentPage == "pages-testimonial")
-                            {
-                                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
-                            }
-                            else
-                            {
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            }
-                            <div class="dropdown-menu m-0">
-                                @Html.ActionLink("Booking", "Booking", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-booking" ? " active" : "") })
-                                @Html.ActionLink("Our Team", "Team", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-team" ? " active" : "") })
-                                @Html.ActionLink("Testimonial", "Testimonial", "Pages", new { area = "" }, new { @class = "dropdown-item" + (currentPage == "pages-testimonial" ? " active" : "") })
-                            </div>
-                        </div>
-                        @Html.ActionLink("Contact", "Contact", "Pages", new { area = "" }, new { @class = "nav-item nav-link" + (currentPage == "pages-menu" ? " active" : "") })
-                    </div>
-                    @Html.ActionLink("Log In", "Login", "User", new { area = "" }, new { @class = "button-75" })
-                </div>
-            </nav>
-=======
             @RenderBody()
->>>>>>> origin/Nora
 
             @Html.Partial("_CartPartial")
         </main>
