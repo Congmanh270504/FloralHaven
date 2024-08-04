@@ -9,6 +9,8 @@ namespace FloralHaven
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.MapMvcAttributeRoutes();
+
 			routes.MapRoute(
 				name: "ProductIndex",
 				url: "Product",

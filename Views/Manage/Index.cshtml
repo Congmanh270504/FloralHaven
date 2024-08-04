@@ -84,6 +84,14 @@
                         }
                     }*@
             </dd>
+            <dt>Log out</dt>
+            <dd>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Log out" class="btn btn-link btn-primary" />
+                }
+            </dd>
         </dl>
     </div>
 </main>

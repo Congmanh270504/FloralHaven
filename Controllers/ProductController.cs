@@ -67,6 +67,15 @@ namespace FloralHaven.Controllers
 		}
 
 		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/Create")]
+		public ActionResult Create()
+		{
+			ViewBag.CategoryID = new SelectList(_db.CATEGORies, "id", "name");
+			return View();
+		}
+
+		[HttpGet]
 		[Route("Product/{handle}")]
 		public ActionResult Product(string handle)
 		{
@@ -84,14 +93,6 @@ namespace FloralHaven.Controllers
 			string CategoryName = (_db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid)?.name) ?? "";
 			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);
 			return View(productViewModel);
-		}
-
-		[HttpGet]
-		[Authorize(Roles = "Admin")]
-		public ActionResult Create()
-		{
-			ViewBag.CategoryID = new SelectList(_db.CATEGORies, "id", "name");
-			return View();
 		}
 	}
 }

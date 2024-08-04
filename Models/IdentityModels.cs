@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace FloralHaven.Models
 {
@@ -52,7 +54,30 @@ namespace FloralHaven.Models
 		{
 			return new ApplicationDbContext();
 		}
+	}
 
+	public class CustomAuthorize : AuthorizeAttribute
+	{
+		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+		{
+			ViewResult viewResult = new ViewResult();
+			viewResult.ViewName = "AccessDenied";
 
+			// Set the result of the filter context to the view result
+			filterContext.Result = viewResult;
+			filterContext.HttpContext.Response.StatusCode = 403;
+		}
+
+		public override void OnAuthorization(AuthorizationContext filterContext)
+		{
+			if (this.AuthorizeCore(filterContext.HttpContext))
+			{
+				base.OnAuthorization(filterContext);
+			}
+			else
+			{
+				this.HandleUnauthorizedRequest(filterContext);
+			}
+		}
 	}
 }
