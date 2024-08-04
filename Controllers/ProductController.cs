@@ -66,7 +66,15 @@ namespace FloralHaven.Controllers
 			return View(pagedList);
 		}
 
-		// URL
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/Create")]
+		public ActionResult Create()
+		{
+			ViewBag.CategoryID = new SelectList(_db.CATEGORies, "id", "name");
+			return View();
+		}
+
 		[HttpGet]
 		[Route("Product/{handle}")]
 		public ActionResult Product(string handle)
@@ -74,7 +82,9 @@ namespace FloralHaven.Controllers
 			var product = _db.PRODUCTs.FirstOrDefault(p => p.handle == handle);
 			if (product == null)
 			{
-				return HttpNotFound();
+				Response.StatusCode = 404;
+				ViewBag.StatusCode = 404;
+				return View("NotFound");
 			}
 			ViewBag.Title = product.title + "- FloralHaven";
 			string _imgPath = _imgPrefix + product.handle + "/";

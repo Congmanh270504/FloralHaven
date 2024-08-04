@@ -1,0 +1,350 @@
+﻿<section class="section-header">
+    <header class="header | inset-x-0 z-[70] header__wrapper">
+        <div class="desktop-header | hidden lg:block bg-white border-b border-[#ddd]">
+            <div class="header_top | container">
+                <div class="logo-bar | flex -mx-4 items-center py-2">
+                    <div class="logo | px-4 justify-center scroll-animation" data-animation="animate-fade" data-once="true">
+                        <a href="@Url.Action("Index", "Home")" class="logo-img | block relative" style="width: 290px" title="Floral Haven">
+                            <h1 class="text-primary m-0 flex text-4xl">Floral Haven <img width="45" height="45" src="https://img.icons8.com/doodle/48/spa-flower.png" alt="Floral Haven" /></h1>
+                        </a>
+                    </div>
+                    <div class="w-2/3 flex flex-grow justify-end items-center">
+                        <div class="flex flex-grow justify-end items-center">
+                            <form id="menu-form-search" action="/pages/search-result" method="get" role="search" novalidate class="search-form | relative w-full md:mx-10 flex border-2 border-black rounded">
+                                <input type="search" name="s" id="s" required autocomplete="off" placeholder="Search products" aria-label="Search products" class="search-input | w-full h-11 border-none" />
+                                <button type="submit" class="search-submit | absolute top-px right-0 py-1 px-2">
+                                    <svg class="w-[2.15rem] h-[2.15rem]" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path>
+                                    </svg>
+                                </button>
+                                <div class="searchResults | absolute w-full top-12 p-0 mt-2 z-50 bg-white hidden">
+                                    <div class="searchResults__content"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <a href="@Url.Action("Cart", "Home")" class="btn-cart | pl-4 pr-2 py-3.5">
+                            <div class="tooltip-item block tooltip-bottom tooltip-style-2">
+                                <div class="badge">
+                                    <svg class="w-[2.15rem] h-[2.15rem]" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                                        <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2zM6.16 6h12.15l-2.76 5H8.53zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2m10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2"></path>
+                                    </svg>
+                                    <span class="badge-inner"></span>
+                                </div>
+                                <span class="tooltip-content">Cart</span>
+                            </div>
+                        </a>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+            <div class="header_bottom">
+                <nav class="menu-wrapper__desktop | container flex items-center">
+                    <ul class="menu-nav | flex flex-wrap font-medium whitespace-nowrap -ml-[20px] w-full relative justify-between">
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Product")">
+                                Tất cả sản phẩm
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="2">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="">
+                                Hoa chúc mừng
+                                <svg class="menu__arrow | ml-2 w-6 h-6" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>
+                            </a>
+                            <div class="menu__submenu menu__desktop-sub-menu menu__dropdown | pointer-events-none absolute z-50 inset-x-0 bg-white w-full opacity-0 invisible min-w-max">
+                                <div class="menu__inner">
+                                    <div class="mx-auto">
+                                        <div class="submenu__content | flex p-4">
+                                            <ul class="submenu-items | flex flex-col w-full">
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "hoa-chuc-mung" })" class="submenu-link | whitespace-normal block">
+                                                        Hoa Chúc Mừng
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-nha-giao-viet-nam-20-11" })" class="submenu-link | whitespace-normal block">
+                                                        Ngày nhà giáo Việt Nam 20/11
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-phu-nu-viet-nam-20-10" })" class="submenu-link | whitespace-normal block">
+                                                        Ngày phụ nữ Việt Nam 20/10
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-quoc-te-phu-nu-8-3" })" class="submenu-link | whitespace-normal block">
+                                                        Ngày quốc tế phụ nữ 8/3
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-cha" })" class="submenu-link | whitespace-normal block">
+                                                        Ngày của cha
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-me" })" class="submenu-link | whitespace-normal block">
+                                                        Ngày của mẹ
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="2">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="">
+                                Ngày Lễ
+                                <svg class="menu__arrow | ml-2 w-6 h-6" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>
+                            </a>
+                            <div class="menu__submenu menu__desktop-sub-menu menu__dropdown | pointer-events-none absolute z-50 inset-x-0 bg-white w-full opacity-0 invisible min-w-max">
+                                <div class="menu__inner">
+                                    <div class="mx-auto">
+                                        <div class="submenu__content | flex p-4">
+                                            <ul class="submenu-items | flex flex-col w-full">
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "hoa-tet" })" class="submenu-link | whitespace-normal block">
+                                                        Hoa tết
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "giang-sinh" })" class="submenu-link | whitespace-normal block">
+                                                        Giáng sinh
+                                                    </a>
+                                                </li>
+                                                <li class="submenu-item | list-none w-full leading-9">
+                                                    <a href="@Url.Action("Category", "Category", new { id = "valentine" })" class="submenu-link | whitespace-normal block">
+                                                        Valentine
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "hoa-tang-hoa-dich-vu"})">
+                                Hoa tặng
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "lan-ho-diep"})">
+                                Lan hồ điệp
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "cay-xanh"})">
+                                Cây xanh
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "phu-lieu-hoa"})">
+                                Phụ liệu hoa
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="mobile-header | flex lg:hidden container-fluid bg-white items-center border-b border-[#ddd}">
+            <button class="menu-button | flex" aria-label="Main Menu">
+                <svg class="w-[2.1875rem] h-[2.1875rem]" fill="none" stroke="black" viewBox="0 0 100 100">
+                    <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+                    <path class="line line2" d="M 20,50 H 80" />
+                    <path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+                </svg>
+            </button>
+            <div class="logo--mobile | ml-2">
+                <a href="@Url.Action("Index", "Home")" class="flex w-full relative" title="Floral Haven">
+                    <h1 class="text-primary m-0 flex"><img width="45" height="45" src="https://img.icons8.com/doodle/48/spa-flower.png" alt="Floral Haven" /></h1>
+                </a>
+            </div>
+            <div class="w-1/4 flex flex-1 items-center justify-end">
+                <button class="search-popup | flex justify-center items-center snize-custom-widget-opener p-2">
+                    <svg class="w-[2.15rem] h-[2.15rem]" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path>
+                    </svg>
+                </button>
+                <a href="@Url.Action("Cart", "Home")" class="btn-cart cart-popup | relative py-2 px-2 whitespace-nowrap cursor-pointer">
+                    <div class="badge">
+                        <svg class="w-[2.15rem] h-[2.15rem]" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2zM6.16 6h12.15l-2.76 5H8.53zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2m10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2"></path>
+                        </svg>
+                        <span class="badge-inner"></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="menu-offcanvas offcanvas offcanvas-left | lg:hidden touch-none fixed z-[60] inset-0 transition-colors duration-300 bg-black" style="--tw-bg-opacity: 0.3">
+        <div class="menu-content__wrapper | overscroll-contain transition-transform duration-300 w-[450px] z-50 bg-white text-black overflow-x-hidden h-full">
+            <div class="flex flex-col">
+                <div class="menu-content | flex-grow flex flex-col justify-between transition-all opacity-100 duration-300">
+                    <ul class="menu-links | w-full pt-8">
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Index", "Product")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Tất cả sản phẩm</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="" class="w-full px-4 py-3 flex items-center justify-between relative pointer-events-none">
+                                <span>Hoa chúc mừng</span>
+                            </a>
+                            <span class="toggle-submenu-mb | flex items-center justify-center">
+                                <svg class="w-[16px] h-[16px]"
+                                     fill="currentColor"
+                                     stroke="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 256 512">
+                                    <path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z" />
+                                </svg>
+                            </span>
+                            <div class="sub-links | absolute inset-y-0 bg-white flex-col left-full w-full flex hidden">
+                                <div class="h-full overscroll-contain">
+                                    <button class="back-btn | p-4 font-medium flex items-center">
+                                        <svg class="w-[16px] h-[16px]"
+                                             fill="currentColor"
+                                             stroke="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 256 512">
+                                            <path d="m238.475 36.465 7.071 7.07c4.686 4.686 4.686 12.284 0 16.971L50.053 256l195.493 195.494c4.686 4.686 4.686 12.284 0 16.971l-7.071 7.07c-4.686 4.686-12.284 4.686-16.97 0L10.454 264.485c-4.686-4.686-4.686-12.284 0-16.971L221.505 36.465c4.686-4.687 12.284-4.687 16.97 0" />
+                                        </svg>
+                                        <span class="ml-3">
+                                            Back
+                                        </span>
+                                    </button>
+                                    <ul class="sub-links--2 | pb-4">
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "hoa-chuc-mung" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Hoa Chúc Mừng
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-nha-giao-viet-nam-20-11" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Ngày nhà giáo Việt Nam 20/11
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-phu-nu-viet-nam-20-10" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Ngày phụ nữ Việt Nam 20/10
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-quoc-te-phu-nu-8-3" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Ngày quốc tế phụ nữ 8/3
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-cha" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Ngày của cha
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-me" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Ngày của mẹ
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="" class="w-full px-4 py-3 flex items-center justify-between relative pointer-events-none">
+                                <span>Ngày lễ</span>
+                            </a>
+                            <span class="toggle-submenu-mb | flex items-center justify-center">
+                                <svg class="w-[16px] h-[16px]"
+                                     fill="currentColor"
+                                     stroke="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 256 512">
+                                    <path d="M17.525 36.465l-7.071 7.07c-4.686 4.686-4.686 12.284 0 16.971L205.947 256 10.454 451.494c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l211.051-211.05c4.686-4.686 4.686-12.284 0-16.971L34.495 36.465c-4.686-4.687-12.284-4.687-16.97 0z" />
+                                </svg>
+                            </span>
+                            <div class="sub-links | absolute inset-y-0 bg-white flex-col left-full w-full flex hidden">
+                                <div class="h-full overscroll-contain">
+                                    <button class="back-btn | p-4 font-medium flex items-center">
+                                        <svg class="w-[16px] h-[16px]"
+                                             fill="currentColor"
+                                             stroke="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 256 512">
+                                            <path d="m238.475 36.465 7.071 7.07c4.686 4.686 4.686 12.284 0 16.971L50.053 256l195.493 195.494c4.686 4.686 4.686 12.284 0 16.971l-7.071 7.07c-4.686 4.686-12.284 4.686-16.97 0L10.454 264.485c-4.686-4.686-4.686-12.284 0-16.971L221.505 36.465c4.686-4.687 12.284-4.687 16.97 0" />
+                                        </svg>
+                                        <span class="ml-3">
+                                            Back
+                                        </span>
+                                    </button>
+                                    <ul class="sub-links--2 | pb-4">
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "hoa-tet" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Hoa tết
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "giang-sinh" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Giáng sinh
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-link | list-none flex items-center">
+                                            <a href="@Url.Action("Category", "Category", new { id = "valentine" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                                <span>
+                                                    Valentine
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Category", "Category", new { id = "hoa-tang-hoa-dich-vu"})" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Hoa tặng</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Category", "Category", new { id = "lan-ho-diep"})" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Lan hồ điệp</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Category", "Category", new { id = "cay-xanh"})" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Cây xanh</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Category", "Category", new { id = "phu-lieu-hoa"})" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Phụ liệu hoa</span>
+                            </a>
+                        </li>
+                    </ul>
+                    @Html.Partial("_AccountBlockPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/Navbar.js"></script>
+</section>

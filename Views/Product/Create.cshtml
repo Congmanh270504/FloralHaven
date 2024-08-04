@@ -1,86 +1,248 @@
-﻿@model FloralHaven.Models.HOA
+﻿@model FloralHaven.Models.PRODUCT
 
 @{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+@section scripts{
+    <script src="~/adminassets/js/product-add.js"></script>
 
+}
 
-@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>HOA</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.MAHOA, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MAHOA, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MAHOA, "", new { @class = "text-danger" })
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="app-ecommerce">
+        <!-- Add Product -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+            <div class="d-flex flex-column justify-content-center">
+                <h4 class="mb-1">Add a new Product</h4>
+                <p class="mb-0">Orders placed across your store</p>
+            </div>
+            <div class="d-flex align-content-center flex-wrap gap-4">
+                <div class="d-flex gap-4">
+                    <button class="btn btn-label-secondary">Discard</button>                    
+                </div>
+                <button type="submit" class="btn btn-primary">Publish product</button>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.TENHOA, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TENHOA, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TENHOA, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IMG, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" name="file" />
-            @ViewBag.Thongbao
-        </div>
-    </div>
+        <div class="row">
+            <!-- First column-->
+            <div class="col-12 col-lg-8">
+                <!-- Product Information -->
+                <div class="card mb-6">
+                    <div class="card-header">
+                        <h5 class="card-tile mb-0">Product information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-6">
+                            <label class="form-label" for="ecommerce-product-name">Name</label>
+                            <input type="text" class="form-control" id="ecommerce-product-name" placeholder="Product title" name="productTitle" aria-label="Product title" />
+                        </div>
+                        <div class="mb-6">
+                            <label class="form-label" for="ecommerce-product-name">Handle</label>
+                            <input type="text" class="form-control" id="ecommerce-product-handle" placeholder="Product handle" name="productHandle" aria-label="Product handle" />
+                        </div>
+                        <div class="row mb-6">
+                            <div class="col"><label class="form-label" for="ecommerce-product-sku">SKU</label> <input type="number" class="form-control" id="ecommerce-product-sku" placeholder="SKU" name="productSku" aria-label="Product SKU" /></div>
+                            <div class="col"><label class="form-label" for="ecommerce-product-barcode">Barcode</label> <input type="text" class="form-control" id="ecommerce-product-barcode" placeholder="0123-4567" name="productBarcode" aria-label="Product barcode" /></div>
+                        </div>
+                        <!-- Description -->
+                        <div>
+                            <label class="mb-1">Description (Optional)</label>
+                            <div class="form-control p-0">
+                                <div class="comment-toolbar border-0 border-bottom">
+                                    <div class="d-flex justify-content-start">
+                                        <span class="ql-formats me-0">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="comment-editor border-0 pb-6" id="ecommerce-category-description"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Information -->
+                <!-- Media -->
+                <div class="card mb-6">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 card-title">Product Image</h5>
+                        <a href="javascript:void(0);" class="fw-medium">Add media from URL</a>
+                    </div>
+                    <div class="card-body">
+                        <form action="/upload" class="dropzone needsclick p-0" id="dropzone-basic">
+                            <div class="dz-message needsclick">
+                                <p class="h4 needsclick pt-3 mb-2">Drag and drop your image here</p>
+                                <p class="h6 text-muted d-block fw-normal mb-2">or</p>
+                                <span class="note needsclick btn btn-sm btn-label-primary" id="btnBrowse">Browse image</span>
+                            </div>
+                            <div class="fallback">
+                                <input name="file" type="file" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /Media -->
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.SOLUONG, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.SOLUONG, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MOTA, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MOTA, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.NSX, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NSX, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NSX, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.MALOAI, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("MALOAI")
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+            <!-- /Second column -->
+            <!-- Second column -->
+            <div class="col-12 col-lg-4">
+                <!-- Pricing Card -->
+                <div class="card mb-6">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Pricing</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Base Price -->
+                        <div class="mb-6">
+                            <label class="form-label" for="ecommerce-product-price">Base Price</label>
+                            <input type="number" class="form-control" id="ecommerce-product-price" placeholder="Price" name="productPrice" aria-label="Product price" />
+                        </div>
+                        <!-- Discounted Price -->
+                        <div class="mb-6">
+                            <label class="form-label" for="ecommerce-product-discount-price">Discounted Price</label>
+                            <input type="number" class="form-control" id="ecommerce-product-discount-price" placeholder="Discounted Price" name="productDiscountedPrice" aria-label="Product discounted price" />
+                        </div>
+                        <!-- Add to Stock -->
+                        <label class="form-label" for="ecommerce-product-stock">Add to Stock</label>
+                        <div class="row mb-4 g-4 pe-md-4">
+                            <div class="col-12 col-sm-9">
+                                <input type="number" class="form-control" id="ecommerce-product-stock" placeholder="Quantity" name="quantity" aria-label="Quantity" />
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <button class="btn btn-primary">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Pricing Card -->
+                <!-- Organize Card -->
+                <div class="card mb-6">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Organize</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Category -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="mb-6 col ecommerce-select2-dropdown">
+                                <label class="form-label mb-1" for="category-org">
+                                    <span>Category</span>
+                                </label>
+                                <select id="category-org" class="select2 form-select" data-placeholder="Select Category">
+                                    <option value="">Select Category</option>
+                                    <option value="Household">Household</option>
+                                    <option value="Management">Management</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Office">Office</option>
+                                    <option value="Automotive">Automotive</option>
+                                </select>
+                            </div>
+                            <a href="javascript:void(0);" class="fw-medium btn btn-icon btn-label-primary ms-4"><i class="ti ti-plus ti-md"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Organize Card -->
+            </div>
+            <!-- /Second column -->
         </div>
     </div>
 </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+
+<div class="container">
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>PRODUCT</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.handle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.handle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.handle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.categoryid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.categoryid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.categoryid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.saleprice, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.saleprice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.saleprice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.sku, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.sku, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sku, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.instock, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.instock, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.instock, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
