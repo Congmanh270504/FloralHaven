@@ -61,7 +61,7 @@ namespace Floral_Haven.Controllers
 
         public ActionResult Testimonial()
         {
-            return View();
+            return PartialView();
         }
         public ActionResult GetProductsByCategory(string categoryName, int take = 8)
         {

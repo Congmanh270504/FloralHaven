@@ -399,7 +399,7 @@ namespace FloralHaven.Controllers
 		{
 			return View();
 		}
-
+		
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
@@ -416,7 +416,6 @@ namespace FloralHaven.Controllers
 					_signInManager = null;
 				}
 			}
-
 			base.Dispose(disposing);
 		}
 

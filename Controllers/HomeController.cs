@@ -8,5 +8,14 @@ namespace FloralHaven.Controllers
 		{
 			return View();
 		}
-	}
+		// User Information
+        public ActionResult InforUser()
+        {
+            return View();
+        }
+		public ActionResult Edit()
+		{
+            return View();
+        }
+    }
 }

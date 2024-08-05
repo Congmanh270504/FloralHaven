@@ -78,8 +78,9 @@
         <!-- Main -->
         <main role="main" id="MainContent">
             @RenderSection("Hero", required: false)
-
-            @RenderBody()
+            <section>
+                @RenderBody()
+            </section>
 
             @Html.Partial("_CartPartial")
         </main>

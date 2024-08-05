@@ -42,6 +42,24 @@
                     <ul class="menu-nav | flex flex-wrap font-medium whitespace-nowrap -ml-[20px] w-full relative justify-between">
                         <li class="menu-item | relative list-none"
                             data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Home")">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("About", "Pages")">
+                                Về chúng tôi
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Service", "Pages")">
+                                Phục vụ
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
                             <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Product")">
                                 Tất cả sản phẩm
                             </a>
@@ -131,24 +149,8 @@
                                 Hoa tặng
                             </a>
                         </li>
-                        <li class="menu-item | relative list-none"
-                            data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "lan-ho-diep"})">
-                                Lan hồ điệp
-                            </a>
-                        </li>
-                        <li class="menu-item | relative list-none"
-                            data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "cay-xanh"})">
-                                Cây xanh
-                            </a>
-                        </li>
-                        <li class="menu-item | relative list-none"
-                            data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "phu-lieu-hoa"})">
-                                Phụ liệu hoa
-                            </a>
-                        </li>
+
+
                     </ul>
                 </nav>
             </div>
@@ -188,6 +190,21 @@
             <div class="flex flex-col">
                 <div class="menu-content | flex-grow flex flex-col justify-between transition-all opacity-100 duration-300">
                     <ul class="menu-links | w-full pt-8">
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Index", "Home")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Trang chủ</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("About", "Pages")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Về chúng tôi</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Service", "Pages")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Phục vụ</span>
+                            </a>
+                        </li>
                         <li class="menu-link | list-none flex items-center">
                             <a href="@Url.Action("Index", "Product")" class="w-full px-4 py-3 flex items-center justify-between relative">
                                 <span>Tất cả sản phẩm</span>
@@ -325,21 +342,7 @@
                                 <span>Hoa tặng</span>
                             </a>
                         </li>
-                        <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "lan-ho-diep"})" class="w-full px-4 py-3 flex items-center justify-between relative">
-                                <span>Lan hồ điệp</span>
-                            </a>
-                        </li>
-                        <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "cay-xanh"})" class="w-full px-4 py-3 flex items-center justify-between relative">
-                                <span>Cây xanh</span>
-                            </a>
-                        </li>
-                        <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "phu-lieu-hoa"})" class="w-full px-4 py-3 flex items-center justify-between relative">
-                                <span>Phụ liệu hoa</span>
-                            </a>
-                        </li>
+
                     </ul>
                     @Html.Partial("_AccountBlockPartial")
                 </div>
