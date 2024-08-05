@@ -1085,7 +1085,9 @@ body {
 .mr-\[30px\] {
     margin-right: 30px;
 }
-
+.mr-8{
+    margin-right: 2rem;
+}
 .ms-2 {
     margin-inline-start: 0.5rem;
 }

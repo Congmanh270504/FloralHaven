@@ -96,19 +96,20 @@
                         <!-- Giá -->
                     }
                 </div>
-                <div class="btn-box">
+                <div class="btn-box mt-2">
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
 
                         <div class="form-actions d-flex align-content-center justify-content-evenly">
-                            <input type="submit" value="Delete" class="btn btn-success " /> 
-                            @Html.ActionLink("Back to List", "Index",null,new {@class= "btn btn-light text-black" })
+                            <button type="submit" value="Delete" class="btn bg-danger">Delete</button>
+                            <a class="text-success" style=""></a>
+                            @Html.ActionLink("Back to List", "Index", "Product", null, new { @class = "btn bg-success" })
                         </div>
                     }
                     <hr />
                 </div>
+            </div>
         </div>
+
     </div>
-    
-</div>

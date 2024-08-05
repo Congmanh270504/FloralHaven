@@ -19,31 +19,6 @@ namespace FloralHaven.Controllers
         {
             return View();
         }
-
-        // GET: Admin/Create
-        public ActionResult Create()
-        {
-            ViewBag.Categories = _db.CATEGORies.ToList();
-            return View();
-        }
-
-        // POST: Admin/Create
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Create(PRODUCT prd, FormCollection collection)
-        {
-            ViewBag.Categories = _db.CATEGORies.ToList();
-            if (ModelState.IsValid)
-            {
-                _db.PRODUCTs.InsertOnSubmit(prd);
-                _db.SubmitChanges();
-                return RedirectToAction("Index", "Product", null);
-            }
-            else
-            {
-                return View(prd);
-            }
-        }
         public ActionResult CreateNewCategoryItem()
         {
             return View();
@@ -88,8 +63,8 @@ namespace FloralHaven.Controllers
                 return View();
             }
         }
-        [HttpGet]
-        [Route("Product/{handle}")]
+        //[HttpGet]
+        //[Route("Product/{handle}")]
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {

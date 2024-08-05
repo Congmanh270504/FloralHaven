@@ -1,0 +1,566 @@
+﻿
+@{
+    ViewBag.Title = "InforUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root">
+    <!-- Navbar -->
+    <!-- Main -->
+    <main role="main" id="MainContent">
+        <!-- Account -->
+        <section class="section-account">
+            <div class="page-header">
+                <section>
+                    <h1 class="page-header__title">My Account</h1>
+                </section>
+            </div>
+            <div class="Customer | md:px-6 lg:px-12 xl:px-14 2xl:px-48 py-8 md:py-12 lg:py-20 flex">
+                <div class="customer__nav | md:px-4 xl:px-15 w-1/6 customer__nav hidden md:flex  flex-col border-r border-color-border">
+                    @Html.ActionLink("Tài khoản", "InforUser", "Home", null,new { @class = "tab_item hover1" })
+                    @Html.ActionLink("Chỉnh sửa tài khoản", "Edit", "Home", null, new { @class = "tab_item hover1 mt-2" })
+                    @Html.ActionLink("Giỏ hàng", "Cart", "Home", null, new { @class = "tab_item hover1 mt-2" })
+                    @Html.ActionLink("Lịch sử mua hàng", "Cart", "Home", null, new { @class = "tab_item hover1 mt-2" })
+                    <a href="" class="tab_item hover1 d-flex justify-between mt-2">Đăng xuất<img width="20" height="10" src="https://img.icons8.com/ios/20/exit--v1.png" alt="exit--v1" /></a>
+                </div>
+                <div class="customer__info | px-4 md:px-8 xl:px-16 2xl:px-24 w-full md:w-5/6">
+                    <h3 class="font-semibold text-xl pb-3">
+                    </h3>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Name</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary"><span>${address.firstName}</span> <span>${address.lastName}</span></span>
+                        </div>
+                    </div>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Email</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary">${user.email}</span>
+                        </div>
+                    </div>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Company</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary">${address.company}</span>
+                        </div>
+                    </div>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Address</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary">${address.address1 + (address.address2 !== "" ? ", " + address.address2 : "")}</span>
+                        </div>
+                    </div>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Country</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary">${getCountryFromValue(address.country)}</span>
+                        </div>
+                    </div>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Postal/Zip Code</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary">${address.postcode}</span>
+                        </div>
+                    </div>
+                    <div class="flex border-b border-color-border py-5">
+                        <div class="w-1/3">Phone</div>
+                        <div class="w-2/3">
+                            <span class="text-color-secondary">${address.phone}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.ActionLink("Change password", "", "", "", new { @class = "btn m-auto d-block w-fit mb-8" })
+            @*<script>
+                    var user = JSON.parse(localStorage.getItem("user"));
+                    if (!user) {
+                        window.location.href = "../../login/";
+                    } else {
+                        document.getElementById("AddressFirstName_new").value = user.firstName;
+                        document.getElementById("AddressLastName_new").value = user.lastName;
+                    }
+                </script>
+                <script>
+                    const countries = {
+                        AF: "Afghanistan",
+                        AX: "Åland Islands",
+                        AL: "Albania",
+                        DZ: "Algeria",
+                        AD: "Andorra",
+                        AO: "Angola",
+                        AI: "Anguilla",
+                        AG: "Antigua &amp; Barbuda",
+                        AR: "Argentina",
+                        AM: "Armenia",
+                        AW: "Aruba",
+                        AC: "Ascension Island",
+                        AU: "Australia",
+                        AT: "Austria",
+                        AZ: "Azerbaijan",
+                        BS: "Bahamas",
+                        BH: "Bahrain",
+                        BD: "Bangladesh",
+                        BB: "Barbados",
+                        BY: "Belarus",
+                        BE: "Belgium",
+                        BZ: "Belize",
+                        BJ: "Benin",
+                        BM: "Bermuda",
+                        BT: "Bhutan",
+                        BO: "Bolivia",
+                        BA: "Bosnia &amp; Herzegovina",
+                        BW: "Botswana",
+                        BR: "Brazil",
+                        IO: "British Indian Ocean Territory",
+                        VG: "British Virgin Islands",
+                        BN: "Brunei",
+                        BG: "Bulgaria",
+                        BF: "Burkina Faso",
+                        BI: "Burundi",
+                        KH: "Cambodia",
+                        CM: "Cameroon",
+                        CA: "Canada",
+                        CV: "Cape Verde",
+                        BQ: "Caribbean Netherlands",
+                        KY: "Cayman Islands",
+                        CF: "Central African Republic",
+                        TD: "Chad",
+                        CL: "Chile",
+                        CN: "China",
+                        CX: "Christmas Island",
+                        CC: "Cocos (Keeling) Islands",
+                        CO: "Colombia",
+                        KM: "Comoros",
+                        CG: "Congo - Brazzaville",
+                        CD: "Congo - Kinshasa",
+                        CK: "Cook Islands",
+                        CR: "Costa Rica",
+                        HR: "Croatia",
+                        CW: "Curaçao",
+                        CY: "Cyprus",
+                        CZ: "Czechia",
+                        CI: "Côte d’Ivoire",
+                        DK: "Denmark",
+                        DJ: "Djibouti",
+                        DM: "Dominica",
+                        DO: "Dominican Republic",
+                        EC: "Ecuador",
+                        EG: "Egypt",
+                        SV: "El Salvador",
+                        GQ: "Equatorial Guinea",
+                        ER: "Eritrea",
+                        EE: "Estonia",
+                        SZ: "Eswatini",
+                        ET: "Ethiopia",
+                        FK: "Falkland Islands",
+                        FO: "Faroe Islands",
+                        FJ: "Fiji",
+                        FI: "Finland",
+                        FR: "France",
+                        GF: "French Guiana",
+                        PF: "French Polynesia",
+                        TF: "French Southern Territories",
+                        GA: "Gabon",
+                        GM: "Gambia",
+                        GE: "Georgia",
+                        DE: "Germany",
+                        GH: "Ghana",
+                        GI: "Gibraltar",
+                        GR: "Greece",
+                        GL: "Greenland",
+                        GD: "Grenada",
+                        GP: "Guadeloupe",
+                        GT: "Guatemala",
+                        GG: "Guernsey",
+                        GN: "Guinea",
+                        GW: "Guinea-Bissau",
+                        GY: "Guyana",
+                        HT: "Haiti",
+                        HN: "Honduras",
+                        HK: "Hong Kong SAR",
+                        HU: "Hungary",
+                        IS: "Iceland",
+                        IN: "India",
+                        ID: "Indonesia",
+                        IQ: "Iraq",
+                        IE: "Ireland",
+                        IM: "Isle of Man",
+                        IL: "Israel",
+                        IT: "Italy",
+                        JM: "Jamaica",
+                        JP: "Japan",
+                        JE: "Jersey",
+                        JO: "Jordan",
+                        KZ: "Kazakhstan",
+                        KE: "Kenya",
+                        KI: "Kiribati",
+                        XK: "Kosovo",
+                        KW: "Kuwait",
+                        KG: "Kyrgyzstan",
+                        LA: "Laos",
+                        LV: "Latvia",
+                        LB: "Lebanon",
+                        LS: "Lesotho",
+                        LR: "Liberia",
+                        LY: "Libya",
+                        LI: "Liechtenstein",
+                        LT: "Lithuania",
+                        LU: "Luxembourg",
+                        MO: "Macao SAR",
+                        MG: "Madagascar",
+                        MW: "Malawi",
+                        MY: "Malaysia",
+                        MV: "Maldives",
+                        ML: "Mali",
+                        MT: "Malta",
+                        MQ: "Martinique",
+                        MR: "Mauritania",
+                        MU: "Mauritius",
+                        YT: "Mayotte",
+                        MX: "Mexico",
+                        MD: "Moldova",
+                        MC: "Monaco",
+                        MN: "Mongolia",
+                        ME: "Montenegro",
+                        MS: "Montserrat",
+                        MA: "Morocco",
+                        MZ: "Mozambique",
+                        MM: "Myanmar (Burma)",
+                        NA: "Namibia",
+                        NR: "Nauru",
+                        NP: "Nepal",
+                        NL: "Netherlands",
+                        NC: "New Caledonia",
+                        NZ: "New Zealand",
+                        NI: "Nicaragua",
+                        NE: "Niger",
+                        NG: "Nigeria",
+                        NU: "Niue",
+                        NF: "Norfolk Island",
+                        MK: "North Macedonia",
+                        NO: "Norway",
+                        OM: "Oman",
+                        PK: "Pakistan",
+                        PS: "Palestinian Territories",
+                        PA: "Panama",
+                        PG: "Papua New Guinea",
+                        PY: "Paraguay",
+                        PE: "Peru",
+                        PH: "Philippines",
+                        PN: "Pitcairn Islands",
+                        PL: "Poland",
+                        PT: "Portugal",
+                        QA: "Qatar",
+                        RE: "Réunion",
+                        RO: "Romania",
+                        RU: "Russia",
+                        RW: "Rwanda",
+                        WS: "Samoa",
+                        SM: "San Marino",
+                        ST: "São Tomé &amp; Príncipe",
+                        SA: "Saudi Arabia",
+                        SN: "Senegal",
+                        RS: "Serbia",
+                        SC: "Seychelles",
+                        SL: "Sierra Leone",
+                        SG: "Singapore",
+                        SX: "Sint Maarten",
+                        SK: "Slovakia",
+                        SI: "Slovenia",
+                        SB: "Solomon Islands",
+                        SO: "Somalia",
+                        ZA: "South Africa",
+                        GS: "South Georgia &amp; South Sandwich Islands",
+                        KR: "South Korea",
+                        SS: "South Sudan",
+                        ES: "Spain",
+                        LK: "Sri Lanka",
+                        BL: "St. Barthélemy",
+                        SH: "St. Helena",
+                        KN: "St. Kitts &amp; Nevis",
+                        LC: "St. Lucia",
+                        MF: "St. Martin",
+                        PM: "St. Pierre &amp; Miquelon",
+                        VC: "St. Vincent &amp; Grenadines",
+                        SD: "Sudan",
+                        SR: "Suriname",
+                        SJ: "Svalbard &amp; Jan Mayen",
+                        SE: "Sweden",
+                        CH: "Switzerland",
+                        TW: "Taiwan",
+                        TJ: "Tajikistan",
+                        TZ: "Tanzania",
+                        TH: "Thailand",
+                        TL: "Timor-Leste",
+                        TG: "Togo",
+                        TK: "Tokelau",
+                        TO: "Tonga",
+                        TT: "Trinidad &amp; Tobago",
+                        TA: "Tristan da Cunha",
+                        TN: "Tunisia",
+                        TR: "Türkiye",
+                        TM: "Turkmenistan",
+                        TC: "Turks &amp; Caicos Islands",
+                        TV: "Tuvalu",
+                        UM: "U.S. Outlying Islands",
+                        UG: "Uganda",
+                        UA: "Ukraine",
+                        AE: "United Arab Emirates",
+                        GB: "United Kingdom",
+                        US: "United States",
+                        UY: "Uruguay",
+                        UZ: "Uzbekistan",
+                        VU: "Vanuatu",
+                        VA: "Vatican City",
+                        VE: "Venezuela",
+                        VN: "Vietnam",
+                        WF: "Wallis &amp; Futuna",
+                        EH: "Western Sahara",
+                        YE: "Yemen",
+                        ZM: "Zambia",
+                        ZW: "Zimbabwe",
+                    };
+
+                    function getCountryFromValue(value) {
+                        return countries[value];
+                    }
+                    const customerAddresses = document.querySelector(".customer__addresses");
+                    if (user.addresses.length < 1) {
+                        customerAddresses.innerHTML = `
+                                                                                                        <div class="notification show warning">
+                                                                                                            <p>You have no addresses saved.</p>
+                                                                                                        </div>
+                                                                                                        `;
+                    }
+                    user.addresses.forEach((address, index) => {
+                        const addressElement = document.createElement("div");
+                        addressElement.classList.add("customer__address", "mb-24");
+                        addressElement.id = "address" + index;
+                        addressElement.innerHTML = `
+                                                                                                        <div class="customer__address-info">
+                                                                                                            <h3 class="font-semibold text-xl pb-3">
+                                                                                                                ${address.address1}
+                                                                                                                ${address.isDefault ? "<span>(Default Address)</span>" : ""}
+                                                                                                            </h3>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Name</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary"><span>${address.firstName}</span> <span>${address.lastName}</span></span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Email</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary">${user.email}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Company</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary">${address.company}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Address</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary">${address.address1 + (address.address2 !== "" ? ", " + address.address2 : "")}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Country</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary">${getCountryFromValue(address.country)}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Postal/Zip Code</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary">${address.postcode}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex border-b border-color-border py-5">
+                                                                                                                <div class="w-1/3">Phone</div>
+                                                                                                                <div class="w-2/3">
+                                                                                                                    <span class="text-color-secondary">${address.phone}</span>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="flex mt-6">
+                                                                                                                <button type="button" class="mr-5 customer-btn__edit btn btn-primary">Edit</button>
+                                                                                                                <button type="submit" class="customer-btn__delete">Delete</button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <form method="post" action="" id="${"address_form" + index}" accept-charset="UTF-8">
+                                                                                                            <div class="customer-form__edit-wrapper hidden">
+                                                                                                                <div data-address-fields="" class="address-form my-3 customer-form__edit">
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressCountry">Country</label>
+                                                                                                                        <select class="form-control" name="address[country]" id="AddressCountry">
+                                                                                                                            ${Object.keys(countries)
+                                .map((country) => {
+                                    return `<option value="${country}" ${address.country === country ? "selected" : ""}>${countries[country]}</option>`;
+                                })
+                                .join("")}
+                                                                                                                        </select>
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressFirstName" class="control-label">First Name</label>
+                                                                                                                        <input class="form-control" type="text" placeholder="First Name" name="address[first_name]" id="AddressFirstName" value="${address.firstName}" autocapitalize="words" />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressLastName" class="control-label">Last Name</label>
+                                                                                                                        <input class="form-control" type="text" name="address[last_name]" id="AddressLastName" value="${address.lastName}" autocapitalize="words" placeholder="Last Name" />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressCompany">Company</label>
+                                                                                                                        <input class="form-control" type="text" name="address[company]" id="AddressCompany" value="${address.company}" autocapitalize="words" placeholder="Company" />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressAddress1">Address</label>
+                                                                                                                        <input class="form-control" type="text" name="address[address1]" id="AddressAddress1" value="${address.address1}" autocapitalize="words" placeholder="Address" />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressAddress2">Apartment, suite, etc.</label>
+                                                                                                                        <input class="form-control" type="text" name="address[address2]" id="AddressAddress2" value="${address.address2}" autocapitalize="words" placeholder="Apartment, suite, etc." />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressCity">City</label>
+                                                                                                                        <input class="form-control" type="text" name="address[city]" id="AddressCity" value="${address.city}" autocapitalize="words" placeholder="City" />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressZip">Postal/Zip Code</label>
+                                                                                                                        <input class="form-control" type="text" name="address[zip]" id="AddressZip" value="${address.postcode}" autocapitalize="characters" placeholder="Postal/Zip Code" />
+                                                                                                                    </div>
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="AddressPhone">Phone</label>
+                                                                                                                        <input class="form-control" type="tel" name="address[phone]" id="AddressPhone" value="${address.phone}" pattern="[0-9\\-]*" placeholder="Phone" />
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="mt-3 mb-6">
+                                                                                                                    <input type="checkbox" id="address_default_address" name="address[default]" ${address.isDefault ? "checked" : ""} />
+                                                                                                                    <label for="address_default_address" class="cursor-pointer">
+                                                                                                                        <span class="ml-2">Set as default address</span>
+                                                                                                                    </label>
+                                                                                                                </div>
+                                                                                                                <div class="flex">
+                                                                                                                    <button type="submit" class="btn btn-primary">Update Address</button>
+                                                                                                                    <button type="button" class="btn-secondary ml-5 customer__cancel-edit">Cancel</button>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </form>
+                                                                                                        `;
+                        customerAddresses.appendChild(addressElement);
+
+                        document.getElementById("address_form" + index).addEventListener("submit", (e) => {
+                            e.preventDefault();
+                            const address = {
+                                firstName: e.target["address[first_name]"].value,
+                                lastName: e.target["address[last_name]"].value,
+                                company: e.target["address[company]"].value,
+                                address1: e.target["address[address1]"].value,
+                                address2: e.target["address[address2]"].value,
+                                city: e.target["address[city]"].value,
+                                country: e.target["address[country]"].value,
+                                phone: e.target["address[phone]"].value,
+                                postcode: e.target["address[zip]"].value,
+                                isDefault: e.target["address[default]"].checked,
+                            };
+
+                            if (address.isDefault) {
+                                user.addresses.forEach((address) => {
+                                    address.isDefault = false;
+                                });
+                            }
+
+                            // Update address
+                            user.addresses[index] = address;
+                            user.addresses.sort((a, b) => {
+                                return b.isDefault - a.isDefault;
+                            });
+                            localStorage.setItem("user", JSON.stringify(user));
+                            const registered = JSON.parse(localStorage.getItem("registered"));
+                            const indexUser = registered.users.findIndex((u) => u.email === user.email);
+                            registered.users[indexUser] = user;
+                            localStorage.setItem("registered", JSON.stringify(registered));
+                            window.location.reload();
+                        });
+                    });
+                </script>
+                <script>
+                    document.querySelectorAll(".customer__address").forEach((address) => {
+                        const editBtn = address.querySelector(".customer-btn__edit");
+                        const cancelBtn = address.querySelector(".customer__cancel-edit");
+                        const deleteBtn = address.querySelector(".customer-btn__delete");
+                        const form = address.querySelector(".customer-form__edit-wrapper");
+                        const info = address.querySelector(".customer__address-info");
+
+                        editBtn.addEventListener("click", () => {
+                            info.classList.add("hidden");
+                            form.classList.remove("hidden");
+                        });
+
+                        cancelBtn.addEventListener("click", () => {
+                            info.classList.remove("hidden");
+                            form.classList.add("hidden");
+                        });
+
+                        deleteBtn.addEventListener("click", () => {
+                            if (confirm("Are you sure you want to delete this address?")) {
+                                // Delete address
+                                const addressId = address.id;
+                                const index = parseInt(addressId.replace("address", ""));
+                                user.addresses.splice(index, 1);
+                                localStorage.setItem("user", JSON.stringify(user));
+                                const registered = JSON.parse(localStorage.getItem("registered"));
+                                const indexUser = registered.users.findIndex((u) => u.email === user.email);
+                                registered.users[indexUser] = user;
+                                localStorage.setItem("registered", JSON.stringify(registered));
+                                window.location.reload();
+                            }
+                        });
+                    });
+
+                    document.querySelector(".customer__add-new").addEventListener("click", () => {
+                        document.querySelector(".customer-form__new-wrapper").classList.remove("hidden");
+                    });
+
+                    document.querySelector(".customer__cancel-new").addEventListener("click", () => {
+                        document.querySelector(".customer-form__new-wrapper").classList.add("hidden");
+                    });
+
+                    document.getElementById("address_form_new").addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const address = {
+                            firstName: e.target["address[first_name]"].value,
+                            lastName: e.target["address[last_name]"].value,
+                            company: e.target["address[company]"].value,
+                            address1: e.target["address[address1]"].value,
+                            address2: e.target["address[address2]"].value,
+                            city: e.target["address[city]"].value,
+                            country: e.target["address[country]"].value,
+                            phone: e.target["address[phone]"].value,
+                            postcode: e.target["address[zip]"].value,
+                            isDefault: e.target["address[default]"].checked,
+                        };
+
+                        if (address.isDefault) {
+                            user.addresses.forEach((address) => {
+                                address.isDefault = false;
+                            });
+                        }
+
+                        // Add new address
+                        user.addresses.push(address);
+                        localStorage.setItem("user", JSON.stringify(user));
+                        const registered = JSON.parse(localStorage.getItem("registered"));
+                        const indexUser = registered.users.findIndex((u) => u.email === user.email);
+                        registered.users[indexUser] = user;
+                        localStorage.setItem("registered", JSON.stringify(registered));
+                        window.location.reload();
+                    });
+                </script>*@
+        </section>
+    </main>
+</div>
+<script src="../../js/Accordion.js"></script>
+<script src="../../js/scroll-animation.js"></script>
+<script type="text/javascript" src="https://ahachat.com/customer-chats/customer_chat_0Obtr2ySYR665f2097a7db6.js"></script>
