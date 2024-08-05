@@ -104,7 +104,7 @@
                                                 {
                                                     if (item.SalePrice != null)
                                                     {
-                                                        var salepercent = (item.Price - item.SalePrice) / item.Price * 100;
+                                                        var salepercent = Math.Round((item.Price - item.SalePrice.GetValueOrDefault()) / item.Price * 100);
 
                                                         <span class="flash-sale">
                                                             Sale @salepercent.ToString()%

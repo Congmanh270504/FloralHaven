@@ -1,4 +1,5 @@
 ﻿using FloralHaven.Models;
+using Ganss.Xss;
 using PagedList;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,7 +9,31 @@ namespace FloralHaven.Controllers
 	public class ProductController : Controller
 	{
 		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
-		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
+		//string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
+
+		private string getImagePath(int productID, string productHandle)
+		{
+			var imagePath = _db.IMAGEs.FirstOrDefault(image => image.productid == productID)?.path ?? "";
+			//if (!imagePath.StartsWith("https"))
+			//{
+			//	imagePath = _imgPrefix + productHandle + "/" + imagePath;
+			//}
+			return imagePath;
+		}
+
+		private string SanitizeInput(string input)
+		{
+			// Use a HTML sanitization library or regular expressions to remove any HTML or script tags
+			// For example, you can use the HtmlSanitizer library or a custom regular expression pattern
+			// to remove any script tags and other potentially malicious content from the input.
+			// Here's an example using the HtmlSanitizer library:
+
+			var sanitizer = new HtmlSanitizer();
+			sanitizer.AllowedTags.Remove("script"); // Remove script tags
+			sanitizer.AllowedAttributes.Remove("on*"); // Remove event attributes (e.g., onclick, onmouseover, etc.)
+
+			return sanitizer.Sanitize(input);
+		}
 
 		// GET: Product
 		[HttpGet]
@@ -56,7 +81,7 @@ namespace FloralHaven.Controllers
 					Stock = product.instock,
 					Price = product.price,
 					SalePrice = product.saleprice,
-					MainImage = _imgPrefix + product.handle + "/" + _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
+					MainImage = getImagePath(product.id, product.handle),
 					CategoryID = product.categoryid,
 					CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name ?? "",
 				})
@@ -72,7 +97,72 @@ namespace FloralHaven.Controllers
 		public ActionResult Create()
 		{
 			ViewBag.CategoryID = new SelectList(_db.CATEGORies, "id", "name");
+			return View(new ProductCreateViewModel());
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/Create")]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create(ProductCreateViewModel productViewModel)
+		{
+			if (ModelState.IsValid)
+			{
+				string sanitizedDescription = SanitizeInput(productViewModel.Description);
+
+				PRODUCT product = new PRODUCT
+				{
+					title = productViewModel.Name,
+					handle = productViewModel.Handle,
+					description = sanitizedDescription,
+					categoryid = productViewModel.CategoryId,
+					price = productViewModel.Price,
+					saleprice = productViewModel.SalePrice,
+					sku = productViewModel.SKU,
+					instock = productViewModel.Stock
+				};
+				_db.PRODUCTs.InsertOnSubmit(product);
+				_db.SubmitChanges();
+
+				return RedirectToAction("Index");
+			}
+			ViewBag.CategoryID = new SelectList(_db.CATEGORies, "id", "name");
+			return View(productViewModel);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/ProductList")]
+		public ActionResult ProductList()
+		{
 			return View();
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/GetProducts")]
+		public JsonResult GetProducts(int page = 1, int pageSize = 7)
+		{
+			var totalRecords = _db.PRODUCTs.Count();
+			var products = _db.PRODUCTs
+				.OrderBy(p => p.id)
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.Select(product => new
+				{
+					id = product.id,
+					product_name = product.title,
+					category = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name ?? "",
+					stock = product.instock,
+					sku = product.sku,
+					price = product.price,
+					saleprice = product.saleprice,
+					image = getImagePath(product.id, product.handle),
+					handle = product.handle
+				})
+				.ToList();
+
+			return Json(new { recordsTotal = totalRecords, recordsFiltered = totalRecords, data = products }, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpGet]
@@ -87,8 +177,7 @@ namespace FloralHaven.Controllers
 				return View("NotFound");
 			}
 			ViewBag.Title = product.title + "- FloralHaven";
-			string _imgPath = _imgPrefix + product.handle + "/";
-			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => _imgPath + image.path).ToList();
+			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => getImagePath(product.id, product.handle) + image.path).ToList();
 
 			string CategoryName = (_db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid)?.name) ?? "";
 			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);

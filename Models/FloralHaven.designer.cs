@@ -30,15 +30,15 @@ namespace FloralHaven.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertPRODUCT(PRODUCT instance);
-    partial void UpdatePRODUCT(PRODUCT instance);
-    partial void DeletePRODUCT(PRODUCT instance);
     partial void InsertIMAGE(IMAGE instance);
     partial void UpdateIMAGE(IMAGE instance);
     partial void DeleteIMAGE(IMAGE instance);
     partial void InsertCATEGORY(CATEGORY instance);
     partial void UpdateCATEGORY(CATEGORY instance);
     partial void DeleteCATEGORY(CATEGORY instance);
+    partial void InsertPRODUCT(PRODUCT instance);
+    partial void UpdatePRODUCT(PRODUCT instance);
+    partial void DeletePRODUCT(PRODUCT instance);
     #endregion
 		
 		public FloralHavenDataContext(string connection) : 
@@ -65,14 +65,6 @@ namespace FloralHaven.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<PRODUCT> PRODUCTs
-		{
-			get
-			{
-				return this.GetTable<PRODUCT>();
-			}
-		}
-		
 		public System.Data.Linq.Table<IMAGE> IMAGEs
 		{
 			get
@@ -88,328 +80,13 @@ namespace FloralHaven.Models
 				return this.GetTable<CATEGORY>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCT")]
-	public partial class PRODUCT : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _title;
-		
-		private string _handle;
-		
-		private string _categoryid;
-		
-		private decimal _price;
-		
-		private System.Nullable<decimal> _saleprice;
-		
-		private string _sku;
-		
-		private string _description;
-		
-		private System.Nullable<int> _instock;
-		
-		private EntitySet<IMAGE> _IMAGEs;
-		
-		private EntityRef<CATEGORY> _CATEGORY;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    partial void OnhandleChanging(string value);
-    partial void OnhandleChanged();
-    partial void OncategoryidChanging(string value);
-    partial void OncategoryidChanged();
-    partial void OnpriceChanging(decimal value);
-    partial void OnpriceChanged();
-    partial void OnsalepriceChanging(System.Nullable<decimal> value);
-    partial void OnsalepriceChanged();
-    partial void OnskuChanging(string value);
-    partial void OnskuChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OninstockChanging(System.Nullable<int> value);
-    partial void OninstockChanged();
-    #endregion
-		
-		public PRODUCT()
-		{
-			this._IMAGEs = new EntitySet<IMAGE>(new Action<IMAGE>(this.attach_IMAGEs), new Action<IMAGE>(this.detach_IMAGEs));
-			this._CATEGORY = default(EntityRef<CATEGORY>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		public System.Data.Linq.Table<PRODUCT> PRODUCTs
 		{
 			get
 			{
-				return this._id;
+				return this.GetTable<PRODUCT>();
 			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_handle", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string handle
-		{
-			get
-			{
-				return this._handle;
-			}
-			set
-			{
-				if ((this._handle != value))
-				{
-					this.OnhandleChanging(value);
-					this.SendPropertyChanging();
-					this._handle = value;
-					this.SendPropertyChanged("handle");
-					this.OnhandleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_categoryid", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string categoryid
-		{
-			get
-			{
-				return this._categoryid;
-			}
-			set
-			{
-				if ((this._categoryid != value))
-				{
-					if (this._CATEGORY.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OncategoryidChanging(value);
-					this.SendPropertyChanging();
-					this._categoryid = value;
-					this.SendPropertyChanged("categoryid");
-					this.OncategoryidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Money NOT NULL")]
-		public decimal price
-		{
-			get
-			{
-				return this._price;
-			}
-			set
-			{
-				if ((this._price != value))
-				{
-					this.OnpriceChanging(value);
-					this.SendPropertyChanging();
-					this._price = value;
-					this.SendPropertyChanged("price");
-					this.OnpriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_saleprice", DbType="Money")]
-		public System.Nullable<decimal> saleprice
-		{
-			get
-			{
-				return this._saleprice;
-			}
-			set
-			{
-				if ((this._saleprice != value))
-				{
-					this.OnsalepriceChanging(value);
-					this.SendPropertyChanging();
-					this._saleprice = value;
-					this.SendPropertyChanged("saleprice");
-					this.OnsalepriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sku", DbType="VarChar(50)")]
-		public string sku
-		{
-			get
-			{
-				return this._sku;
-			}
-			set
-			{
-				if ((this._sku != value))
-				{
-					this.OnskuChanging(value);
-					this.SendPropertyChanging();
-					this._sku = value;
-					this.SendPropertyChanged("sku");
-					this.OnskuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_instock", DbType="Int")]
-		public System.Nullable<int> instock
-		{
-			get
-			{
-				return this._instock;
-			}
-			set
-			{
-				if ((this._instock != value))
-				{
-					this.OninstockChanging(value);
-					this.SendPropertyChanging();
-					this._instock = value;
-					this.SendPropertyChanged("instock");
-					this.OninstockChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_IMAGE", Storage="_IMAGEs", ThisKey="id", OtherKey="productid")]
-		public EntitySet<IMAGE> IMAGEs
-		{
-			get
-			{
-				return this._IMAGEs;
-			}
-			set
-			{
-				this._IMAGEs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_CATEGORY", ThisKey="categoryid", OtherKey="id", IsForeignKey=true)]
-		public CATEGORY CATEGORY
-		{
-			get
-			{
-				return this._CATEGORY.Entity;
-			}
-			set
-			{
-				CATEGORY previousValue = this._CATEGORY.Entity;
-				if (((previousValue != value) 
-							|| (this._CATEGORY.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CATEGORY.Entity = null;
-						previousValue.PRODUCTs.Remove(this);
-					}
-					this._CATEGORY.Entity = value;
-					if ((value != null))
-					{
-						value.PRODUCTs.Add(this);
-						this._categoryid = value.id;
-					}
-					else
-					{
-						this._categoryid = default(string);
-					}
-					this.SendPropertyChanged("CATEGORY");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_IMAGEs(IMAGE entity)
-		{
-			this.SendPropertyChanging();
-			entity.PRODUCT = this;
-		}
-		
-		private void detach_IMAGEs(IMAGE entity)
-		{
-			this.SendPropertyChanging();
-			entity.PRODUCT = null;
 		}
 	}
 	
@@ -675,6 +352,329 @@ namespace FloralHaven.Models
 		{
 			this.SendPropertyChanging();
 			entity.CATEGORY = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PRODUCT")]
+	public partial class PRODUCT : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _title;
+		
+		private string _handle;
+		
+		private string _categoryid;
+		
+		private decimal _price;
+		
+		private System.Nullable<decimal> _saleprice;
+		
+		private string _sku;
+		
+		private string _description;
+		
+		private System.Nullable<int> _instock;
+		
+		private EntitySet<IMAGE> _IMAGEs;
+		
+		private EntityRef<CATEGORY> _CATEGORY;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OntitleChanging(string value);
+    partial void OntitleChanged();
+    partial void OnhandleChanging(string value);
+    partial void OnhandleChanged();
+    partial void OncategoryidChanging(string value);
+    partial void OncategoryidChanged();
+    partial void OnpriceChanging(decimal value);
+    partial void OnpriceChanged();
+    partial void OnsalepriceChanging(System.Nullable<decimal> value);
+    partial void OnsalepriceChanged();
+    partial void OnskuChanging(string value);
+    partial void OnskuChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OninstockChanging(System.Nullable<int> value);
+    partial void OninstockChanged();
+    #endregion
+		
+		public PRODUCT()
+		{
+			this._IMAGEs = new EntitySet<IMAGE>(new Action<IMAGE>(this.attach_IMAGEs), new Action<IMAGE>(this.detach_IMAGEs));
+			this._CATEGORY = default(EntityRef<CATEGORY>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this.OntitleChanging(value);
+					this.SendPropertyChanging();
+					this._title = value;
+					this.SendPropertyChanged("title");
+					this.OntitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_handle", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string handle
+		{
+			get
+			{
+				return this._handle;
+			}
+			set
+			{
+				if ((this._handle != value))
+				{
+					this.OnhandleChanging(value);
+					this.SendPropertyChanging();
+					this._handle = value;
+					this.SendPropertyChanged("handle");
+					this.OnhandleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_categoryid", DbType="VarChar(50)")]
+		public string categoryid
+		{
+			get
+			{
+				return this._categoryid;
+			}
+			set
+			{
+				if ((this._categoryid != value))
+				{
+					if (this._CATEGORY.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OncategoryidChanging(value);
+					this.SendPropertyChanging();
+					this._categoryid = value;
+					this.SendPropertyChanged("categoryid");
+					this.OncategoryidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Money NOT NULL")]
+		public decimal price
+		{
+			get
+			{
+				return this._price;
+			}
+			set
+			{
+				if ((this._price != value))
+				{
+					this.OnpriceChanging(value);
+					this.SendPropertyChanging();
+					this._price = value;
+					this.SendPropertyChanged("price");
+					this.OnpriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_saleprice", DbType="Money")]
+		public System.Nullable<decimal> saleprice
+		{
+			get
+			{
+				return this._saleprice;
+			}
+			set
+			{
+				if ((this._saleprice != value))
+				{
+					this.OnsalepriceChanging(value);
+					this.SendPropertyChanging();
+					this._saleprice = value;
+					this.SendPropertyChanged("saleprice");
+					this.OnsalepriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sku", DbType="VarChar(50)")]
+		public string sku
+		{
+			get
+			{
+				return this._sku;
+			}
+			set
+			{
+				if ((this._sku != value))
+				{
+					this.OnskuChanging(value);
+					this.SendPropertyChanging();
+					this._sku = value;
+					this.SendPropertyChanged("sku");
+					this.OnskuChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_instock", DbType="Int")]
+		public System.Nullable<int> instock
+		{
+			get
+			{
+				return this._instock;
+			}
+			set
+			{
+				if ((this._instock != value))
+				{
+					this.OninstockChanging(value);
+					this.SendPropertyChanging();
+					this._instock = value;
+					this.SendPropertyChanged("instock");
+					this.OninstockChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PRODUCT_IMAGE", Storage="_IMAGEs", ThisKey="id", OtherKey="productid")]
+		public EntitySet<IMAGE> IMAGEs
+		{
+			get
+			{
+				return this._IMAGEs;
+			}
+			set
+			{
+				this._IMAGEs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CATEGORY_PRODUCT", Storage="_CATEGORY", ThisKey="categoryid", OtherKey="id", IsForeignKey=true)]
+		public CATEGORY CATEGORY
+		{
+			get
+			{
+				return this._CATEGORY.Entity;
+			}
+			set
+			{
+				CATEGORY previousValue = this._CATEGORY.Entity;
+				if (((previousValue != value) 
+							|| (this._CATEGORY.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CATEGORY.Entity = null;
+						previousValue.PRODUCTs.Remove(this);
+					}
+					this._CATEGORY.Entity = value;
+					if ((value != null))
+					{
+						value.PRODUCTs.Add(this);
+						this._categoryid = value.id;
+					}
+					else
+					{
+						this._categoryid = default(string);
+					}
+					this.SendPropertyChanged("CATEGORY");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_IMAGEs(IMAGE entity)
+		{
+			this.SendPropertyChanging();
+			entity.PRODUCT = this;
+		}
+		
+		private void detach_IMAGEs(IMAGE entity)
+		{
+			this.SendPropertyChanging();
+			entity.PRODUCT = null;
 		}
 	}
 }
