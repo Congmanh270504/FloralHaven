@@ -26,7 +26,7 @@ namespace FloralHaven
 		//	{
 		//		var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-		//		var adminEmail = "lazynora@outlook.com";
+		//		var adminEmail = "";
 		//		var adminUser = userManager.FindByEmail(adminEmail);
 
 		//		if (adminUser == null)
@@ -35,11 +35,11 @@ namespace FloralHaven
 		//			{
 		//				UserName = adminEmail,
 		//				Email = adminEmail,
-		//				FirstName = "Nora",
-		//				LastName = "Ishikaze"
+		//				FirstName = "",
+		//				LastName = ""
 		//			};
 
-		//			var result = userManager.Create(adminUser, "NoraNaoru#1911");
+		//			var result = userManager.Create(adminUser, "");
 
 		//			if (result.Succeeded)
 		//			{

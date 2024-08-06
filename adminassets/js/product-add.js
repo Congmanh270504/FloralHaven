@@ -12,8 +12,7 @@ var dz = null;
         theme: "snow"
     });
     quill.on('text-change', function () {
-        var html = quill.root.innerHTML.toString();
-        console.log(html);
+        var html = quill.root.innerHTML.toString();       
         document.getElementById('description-input').value = html;
     });
     /*
