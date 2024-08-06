@@ -33,9 +33,6 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/adminassets/js/product-add.js"></script>
     <script>
-        function goBack() {
-            window.history.back();
-        }
         $(".select2").val("@Model.CategoryId")
     </script>
 }
@@ -52,7 +49,7 @@
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-4">
                     <div class="d-flex gap-4">                        
-                        <button type="button" class="btn btn-label-secondary" onclick="goBack()">Back</button>
+                        <a type="button" class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
                     </div>
                     <button type="submit" class="btn btn-primary" form="edit_product">Save product</button>
                 </div>

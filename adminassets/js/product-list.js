@@ -6,11 +6,7 @@ $(function () {
     e = isDarkStyle ? config.colors_dark.borderColor : config.colors.borderColor;
     s = isDarkStyle ? config.colors_dark.bodyBg : config.colors.bodyBg;
     var t,
-        n = $(".datatables-products"),
-        i = { 1: { title: "Scheduled", class: "bg-label-warning" }, 2: { title: "Publish", class: "bg-label-success" }, 3: { title: "Inactive", class: "bg-label-danger" } },
-        o = { 0: { title: "Household" }, 1: { title: "Office" }, 2: { title: "Electronics" }, 3: { title: "Shoes" }, 4: { title: "Accessories" }, 5: { title: "Game" } },
-        c = { 0: { title: "Out_of_Stock" }, 1: { title: "In_Stock" } },
-        r = { 0: { title: "Out of Stock" }, 1: { title: "In Stock" } };
+        n = $(".datatables-products");
     n.length &&
         ((t = n.DataTable({
             serverSide: true,
@@ -19,7 +15,7 @@ $(function () {
             ajax: {
                 url: "/Product/GetProducts",
                 type: "POST",
-                dataType: "json",               
+                dataType: "json",
             },
             columns: [{ data: "id" }, { data: "product_name" }, { data: "category" }, { data: "stock" }, { data: "sku" }, { data: "price" }, { data: "saleprice" }, { data: "" }],
             columnDefs: [
@@ -52,7 +48,7 @@ $(function () {
                     },
                 },
                 {
-                    targets: 3,                    
+                    targets: 3,
                     responsivePriority: 3,
                     render: function (t, e, s, a) {
                         return "<span>" + s.stock + "</span>";
@@ -83,7 +79,7 @@ $(function () {
                     searchable: !1,
                     orderable: !1,
                     render: function (t, e, s, a) {
-                        return '<div class="d-inline-block text-nowrap"><a href="/Product/Edit/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></a><a href="/Product/AddImage/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-photo-edit ti-md"></i></a><button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/Product/' + s.handle + '" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div>';
+                        return '<div class="d-inline-block text-nowrap"><a href="/Product/Edit/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></a><a href="/Product/AddImages/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-photo-edit ti-md"></i></a><button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/Product/' + s.handle + '" class="dropdown-item">View</a><a href="/Product/Delete/' + s.id + '" class="dropdown-item">Delete</a></div></div>';
                     },
                 },
             ],

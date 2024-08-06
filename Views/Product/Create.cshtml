@@ -32,11 +32,6 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/adminassets/js/product-add.js"></script>
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 }
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -51,7 +46,7 @@
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-4">
                     <div class="d-flex gap-4">
-                        <button class="btn btn-label-secondary" onclick="goBack()">Back</button>
+                        <a class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
                     </div>
                     <button type="submit" class="btn btn-primary" form="create_product">Create product</button>
                 </div>
@@ -118,35 +113,7 @@
                         </div>
                     </div>
                     <!-- /Product Information -->
-                    <!-- Media -->
-                    <!--<div class="card mb-6">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0 card-title">Product Image</h5>
-                        <a href="javascript:void(0);" class="fw-medium">Add media from URL</a>-->
-                    @*@Ajax.ActionLink("Refresh", "GetProductImages", new { id = Model.Id }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "productpictures", LoadingElementId = "loading", LoadingElementDuration = 300 }, new { @class = "btn btn-primary", id = "refreshbutton" })*@
-                    <!--</div>
-                    <div class="card-body">
-                        <div class="mt-2">
-                            <div id="productpictures" class="text-center">
-                            </div>
-                        </div>-->
-                    @*@using (Ajax.BeginForm("Upload", "File", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "dropzone needsclick p-0", id = "dropzone-basic", enctype = "multipart/form-data" }))
-                            {
-                            }
-                        <!--@using (Ajax.BeginForm("UploadProductImages", "Product", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "dropzone", id = "mydropzone", enctype = "multipart/form-data" }))
-                        { }-->
-                        @*<div class="dz-message needsclick">
-                                <p class="h4 needsclick pt-3 mb-2">Drag and drop your image here</p>
-                                <p class="h6 text-muted d-block fw-normal mb-2">or</p>
-                                <span class="note needsclick btn btn-sm btn-label-primary" id="btnBrowse">Browse image</span>
-                            </div>*@
-                    @*<div class="fallback">
-                             <input name="images" type="file" />
-                        </div>*@
-                    <!--<button id="uploadbutton" type="button" class="fw-medium btn btn-sm btn-label-primary ms-4">Upload</button>
-                        </div>
-                    </div>-->
-                    <!-- /Media -->
+                    
                 </div>
                 <!-- /Second column -->
                 <!-- Second column -->

@@ -1,0 +1,25 @@
+﻿@model List<FloralHaven.Models.IMAGE>
+
+@if (Model == null || (Model != null && Model.Count == 0))
+{
+    <div class="text-center p-12">Images of the product are displayed here <br />Image of the product not found</div>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="dz-preview dz-image-preview">
+            <div class="dz-details">
+                <div class="dz-thumbnail">
+                    <img data-dz-thumbnail="" alt="@item.path" src="@item.path">
+                </div>
+                <div class="dz-filename" data-dz-name="">@item.path</div>
+                <div class="dz-size" data-dz-size=""></div>
+            </div>
+            @Ajax.ActionLink("Delete", "DeleteProductImage", new { imageId = item.id }, new AjaxOptions { HttpMethod = "POST", Confirm = "Delete image of product ?", OnComplete = "refreshProductPicture" }, new { @class = "dz-remove del-pic" })
+        </div>
+    }
+}
+<script>
+    $("a.del-pic").prepend('<i class="ti ti-trash"></i>&nbsp;');
+</script>

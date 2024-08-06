@@ -2,7 +2,10 @@
 using Ganss.Xss;
 using PagedList;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace FloralHaven.Controllers
@@ -317,6 +320,129 @@ namespace FloralHaven.Controllers
 			}
 			ViewBag.CategoryID = new SelectList(_db.CATEGORies, "id", "name", productEditViewModal.CategoryId);
 			return View(productEditViewModal);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/AddImages/{id}")]
+		public ActionResult AddImages(int id)
+		{
+			var product = _db.PRODUCTs.FirstOrDefault(p => p.id == id);
+			if (product == null)
+			{
+				Response.StatusCode = 404;
+				ViewBag.StatusCode = 404;
+				return View("NotFound");
+			}
+
+			ViewBag.ProductID = id;
+			return View();
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/UploadProductImages")]
+		public ActionResult UploadProductImages(int productId, HttpPostedFileBase[] images)
+		{
+			var product = _db.PRODUCTs.FirstOrDefault(p => p.id == productId);
+			if (product == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
+
+			if (images == null || images.Length == 0)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			foreach (var image in images)
+			{
+				if (image != null && image.ContentLength > 0)
+				{
+					var fileName = System.IO.Path.GetFileName(image.FileName);
+					var path = System.IO.Path.Combine(Server.MapPath("~/Uploads"), fileName);
+					image.SaveAs(path);
+
+					IMAGE newImage = new IMAGE
+					{
+						productid = productId,
+						path = "/Uploads/" + fileName,
+					};
+					_db.IMAGEs.InsertOnSubmit(newImage);
+				}
+			}
+			_db.SubmitChanges();
+
+			return new HttpStatusCodeResult(HttpStatusCode.OK);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/GetProductImages")]
+		public ActionResult GetProductImages(int productId)
+		{
+			List<IMAGE> images = _db.IMAGEs.Where(image => image.productid == productId).ToList();
+			return PartialView("_ProductImages", images);
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/DeleteProductImage")]
+		public ActionResult DeleteProductImage(int imageId)
+		{
+			var image = _db.IMAGEs.FirstOrDefault(i => i.id == imageId);
+			if (image == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
+
+			_db.IMAGEs.DeleteOnSubmit(image);
+			_db.SubmitChanges();
+
+			return new HttpStatusCodeResult(HttpStatusCode.OK);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/Delete/{id}")]
+		public ActionResult Delete(int id)
+		{
+			var product = _db.PRODUCTs.FirstOrDefault(p => p.id == id);
+			if (product == null)
+			{
+				Response.StatusCode = 404;
+				ViewBag.StatusCode = 404;
+				return View("NotFound");
+			}
+
+			return View(product);
+		}
+
+		[HttpPost, ActionName("Delete")]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/Delete/{id}")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteProduct(int id)
+		{
+			var product = _db.PRODUCTs.FirstOrDefault(p => p.id == id);
+			if (product == null)
+			{
+				Response.StatusCode = 404;
+				ViewBag.StatusCode = 404;
+				return View("NotFound");
+			}
+
+			// Delete all images associated with the product
+			var images = _db.IMAGEs.Where(image => image.productid == id);
+			foreach (var image in images)
+			{
+				_db.IMAGEs.DeleteOnSubmit(image);
+			}
+
+			_db.PRODUCTs.DeleteOnSubmit(product);
+			_db.SubmitChanges();
+
+			return RedirectToAction("ProductList");
 		}
 
 		[HttpGet]
