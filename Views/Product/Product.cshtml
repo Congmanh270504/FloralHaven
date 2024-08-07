@@ -97,8 +97,7 @@
                     }
                 </div>
                 <div class="btn-box">
-                    <button class="btn btn-buy" type="button" data-id="@Model.Id" data-price="@Model.Price" data-sku="@Model.SKU" data-name="@Model.Title" data-category="@Model.CategoryName">Mua ngay</button>
-                    <button type="button" data-id="@Model.Id" data-price="@Model.Price" data-sku="@Model.SKU" data-name="@Model.Title" data-category="@Model.CategoryName" class="btn btn-add-to-cart" href="">Thêm vào giỏ</button>
+                    @Html.ActionLink("Thêm vào giỏ", "AddToCart", "Home", new { id = Model.Id }, new { @class = "btn btn-buy" })
                 </div>
                 <hr />
                 <div class="option-box">

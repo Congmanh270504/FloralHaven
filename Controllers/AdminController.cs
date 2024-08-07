@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FloralHaven.Models;
 using System.Globalization;
 using System.Text;
 namespace FloralHaven.Controllers
@@ -84,6 +83,7 @@ namespace FloralHaven.Controllers
 
         // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             PRODUCT item = _db.PRODUCTs.FirstOrDefault(t => t.id == id);

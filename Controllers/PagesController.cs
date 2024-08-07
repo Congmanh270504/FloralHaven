@@ -6,27 +6,27 @@ using System.Linq;
 using System.Web.Mvc;
 namespace Floral_Haven.Controllers
 {
-	public class PagesController : Controller
-	{
-		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
-		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
+    public class PagesController : Controller
+    {
+        private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
+        string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
-		public ActionResult About()
-		{
-			return View();
-		}
-		public ActionResult Intro()
-		{
-			int numberItem = _db.PRODUCTs.Count();
-			ViewBag.numberItem = numberItem;
-			var time = DateTime.Now.Year - 2011;
-			ViewBag.time = time;
-			return PartialView();
-		}
-		public ActionResult Contact()
-		{
-			return View();
-		}
+        public ActionResult About()
+        {
+            return View();
+        }
+        public ActionResult Intro()
+        {
+            int numberItem = _db.PRODUCTs.Count();
+            ViewBag.numberItem = numberItem;
+            var time = DateTime.Now.Year - 2011;
+            ViewBag.time = time;
+            return PartialView();
+        }
+        public ActionResult Contact()
+        {
+            return View();
+        }
 
         public ActionResult Service()
         {
@@ -70,7 +70,7 @@ namespace Floral_Haven.Controllers
             {
                 return PartialView(new List<ProductListViewModel>());
             }
-	
+
 
             var products = _db.PRODUCTs.Where(p => p.categoryid == category.id)
                 .OrderByDescending(p => p.id)
@@ -83,7 +83,7 @@ namespace Floral_Haven.Controllers
                     Stock = product.instock,
                     Price = product.price,
                     SalePrice = product.saleprice,
-                    MainImage = _imgPrefix + product.handle + "/" + _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
+                    MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
                     CategoryID = product.categoryid,
                     CategoryName = categoryName
                 })
@@ -91,5 +91,5 @@ namespace Floral_Haven.Controllers
             return PartialView("_SubmenuProductList", products);
         }
     }
-		
+
 }
