@@ -35,7 +35,7 @@ $(function () {
                     render: function (t, e, s, a) {
                         var n = s.product_name,
                             i = s.id,
-                            o = "",
+                            o = s.handle,
                             c = s.image;
                         return '<div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-4 rounded-2 bg-label-secondary">' + (c ? '<img loading="lazy" src="' + c + '" alt="Product-' + i + '" class="rounded-2">' : '<span class="avatar-initial rounded-2 bg-label-' + ["success", "danger", "warning", "info", "dark", "primary", "secondary"][Math.floor(6 * Math.random())] + '">' + (c = (((c = (n).match(/\b\w/g) || []).shift() || "") + (c.pop() || "")).toUpperCase()) + "</span>") + '</div></div><div class="d-flex flex-column"><h6 class="text-nowrap mb-0">' + n + '</h6><small class="text-truncate d-none d-sm-block">' + o + "</small></div></div>";
                     },
