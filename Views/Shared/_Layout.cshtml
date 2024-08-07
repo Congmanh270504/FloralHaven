@@ -73,8 +73,9 @@
             font-size: .875rem;
             border-radius: .25rem;
         }
-        .dropdown-menu-end.rounded-5{
-            border-radius:0.5rem;
+
+        .dropdown-menu-end.rounded-5 {
+            border-radius: 0.5rem;
         }
     </style>
     <!-- Template Stylesheet -->
@@ -106,7 +107,7 @@
         @Html.Partial("_FooterPartial")
     </div>
     <script src="~/js/scroll-animation.js"></script>
-    
+
     <!-- JavaScript Libraries -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -122,6 +123,10 @@
     <!-- Template Javascript -->
     <script src="~/js/main.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (currentAction != "Cart")
+    {
+        <script src="~/js/CartDrawer.js"></script>
+    }
     @RenderSection("scripts", required: false)
     <!-- Template Bootstrap -->
     @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@

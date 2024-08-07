@@ -38,7 +38,7 @@ commentEditor && new Quill(commentEditor, { modules: { toolbar: ".comment-toolba
                         responsivePriority: 2,
                         render: function (e, t, a, s) {
                             var o = a.category_name,
-                                r = a.id,
+                                r = a.slug,
                                 n = "",
                                 i = a.id;
                             return '<div class="d-flex align-items-center"><div class="avatar-wrapper me-3 rounded-2 bg-label-secondary"><div class="avatar">' + (n ? '<img src="' + n + '" alt="' + i + '" class="rounded-2">' : '<span class="avatar-initial rounded-2 bg-label-' + ["success", "danger", "warning", "info", "dark", "primary", "secondary"][Math.floor(6 * Math.random())] + '">' + (n = (((n = (o = a.category_name).match(/\b\w/g) || []).shift() || "") + (n.pop() || "")).toUpperCase()) + "</span>") + '</div></div><div class="d-flex flex-column justify-content-center"><span class="text-heading text-wrap fw-medium">' + o + '</span><span class="text-truncate mb-0 d-none d-sm-block"><small>' + r + "</small></span></div></div>";
@@ -110,18 +110,19 @@ commentEditor && new Quill(commentEditor, { modules: { toolbar: ".comment-toolba
         e.preventDefault();
         ff.validate().then(function (e) {
             if ("Valid" == e) {
-                var formData = new FormData();
-                formData.append("name", document.querySelector("#category-title").value);
-                formData.append("slug", document.querySelector("#category-slug").value);                
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+               
                 $.ajax({
-                    url: "/test",
+                    url: "/Category/Create",
                     type: "POST",
-                    data: formData,
-                    processData: !1,
-                    contentType: !1,
+                    data: {
+                        __RequestVerificationToken: token,
+                        name: document.querySelector("#category-title").value,
+                        slug: document.querySelector("#category-slug").value,
+                    },
                     success: function (e) {                        
-                        var t = document.querySelector("#offcanvasEcommerceCategoryList");
-                        t && new bootstrap.Offcanvas(t).hide();
+                        
                     },
                 });
             }

@@ -1,9 +1,4 @@
 ﻿@model FloralHaven.Models.ProductViewModel
-@section scripts{
-    <script src="~/Scripts/Slick/slick.min.js"></script>
-    <script src="~/js/jquery.bootstrap-touchspin.js"></script>
-    <script src="~/js/product_detail.js"></script>
-}
 @section styles{
     <link href="~/Content/Slick/slick.css" rel="stylesheet" />
     <link href="~/css/products.css" rel="stylesheet" />
@@ -15,6 +10,13 @@
         }
     </style>
 }
+
+@section scripts{
+    <script src="~/Scripts/Slick/slick.min.js"></script>
+    <script src="~/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/js/product_detail.js"></script>
+}
+
 <div class="container">
     <section class="bread-crumb">
         <div class="container">
@@ -64,7 +66,7 @@
                 <div class="product-info quantity">
                     <p>Số lượng</p>
                     <p>
-                        <input id="quantity" type="text" value="1" name="quantity" min="1" max="99" class="form-control">
+                        <input id="quantity" type="text" value="1" name="quantity" class="form-control">
                     </p>
                 </div>
                 <hr />
@@ -97,7 +99,8 @@
                     }
                 </div>
                 <div class="btn-box">
-                    @Html.ActionLink("Thêm vào giỏ", "AddToCart", "Home", new { id = Model.Id }, new { @class = "btn btn-buy" })
+                    <button class="btn btn-buy" type="button" data-id="@Model.Id" data-price="@Model.Price" data-sku="@Model.SKU" data-name="@Model.Title" data-category="@Model.CategoryName">Mua ngay</button>
+                    <button type="button" data-id="@Model.Id" data-price="@Model.Price" data-sku="@Model.SKU" data-name="@Model.Title" data-category="@Model.CategoryName" class="btn btn-add-to-cart" href="">Thêm vào giỏ</button>
                 </div>
                 <hr />
                 <div class="option-box">

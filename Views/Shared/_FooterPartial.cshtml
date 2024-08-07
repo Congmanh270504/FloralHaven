@@ -378,14 +378,3 @@
         <script src="~/js/Accordion.js"></script>
     </footer>
 </section>
-@{
-    if (Session["user"] == null)
-    {
-        <label>Khong co user</label>
-    }
-    else
-    {
-        var aa = Session["user"];
-        <label>@aa</label>
-    }
-}

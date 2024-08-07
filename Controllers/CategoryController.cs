@@ -2,6 +2,7 @@
 using PagedList;
 using System;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace FloralHaven.Controllers
@@ -30,18 +31,25 @@ namespace FloralHaven.Controllers
 		[CustomAuthorize(Roles = "Admin")]
 		[Route("Category/Create")]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(FormCollection collection)
+		public ActionResult Create(string name, string slug)
 		{
-			try
+			if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
 			{
-				// TODO: Add insert logic here
+				TempData["Message"] = "Please fill in all fields.";
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
 
-				return RedirectToAction("Index");
-			}
-			catch
+			var category = new CATEGORY
 			{
-				return View();
-			}
+				name = name,
+				slug = slug
+			};
+
+			_db.CATEGORies.InsertOnSubmit(category);
+			_db.SubmitChanges();
+
+			TempData["Message"] = "Category created successfully.";
+			return new HttpStatusCodeResult(HttpStatusCode.OK);
 		}
 
 		[HttpGet]
@@ -109,6 +117,7 @@ namespace FloralHaven.Controllers
 				{
 					id = category.id,
 					category_name = category.name,
+					slug = category.slug,
 					total_products = _db.PRODUCTs.Count(p => p.categoryid == category.id)
 				})
 				.ToList();
@@ -117,7 +126,7 @@ namespace FloralHaven.Controllers
 		}
 
 		[HttpGet]
-		[Route("Category/{id}")]
+		[Route("Category/{slug}")]
 		public ActionResult Category(string slug, string sortOrder, int? page)
 		{
 			var category = _db.CATEGORies.FirstOrDefault(c => c.slug == slug);
@@ -134,7 +143,7 @@ namespace FloralHaven.Controllers
 			ViewBag.CategoryName = categoryName;
 			ViewBag.CurrentSort = sortOrder;
 
-			var products = _db.PRODUCTs.Where(product => product.categoryid.ToString() == slug);
+			var products = _db.PRODUCTs.Where(product => product.categoryid == category.id);
 
 			switch (sortOrder)
 			{
@@ -166,7 +175,6 @@ namespace FloralHaven.Controllers
 			var totalCount = products.Count();
 
 			var productViewModels = products
-				.Where(product => product.categoryid.ToString() == slug)
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize)
 				.Select(product => new ProductListViewModel

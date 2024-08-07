@@ -1,39 +1,17 @@
-
-function saveCart() {
-    const cart = JSON.parse(sessionStorage.getItem("cart"));
-    if (cart) {
-        $.ajax({
-            url: "/SaveCartList",
-            type: "POST",
-            data: { items: cart.items, len: cart.items.length },
-            success: function (data) {
-                loadCart();
-            },
-        });
-    }
-}
-
-
-
 const cartWrapper = document.querySelector(".cart__wrapper");
 const cartTable = cartWrapper.querySelector(".cart__table");
 
 function loadCart(addToCart = false) {
-    (function () {
-        $.ajax({
-            url: "/cartlist",
-            type: "GET",
-            success: function (data) {
-                sessionStorage.setItem("cart", JSON.stringify(data));
+    $.ajax({
+        url: "/CartList",
+        type: "GET",
+        success: function (data) {
+            renderCart(data, addToCart)
+        },
+    });
+}
 
-            },
-        });
-    })();
-
-    let currentCart = JSON.parse(sessionStorage.getItem("cart")) || {
-        items: [],
-        subtotal: 0,
-    };
+async function renderCart(currentCart, addToCart = false) {
 
     const badges = document.querySelectorAll(".badge");
 
@@ -86,7 +64,7 @@ function loadCart(addToCart = false) {
                   </div>
                   <div class="cart__item-product-info">
                     <div class="cart__item-product-title">
-                      <a href="${"/product/" + item.Handle}">${item.Name}</a>
+                      <a href="${"/Product/" + item.Handle}">${item.Name}</a>
                     </div>
                     <button class="cart-item__remove mt-2" data-id=${item.Id}>Remove</button>
                   </div>
@@ -156,21 +134,23 @@ function loadCart(addToCart = false) {
                 (item) => item.Id === parseInt(id),
             );
             if (currentCart.items[itemIndex].Quantity > 1) {
-                currentCart.items[itemIndex].Quantity -= 1;
-                currentCart.subtotal = currentCart.items.reduce(
-                    (acc, item) => acc + item.Price * item.Quantity,
-                    0,
-                );
-                sessionStorage.setItem("cart", JSON.stringify(currentCart));
-                saveCart();
+                $.ajax({
+                    url: "/UpdateCart",
+                    type: "POST",
+                    data: { id: id, quantity: currentCart.items[itemIndex].Quantity - 1 },
+                    success: function (data) {
+                        loadCart();
+                    },
+                });
             } else {
-                currentCart.subtotal = currentCart.items.reduce(
-                    (acc, item) => acc + item.Price * item.Quantity,
-                    0,
-                );
-                currentCart.items.splice(itemIndex, 1);
-                sessionStorage.setItem("cart", JSON.stringify(currentCart));
-                saveCart();
+                $.ajax({
+                    url: "/RemoveFromCart",
+                    type: "POST",
+                    data: { id: id },
+                    success: function (data) {
+                        loadCart();
+                    },
+                });
             }
         });
     });
@@ -181,39 +161,39 @@ function loadCart(addToCart = false) {
             const itemIndex = currentCart.items.findIndex(
                 (item) => item.Id === parseInt(id),
             );
-            currentCart.items[itemIndex].Quantity += 1;
-            currentCart.subtotal = currentCart.items.reduce(
-                (acc, item) => acc + item.Price * item.Quantity,
-                0,
-            );
-            sessionStorage.setItem("cart", JSON.stringify(currentCart));
-            saveCart();
+            $.ajax({
+                url: "/UpdateCart",
+                type: "POST",
+                data: { id: id, quantity: currentCart.items[itemIndex].Quantity + 1 },
+                success: function (data) {
+                    loadCart();
+                },
+            });
         });
     });
 
     cartItemQtyInputs.forEach((input) => {
         input.addEventListener("change", (e) => {
             const id = e.target.getAttribute("data-id");
-            const itemIndex = currentCart.items.findIndex(
-                (item) => item.Id === parseInt(id),
-            );
             const newQty = parseInt(e.target.value);
             if (newQty > 0) {
-                currentCart.items[itemIndex].Quantity = newQty;
-                currentCart.subtotal = currentCart.items.reduce(
-                    (acc, item) => acc + item.Price * item.Quantity,
-                    0,
-                );
-                sessionStorage.setItem("cart", JSON.stringify(currentCart));
-                saveCart();
+                $.ajax({
+                    url: "/UpdateCart",
+                    type: "POST",
+                    data: { id: id, quantity: newQty },
+                    success: function (data) {
+                        loadCart();
+                    },
+                });               
             } else {
-                currentCart.items.splice(itemIndex, 1);
-                currentCart.subtotal = currentCart.items.reduce(
-                    (acc, item) => acc + item.Price * item.Quantity,
-                    0,
-                );
-                sessionStorage.setItem("cart", JSON.stringify(currentCart));
-                saveCart();
+                $.ajax({
+                    url: "/RemoveFromCart",
+                    type: "POST",
+                    data: { id: id },
+                    success: function (data) {
+                        loadCart();
+                    },
+                });
             }
         });
     });
@@ -221,16 +201,14 @@ function loadCart(addToCart = false) {
     cartItemRemoveBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const id = e.target.getAttribute("data-id");
-            const itemIndex = currentCart.items.findIndex(
-                (item) => item.Id === parseInt(id),
-            );
-            currentCart.items.splice(itemIndex, 1);
-            currentCart.subtotal = currentCart.items.reduce(
-                (acc, item) => acc + item.Price * item.Quantity,
-                0,
-            );
-            sessionStorage.setItem("cart", JSON.stringify(currentCart));
-            saveCart();
+            $.ajax({
+                url: "/RemoveFromCart",
+                type: "POST",
+                data: { id: id },
+                success: function (data) {
+                    loadCart();
+                },
+            });
         });
     });
 
@@ -251,12 +229,12 @@ loadCart();
 
 document.querySelector("button[name=checkout]").addEventListener("click", () => {
     if (sessionStorage.getItem("checkout"))
-        localStorage.removeItem("checkout");
+        sessionStorage.removeItem("checkout");
     window.location.href = "/checkout";
 });
 
 document.querySelector("button[name=paypal]").addEventListener("click", () => {
     if (sessionStorage.getItem("checkout"))
-        localStorage.removeItem("checkout");
+        sessionStorage.removeItem("checkout");
     window.location.href = "/checkout/?payment=paypal";
 });

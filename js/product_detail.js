@@ -27,6 +27,26 @@
         $('.slider-nav-thumbnails .slick-slide').eq(mySlideNumber).addClass('slick-active');
     });
     $(".product-info input[name='quantity']").TouchSpin({
-        initval: 40
+        min: 1,
+        max:99
+    });
+    $(".btn-add-to-cart").click(function () {
+        var id = $(this).data("id");
+        var quantity = $("#quantity").val();
+        $.ajax({
+            url: "/AddToCartQuantity",
+            type: "POST",
+            data: { id: id, quantity: quantity },
+            success: function (response) {
+                loadCart(true);
+                if (window.innerWidth < 768)
+                    document.documentElement.classList.add("prevent-scroll");
+                cartWrapper.classList.remove("hidden");
+                setTimeout(() => {
+                    cartContent.classList.remove("translate-x-full");
+                    cartWrapper.style.setProperty("--tw-bg-opacity", 0.5);
+                }, 300);
+            }
+        });
     });
 }

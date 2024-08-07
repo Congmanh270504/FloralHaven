@@ -58,6 +58,10 @@
             </div>
             <!-- Offcanvas Body -->
             <div class="offcanvas-body border-top">
+                @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                }
                 <form class="pt-0" id="eCommerceCategoryListForm" action="test" method="post">
                     <!-- Title -->
                     <div class="mb-6">
@@ -68,7 +72,7 @@
                     <div class="mb-6">
                         <label class="form-label" for="category-slug">Slug</label>
                         <input type="text" id="category-slug" class="form-control" placeholder="Enter slug" aria-label="slug" name="slug" />
-                    </div>                    
+                    </div>
                     <!-- Submit and reset -->
                     <div class="mb-6">
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Add</button>
