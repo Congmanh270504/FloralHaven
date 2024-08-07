@@ -1,4 +1,10 @@
 ﻿@model FloralHaven.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 @section scripts{
     <script src="~/Scripts/Slick/slick.min.js"></script>
     <script src="~/js/jquery.bootstrap-touchspin.js"></script>
@@ -24,7 +30,7 @@
                     <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
                 </li>
                 <li class="category">
-                    @Html.ActionLink(Model.CategoryName, "Category", "Category", new { id = Model.CategoryId }, new { title = Model.CategoryName })
+                    @Html.ActionLink(Model.CategoryName, "Index", "Home", null, new { title = Model.CategoryName })
                     <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
                 </li>
                 <li><strong><span>@Model.Title</span></strong></li>
@@ -38,7 +44,7 @@
                     @foreach (var image in Model.Images)
                     {
                         <figure>
-                            <img src="@image" alt="@image" width="800" height="800">
+                            <img src="@image" alt="@image">
                         </figure>
                     }
                 </div>
@@ -46,7 +52,7 @@
                     @foreach (var image in Model.Images)
                     {
                         <div class="thumb-item">
-                            <img src="@image" alt="@image" width="200" height="200" />
+                            <img src="@image" alt="@image" />
                         </div>
                     }
                 </div>
@@ -60,12 +66,6 @@
                 <div class="product-info sku">
                     <p>SKU</p>
                     <p itemprop="sku">@Model.SKU</p>
-                </div>
-                <div class="product-info quantity">
-                    <p>Số lượng</p>
-                    <p>
-                        <input id="quantity" type="text" value="1" name="quantity" min="1" max="99" class="form-control">
-                    </p>
                 </div>
                 <hr />
                 <div class="price-box clearfix">
@@ -96,18 +96,20 @@
                         <!-- Giá -->
                     }
                 </div>
-                <div class="btn-box">
-                    @Html.ActionLink("Thêm vào giỏ", "AddToCart", "Home", new { id = Model.Id }, new { @class = "btn btn-buy" })
-                </div>
-                <hr />
-                <div class="option-box">
-                    <ul>
-                        <li><img width="40" src="~/Imgs/delivery.png"><span>Giao hàng nhanh 2 giờ trong 5km</span></li>
-                        <li><img width="40" src="~/Imgs/present-box.png"><span>Miễn phí thiệp chúc mừng</span></li>
-                        <li><img width="40" src="~/Imgs/eco-nature.png"><span>Đảm bảo hoa tươi trong 3 ngày</span></li>
-                    </ul>
+                <div class="btn-box mt-2">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions d-flex align-content-center justify-content-evenly">
+                            <button type="submit" value="Delete" class="btn bg-danger">Delete</button>
+                            <a class="text-success" style=""></a>
+                            @Html.ActionLink("Back to List", "Index", "Product", null, new { @class = "btn bg-success" })
+                        </div>
+                    }
+                    <hr />
                 </div>
             </div>
         </div>
+
     </div>
-</div>

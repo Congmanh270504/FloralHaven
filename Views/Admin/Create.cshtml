@@ -1,0 +1,105 @@
+﻿@using FloralHaven.Models;
+@model FloralHaven.Models.PRODUCT
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<CATEGORY> category = ViewBag.Categories;
+}
+<form action="/Admin/Create" method="post" class="container">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="title">Title <h class="text-danger">(*)</h></label>
+            <input type="text" class="form-control" id="title" placeholder="Hoa hồng" name="title" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="handle">Handle <h class="text-danger">(*)</h></label>
+            <input type="text" class="form-control" id="handle" placeholder="hoa-hong" name="handle" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="categoryid">Category ID <h class="text-danger">(*)</h></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                </div>
+                <select class="form-control" id="categoryid" name="categoryid" required>
+                    @foreach (var item in category)
+                    {
+                        <option value="@item.id">@item.name</option>
+                    }
+                </select>
+                <div class="invalid-feedback">
+                    Please choose a Category type.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="price">Price <h class="text-danger">(*)</h></label>
+            <input type="number" class="form-control" id="price" placeholder="0.00 đ" name="price" required>
+            <div class="invalid-feedback">
+                Please provide a price.
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="saleprice">Sale Price <h class="text-danger">(optional)</h></label>
+            <input type="number" class="form-control" id="saleprice" placeholder="Sale" name="saleprice" required>
+            <div class="invalid-feedback">
+                Please provide a valid sale price.
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="sku">SKU</label>
+            <input type="text" class="form-control" id="sku" placeholder="sku" name="sku" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="description">Description <h class="text-danger">(ul/li)</h></label>
+            <input type="text" class="form-control" id="description" placeholder="" name="description" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="instock">In Stock <h class="text-danger">(optional)</h></label>
+            <input type="number" class="form-control" id="instock" placeholder="1" name="instock" required min="0">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+                I confirm and agree with the terms.
+            </label>
+            <div class="invalid-feedback">
+                You must agree before submitting.
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit" style="margin: auto; display: block; border-radius: 20px; padding: 0.5rem 10px;">Add product</button>
+
+</form>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
