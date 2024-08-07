@@ -351,6 +351,7 @@
     <Content Include="adminassets\js\app-ecommerce-dashboard.js" />
     <Content Include="adminassets\js\app-ecommerce-order-details.js" />
     <Content Include="adminassets\js\app-ecommerce-order-list.js" />
+    <Content Include="adminassets\js\category-list.js" />
     <Content Include="adminassets\js\product-add.js" />
     <Content Include="adminassets\js\product-list.js" />
     <Content Include="adminassets\js\app-ecommerce-reviews.js" />
@@ -381,10 +382,10 @@
     <Content Include="adminassets\vendor\js\helpers.js" />
     <Content Include="adminassets\vendor\js\menu.js" />
     <Content Include="adminassets\vendor\js\template-customizer.js" />
-    <Content Include="adminassets\vendor\libs\%40form-validation\auto-focus.js" />
-    <Content Include="adminassets\vendor\libs\%40form-validation\bootstrap5.js" />
-    <Content Include="adminassets\vendor\libs\%40form-validation\form-validation.css" />
-    <Content Include="adminassets\vendor\libs\%40form-validation\popular.js" />
+    <Content Include="adminassets\vendor\libs\form-validation\auto-focus.js" />
+    <Content Include="adminassets\vendor\libs\form-validation\bootstrap5.js" />
+    <Content Include="adminassets\vendor\libs\form-validation\form-validation.css" />
+    <Content Include="adminassets\vendor\libs\form-validation\popular.js" />
     <Content Include="adminassets\vendor\libs\apex-charts\apex-charts.css" />
     <Content Include="adminassets\vendor\libs\apex-charts\apexcharts.js" />
     <Content Include="adminassets\vendor\libs\cleavejs\cleave-phone.js" />
@@ -708,6 +709,7 @@
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Category.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
