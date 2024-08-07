@@ -40,25 +40,24 @@
 
             $("#mydropzone").dropzone({
                 previewTemplate: `<div class="dz-preview dz-file-preview">
-                                        <div class="dz-details">
-                                          <div class="dz-thumbnail">
-                                            <img data-dz-thumbnail>
-                                            <span class="dz-nopreview">No preview</span>
-                                            <div class="dz-success-mark"></div>
-                                            <div class="dz-error-mark"></div>
-                                            <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                                            <div class="progress">
-                                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
-                                            </div>
-                                          </div>
-                                          <div class="dz-filename" data-dz-name></div>
-                                          <div class="dz-size" data-dz-size></div>
-                                        </div>
-                                        </div>`,
+                                                <div class="dz-details">
+                                                  <div class="dz-thumbnail">
+                                                    <img data-dz-thumbnail>
+                                                    <span class="dz-nopreview">No preview</span>
+                                                    <div class="dz-success-mark"></div>
+                                                    <div class="dz-error-mark"></div>
+                                                    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                                    <div class="progress">
+                                                      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="dz-filename" data-dz-name></div>
+                                                  <div class="dz-size" data-dz-size></div>
+                                                </div>
+                                                </div>`,
                 autoProcessQueue: false,
                 paramName: "images",
                 maxFilesize: 10, //mb
-                maxThumbnailFilesize: 1, //mb
                 maxFiles: 10,
                 parallelUploads: 10,
                 acceptedFiles: ".jpeg,.png,.jpg,.gif",
@@ -106,7 +105,49 @@
         });
         function refreshProductPicture() {
             $("#refreshbutton").click();
-        }       
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#AddFromURL").click(function () {
+                var imageUrl = $("#mediaURL").val();
+                if (imageUrl) {
+                    $.ajax({
+                        url: "@Url.Action("AddProductImageFromURL", "Product")",
+                        type: "POST",
+                        data: { productId: @ViewBag.ProductID, imageUrl: imageUrl },
+                        success: function (response) {
+                            // Handle success response
+                            console.log(response);
+                            // Close modal
+                            $("#modalURL").modal("hide");
+                            // Refresh images
+                            refreshProductPicture();
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error response
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+            $("#mediaURL").on("input", function () {
+                var imageUrl = $(this).val();
+                if (imageUrl && isValidUrl(imageUrl)) {
+                    $("#AddFromURLPreview").attr("src", imageUrl);
+                }
+            });
+
+            function isValidUrl(url) {
+                try {
+                    new URL(url);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+        });
     </script>
 }
 
@@ -119,7 +160,7 @@
         <div class="d-flex align-content-center flex-wrap gap-4">
             <div class="d-flex gap-4">
                 <a class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
-            </div>            
+            </div>
         </div>
     </div>
 
@@ -131,7 +172,7 @@
             <div class="row">
                 <div class="col-12">
                     @Ajax.ActionLink("Refresh", "GetProductImages", new { productId = ViewBag.ProductID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "productpictures", LoadingElementId = "loading", LoadingElementDuration = 300 }, new { @class = "btn btn-primary mb-2", id = "refreshbutton" })
-                    <div id="productpictures" class="dropzone border-solid opacity-100"></div>
+                    <div id="productpictures" class="dropzone border-solid opacity-100 text-center"></div>
                 </div>
             </div>
         </div>
@@ -140,7 +181,35 @@
     <div class="card mb-6">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0 card-title">Upload Images</h5>
-            <a href="javascript:void(0);" class="fw-medium">Add media from URL</a>
+            <a href="" class="fw-medium" data-bs-toggle="modal" data-bs-target="#modalURL">Add image from URL</a>
+            <!-- Modal -->
+            <div class="modal fade" id="modalURL" tabindex="-1" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">Add image from URL</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col mb-6">
+                                    <label for="mediaURL" class="form-label">URL</label>
+                                    <input type="text" id="mediaURL" class="form-control" placeholder="URL">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <img id="AddFromURLPreview" class="img-thumbnail" src="" alt="" loading="lazy" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button id="AddFromURL" type="button" class="btn btn-primary"><i class="ti ti-photo-plus"></i>&nbsp;Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="row">

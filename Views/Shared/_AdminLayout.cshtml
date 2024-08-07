@@ -79,7 +79,7 @@
                             <div data-i18n="Dashboard">Dashboard</div>
                         </a>
                     </li>
-                    <li class="menu-item @((currentLink == "Product/ProductList" || currentLink == "Product/Create" || currentLink == "Category/Create") ? "active open" : "")">
+                    <li class="menu-item @((currentLink == "Product/ProductList" || currentLink == "Product/Create" || currentLink == "Category/CategoryList" || currentLink == "Category/Create") ? "active open" : "")">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <div data-i18n="Products">Products</div>
                         </a>
@@ -94,9 +94,14 @@
                                     <div data-i18n="Add Product">Add Product</div>
                                 </a>
                             </li>
+                            <li class="menu-item @(currentLink == "Category/CategoryList" ? "active" : "")">
+                                <a href="@Url.Action("CategoryList","Category")" class="menu-link">
+                                    <div data-i18n="Category List">Category List</div>
+                                </a>
+                            </li>
                             <li class="menu-item @(currentLink == "Category/Create" ? "active" : "")">
                                 <a href="@Url.Action("Create","Category")" class="menu-link">
-                                    <div data-i18n="Category List">Category List</div>
+                                    <div data-i18n="Add Category">Add Category</div>
                                 </a>
                             </li>
                         </ul>
