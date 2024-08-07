@@ -1,8 +1,8 @@
-﻿@model FloralHaven.Models.ProductCreateViewModel
+﻿@model FloralHaven.Models.ProductEditViewModal
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
 @section vendorscss{
@@ -32,23 +32,26 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/adminassets/js/product-add.js"></script>
+    <script>
+        $(".select2").val("@Model.CategoryId")
+    </script>
 }
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="app-ecommerce">
-        @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { id = "create_product", enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { id = "edit_product", enctype = "multipart/form-data" }))
         {
             <!-- Add Product -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
                 <div class="d-flex flex-column justify-content-center">
-                    <h4 class="mb-1">Add a new Product</h4>
-                    <p class="mb-0">Orders placed across your store</p>
+                    <h4 class="mb-1">Edit Product</h4>
+                    <p class="mb-0">Product #@Model.Id</p>
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-4">
-                    <div class="d-flex gap-4">
-                        <a class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
+                    <div class="d-flex gap-4">                        
+                        <a type="button" class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
                     </div>
-                    <button type="submit" class="btn btn-primary" form="create_product">Create product</button>
+                    <button type="submit" class="btn btn-primary" form="edit_product">Save product</button>
                 </div>
             </div>
 
@@ -58,10 +61,11 @@
                     <!-- Product Information -->
 
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
                     <div class="card mb-6">
                         <div class="card-header">
                             <h5 class="card-tile mb-0">Product information</h5>
-                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })                            
                         </div>
                         <div class="card-body">
                             <div class="mb-6">
@@ -83,6 +87,7 @@
                                         <div class="mb-6 col category-select2-dropdown">
                                             @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "form-label mb-1", @for = "category-org" })
                                             @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryID as SelectList, "Select Category", htmlAttributes: new { @id = "category-org", @class = "select2 form-select", @data_placeholder = "Select Category" })
+
                                         </div>
                                         <a href="@Url.Action("Create","Category")" class="fw-medium btn btn-icon btn-label-primary ms-4"><i class="ti ti-plus ti-md"></i></a>
                                     </div>
@@ -106,7 +111,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="comment-editor border-0 pb-6" id="category-description"></div>
+                                    <div class="comment-editor border-0 pb-6" id="category-description">
+                                        @Html.Raw(Model.Description)
+                                    </div>
                                     @Html.TextAreaFor(model => model.Description, new { @class = "d-none", id = "description-input" })
                                 </div>
                             </div>
@@ -115,7 +122,7 @@
                     <!-- /Product Information -->
                     
                 </div>
-                <!-- /Second column -->
+                <!-- /First column -->
                 <!-- Second column -->
                 <div class="col-12 col-lg-4">
                     <!-- Pricing Card -->
@@ -127,22 +134,19 @@
                             <!-- Base Price -->
                             <div class="mb-6">
                                 @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "product-price", @class = "form-control", placeholder = "Price", name = "productPrice", @arial_label = "Product price"} })
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "product-price", @class = "form-control", placeholder = "Price", name = "productPrice", @arial_label = "Product price" } })
                             </div>
                             <!-- Discounted Price -->
                             <div class="mb-6">
                                 @Html.LabelFor(model => model.SalePrice, htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @id = "product-discount-price", @class = "form-control", placeholder = "Discounted Price", name = "productDiscountedPrice", @arial_label = "Product discounted price"} })
+                                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @id = "product-discount-price", @class = "form-control", placeholder = "Discounted Price", name = "productDiscountedPrice", @arial_label = "Product discounted price" } })
                             </div>
                             <!-- Add to Stock -->
                             <label class="form-label" for="product-stock">Add to Stock</label>
                             <div class="row mb-4 g-4 pe-md-4">
                                 <div class="col-12">
-                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @id = "product-stock", @class = "form-control", placeholder = "Quantity", name = "quantity", @arial_label = "Quantity"} })
-                                </div>
-                                @*<div class="col-12 col-sm-3">
-                                        <button class="btn btn-primary">Confirm</button>
-                                    </div>*@
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @id = "product-stock", @class = "form-control", placeholder = "Quantity", name = "quantity", @arial_label = "Quantity" } })
+                                </div>                                
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FloralHaven" Class="FloralHavenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.CATEGORY" Member="CATEGORies">
-    <Type Name="CATEGORY">
-      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Association Name="CATEGORY_PRODUCT" Member="PRODUCTs" ThisKey="id" OtherKey="categoryid" Type="PRODUCT" />
-    </Type>
-  </Table>
   <Table Name="dbo.IMAGE" Member="IMAGEs">
     <Type Name="IMAGE">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -14,12 +7,19 @@
       <Association Name="PRODUCT_IMAGE" Member="PRODUCT" ThisKey="productid" OtherKey="id" Type="PRODUCT" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.CATEGORY" Member="CATEGORies">
+    <Type Name="CATEGORY">
+      <Column Name="id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="CATEGORY_PRODUCT" Member="PRODUCTs" ThisKey="id" OtherKey="categoryid" Type="PRODUCT" />
+    </Type>
+  </Table>
   <Table Name="dbo.PRODUCT" Member="PRODUCTs">
     <Type Name="PRODUCT">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="title" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="handle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="categoryid" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="categoryid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="saleprice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="sku" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />

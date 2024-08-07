@@ -26,14 +26,14 @@
                     @Html.ActionLink("Trang chủ", "Index", "Home", null, new { title = "Trang chủ" })
                     <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
                 </li>
-                <li><strong><span>Tất cả sản phẩm</span></strong></li>
+                <li><strong><span>@ViewBag.CategoryName</span></strong></li>
             </ul>
         </div>
     </section>
     <div class="container">
         <div class="row">
             <div class="col-12 col-title">
-                <h1>Tất cả sản phẩm</h1>
+                <h1>@ViewBag.CategoryName</h1>
             </div>
             <div class="block-collection col-lg-12 col-12">
                 <div class="category-products products-view products-view-grid list_hover_pro">
@@ -65,22 +65,22 @@
                                         }
                                     }
                                     <li class="btn-quick-sort default @if (sortOrder == "") { <text>active</text> }">
-                                        @Html.ActionLink("Mặc định", "Index", "Product", new { sortOrder = "" }, new { title = "Mặc định" })
+                                        @Html.ActionLink("Mặc định", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "" }, new { title = "Mặc định" })
                                     </li>
                                     <li class="btn-quick-sort name_asc @if (sortOrder == "name_asc") { <text>active</text> }">
-                                        @Html.ActionLink("Tên A-Z", "Index", "Product", new { sortOrder = "name_asc" }, new { title = "Tên A-Z" })
+                                        @Html.ActionLink("Tên A-Z", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "name_asc" }, new { title = "Tên A-Z" })
                                     </li>
                                     <li class="btn-quick-sort name_desc @if (sortOrder == "name_desc") { <text>active</text> }">
-                                        @Html.ActionLink("Tên Z-A", "Index", "Product", new { sortOrder = "name_desc" }, new { title = "Tên Z-A" })
+                                        @Html.ActionLink("Tên Z-A", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "name_desc" }, new { title = "Tên Z-A" })
                                     </li>
                                     <li class="btn-quick-sort date @if (sortOrder == "date") { <text>active</text> }">
-                                        @Html.ActionLink("Hàng mới", "Index", "Product", new { sortOrder = "date" }, new { title = "Hàng mới" })
+                                        @Html.ActionLink("Hàng mới", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "date" }, new { title = "Hàng mới" })
                                     </li>
                                     <li class="btn-quick-sort price_asc @if (sortOrder == "price_asc") { <text>active</text> }">
-                                        @Html.ActionLink("Giá thấp đến cao", "Index", "Product", new { sortOrder = "price_asc" }, new { title = "Giá thấp đến cao" })
+                                        @Html.ActionLink("Giá thấp đến cao", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "price_asc" }, new { title = "Giá thấp đến cao" })
                                     </li>
                                     <li class="btn-quick-sort price_desc @if (sortOrder == "price_desc") { <text>active</text> }">
-                                        @Html.ActionLink("Giá cao xuống thấp", "Index", "Product", new { sortOrder = "price_desc" }, new { title = "Giá cao xuống thấp" })
+                                        @Html.ActionLink("Giá cao xuống thấp", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "price_desc" }, new { title = "Giá cao xuống thấp" })
                                     </li>
                                 </ul>
                             </div>
@@ -133,9 +133,8 @@
                                                                 }
                                                             </div>
                                                             <div class="product-button">
-                                                                @if (item.Stock != null && item.Stock > 0 )
+                                                                @if (item.Stock != null && item.Stock > 0)
                                                                 {
-                                                                    @Html.ActionLink("Delete", "Delete", "Admin", new { id = item.ProductID }, new { @class = "mr-4" })
                                                                     <button class="btn-cart btn-views add_to_cart" title="Thêm vào giỏ hàng">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                                                                             <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
@@ -173,7 +172,7 @@
                                     pagedListRenderOptions.LiElementClasses = new[] { "page-item" };
                                 }
 
-                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }), pagedListRenderOptions)
+                                @Html.PagedListPager(Model, page => Url.Action("Category", new { id = ViewBag.CategoryId, page = page, sortOrder = ViewBag.CurrentSort }), pagedListRenderOptions)
                             </nav>
                         </div>
                     </div>
