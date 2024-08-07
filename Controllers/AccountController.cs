@@ -14,9 +14,8 @@ namespace FloralHaven.Controllers
 	{
 		private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
-        private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
-        string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
-        public AccountController()
+
+		public AccountController()
 		{
 		}
 
@@ -77,7 +76,7 @@ namespace FloralHaven.Controllers
 			switch (result)
 			{
 				case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+					return RedirectToLocal(returnUrl);
 				case SignInStatus.LockedOut:
 					return View("Lockout");
 				case SignInStatus.RequiresVerification:
@@ -400,7 +399,7 @@ namespace FloralHaven.Controllers
 		{
 			return View();
 		}
-		
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)
@@ -417,6 +416,7 @@ namespace FloralHaven.Controllers
 					_signInManager = null;
 				}
 			}
+
 			base.Dispose(disposing);
 		}
 
