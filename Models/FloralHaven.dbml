@@ -48,6 +48,14 @@
       <Association Name="Role_UserRole" Member="UserRoles" ThisKey="Id" OtherKey="RoleId" Type="UserRole" />
     </Type>
   </Table>
+  <Table Name="dbo.IMAGE" Member="IMAGEs">
+    <Type Name="IMAGE">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="productid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="path" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="PRODUCT_IMAGE" Member="PRODUCT" ThisKey="productid" OtherKey="id" Type="PRODUCT" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.PRODUCT" Member="PRODUCTs">
     <Type Name="PRODUCT">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -59,6 +67,7 @@
       <Column Name="sku" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="instock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PRODUCT_BillDetail" Member="BillDetails" ThisKey="id" OtherKey="idPro" Type="BillDetail" />
       <Association Name="PRODUCT_IMAGE" Member="IMAGEs" ThisKey="id" OtherKey="productid" Type="IMAGE" />
       <Association Name="PRODUCT_BILLDETAIL" Member="BILLDETAILs" ThisKey="id" OtherKey="productid" Type="BILLDETAIL" />
       <Association Name="CATEGORY_PRODUCT" Member="CATEGORY" ThisKey="categoryid" OtherKey="id" Type="CATEGORY" IsForeignKey="true" />

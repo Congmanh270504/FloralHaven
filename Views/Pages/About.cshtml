@@ -7,10 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center text-uppercase">
                 <li class="breadcrumb-item">
-                    @Html.ActionLink("Home", "Index", "Home")
-                </li>
-                <li class="breadcrumb-item">
-                    @Html.ActionLink("Pages", "Index", "Pages")
+                    @Html.ActionLink("Home", "Index", "Home", new { @class = "pr-2" })/
                 </li>
                 <li class="breadcrumb-item text-white active" aria-current="page">About</li>
             </ol>
@@ -22,5 +19,5 @@
 @Html.Action("Intro", "Pages")
 <!-- About End -->
 <!-- Team Start -->
-@Html.Action("Team", "Pages")
+@Html.Action("TeamMember", "Pages")
 <!-- Team End -->
