@@ -76,7 +76,7 @@ namespace FloralHaven.Controllers
 
 			if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
 			{
-				categories = categories.Where(p => p.name.Contains(search) || p.id.Contains(search));
+				categories = categories.Where(p => p.name.Contains(search) || p.slug.Contains(search));
 			}
 
 			if (!string.IsNullOrEmpty(order) && !string.IsNullOrWhiteSpace(order) && !string.IsNullOrEmpty(orderDir) && !string.IsNullOrWhiteSpace(orderDir))
@@ -118,9 +118,9 @@ namespace FloralHaven.Controllers
 
 		[HttpGet]
 		[Route("Category/{id}")]
-		public ActionResult Category(string id, string sortOrder, int? page)
+		public ActionResult Category(string slug, string sortOrder, int? page)
 		{
-			var category = _db.CATEGORies.FirstOrDefault(c => c.id.ToString() == id);
+			var category = _db.CATEGORies.FirstOrDefault(c => c.slug == slug);
 			if (category == null)
 			{
 				Response.StatusCode = 404;
@@ -134,7 +134,7 @@ namespace FloralHaven.Controllers
 			ViewBag.CategoryName = categoryName;
 			ViewBag.CurrentSort = sortOrder;
 
-			var products = _db.PRODUCTs.Where(product => product.categoryid.ToString() == id);
+			var products = _db.PRODUCTs.Where(product => product.categoryid.ToString() == slug);
 
 			switch (sortOrder)
 			{
@@ -166,7 +166,7 @@ namespace FloralHaven.Controllers
 			var totalCount = products.Count();
 
 			var productViewModels = products
-				.Where(product => product.categoryid.ToString() == id)
+				.Where(product => product.categoryid.ToString() == slug)
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize)
 				.Select(product => new ProductListViewModel

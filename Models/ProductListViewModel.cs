@@ -9,7 +9,7 @@
 		public decimal Price { get; set; }
 		public decimal? SalePrice { get; set; }
 		public string MainImage { get; set; }
-		public string CategoryID { get; set; }
+		public int CategoryID { get; set; }
 		public string CategoryName { get; set; }
 
 		public ProductListViewModel()
@@ -18,7 +18,7 @@
 			SalePrice = null;
 		}
 
-		public ProductListViewModel(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, string categoryID, string categoryName)
+		public ProductListViewModel(int productID, string name, string handle, int? stock, decimal price, decimal? salePrice, string mainImage, int categoryID, string categoryName)
 		{
 			ProductID = productID;
 			Name = name;
