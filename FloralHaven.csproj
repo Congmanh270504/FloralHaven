@@ -224,6 +224,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FloralHavenDBContextConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProductCreateViewModel.cs" />
+    <Compile Include="Models\ProductDeleteViewModal.cs" />
     <Compile Include="Models\ProductEditViewModal.cs" />
     <Compile Include="Models\ProductListViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -497,6 +499,7 @@
     <Content Include="Imgs\menu-6.jpg" />
     <Content Include="Imgs\menu-7.jpg" />
     <Content Include="Imgs\menu-8.jpg" />
+    <Content Include="Imgs\placeholder.png" />
     <Content Include="Imgs\present-box.png" />
     <Content Include="Imgs\team-1.jpg" />
     <Content Include="Imgs\team-2.jpg" />
@@ -703,6 +706,8 @@
     <Content Include="Views\Product\AddImages.cshtml" />
     <Content Include="Views\Product\_ProductImages.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

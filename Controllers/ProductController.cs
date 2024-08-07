@@ -15,16 +15,6 @@ namespace FloralHaven.Controllers
 		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
 		//string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
-		private string getImagePath(int productID, string productHandle)
-		{
-			var imagePath = _db.IMAGEs.FirstOrDefault(image => image.productid == productID)?.path ?? "";
-			//if (!imagePath.StartsWith("https"))
-			//{
-			//	imagePath = _imgPrefix + productHandle + "/" + imagePath;
-			//}
-			return imagePath;
-		}
-
 		private string SanitizeInput(string input)
 		{
 			// Use a HTML sanitization library or regular expressions to remove any HTML or script tags
@@ -85,7 +75,7 @@ namespace FloralHaven.Controllers
 					Stock = product.instock,
 					Price = product.price,
 					SalePrice = product.saleprice,
-					MainImage = getImagePath(product.id, product.handle),
+					MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
 					CategoryID = product.categoryid,
 					CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name ?? "",
 				})
@@ -239,7 +229,7 @@ namespace FloralHaven.Controllers
 					sku = product.sku,
 					price = product.price,
 					saleprice = product.saleprice,
-					image = getImagePath(product.id, product.handle),
+					image = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
 					handle = product.handle
 				})
 				.ToList();
@@ -376,6 +366,33 @@ namespace FloralHaven.Controllers
 			return new HttpStatusCodeResult(HttpStatusCode.OK);
 		}
 
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Product/AddProductImageFromURL")]
+		public ActionResult AddProductImageFromURL(int productId, string imageUrl)
+		{
+			var product = _db.PRODUCTs.FirstOrDefault(p => p.id == productId);
+			if (product == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
+
+			if (string.IsNullOrEmpty(imageUrl))
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			IMAGE newImage = new IMAGE
+			{
+				productid = productId,
+				path = imageUrl,
+			};
+			_db.IMAGEs.InsertOnSubmit(newImage);
+			_db.SubmitChanges();
+
+			return new HttpStatusCodeResult(HttpStatusCode.OK);
+		}
+
 		[HttpGet]
 		[CustomAuthorize(Roles = "Admin")]
 		[Route("Product/GetProductImages")]
@@ -415,7 +432,21 @@ namespace FloralHaven.Controllers
 				return View("NotFound");
 			}
 
-			return View(product);
+			var model = new ProductDeleteViewModal
+			{
+				Id = product.id,
+				Name = product.title,
+				Handle = product.handle,
+				Description = product.description,
+				CategoryId = product.categoryid,
+				CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name ?? "",
+				Price = product.price,
+				SalePrice = product.saleprice,
+				SKU = product.sku,
+				Stock = product.instock.GetValueOrDefault()
+			};
+
+			return View(model);
 		}
 
 		[HttpPost, ActionName("Delete")]
@@ -457,7 +488,7 @@ namespace FloralHaven.Controllers
 				return View("NotFound");
 			}
 			ViewBag.Title = product.title + "- FloralHaven";
-			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => getImagePath(product.id, product.handle)).ToList();
+			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => image.path).ToList();
 
 			string CategoryName = (_db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid)?.name) ?? "";
 			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);
