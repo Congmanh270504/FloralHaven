@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressSSLPort>44354</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -716,6 +716,7 @@
     <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\Pages\TeamMember.cshtml" />
     <Content Include="Views\Pages\BookingMenu.cshtml" />
+    <Content Include="Views\Account\OderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

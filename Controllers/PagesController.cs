@@ -90,6 +90,7 @@ namespace Floral_Haven.Controllers
 				.ToList();
 			return PartialView("_SubmenuProductList", products);
 		}
-	}
+       
+    }
 
 }
