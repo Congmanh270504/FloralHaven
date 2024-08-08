@@ -347,7 +347,6 @@
     <Content Include="adminassets\img\products\oneplus.png" />
     <Content Include="adminassets\img\products\play-station.png" />
     <Content Include="adminassets\img\products\woodenchair.png" />
-    <Content Include="adminassets\js\app-ecommerce-category-list.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-all.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-detail-overview.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-detail.js" />
