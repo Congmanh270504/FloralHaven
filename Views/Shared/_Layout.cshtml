@@ -17,6 +17,7 @@
     <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <!-- Customized Bootstrap Stylesheet -->
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <link rel="stylesheet" href="~/adminassets/vendor/fonts/tabler-icons.css" />
     <link href="~/css/custombootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/tailwind.css" />
     <link rel="stylesheet" href="~/css/swiper-bundle.min.css" />
@@ -62,6 +63,20 @@
         div {
             display: block;
         }
+
+        .dropdown-toggle.hide-arrow::after {
+            content: unset;
+        }
+
+        .btn.btn-logout {
+            padding: .25rem .5rem;
+            font-size: .875rem;
+            border-radius: .25rem;
+        }
+
+        .dropdown-menu-end.rounded-5 {
+            border-radius: 0.5rem;
+        }
     </style>
     <!-- Template Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet" asp-append-version="true">
@@ -92,30 +107,6 @@
         @Html.Partial("_FooterPartial")
     </div>
     <script src="~/js/scroll-animation.js"></script>
-    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-                     @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </nav>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>*@
 
     <!-- JavaScript Libraries -->
     @Scripts.Render("~/bundles/jquery")
@@ -132,6 +123,10 @@
     <!-- Template Javascript -->
     <script src="~/js/main.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (currentAction != "Cart")
+    {
+        <script src="~/js/CartDrawer.js"></script>
+    }
     @RenderSection("scripts", required: false)
     <!-- Template Bootstrap -->
     @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@

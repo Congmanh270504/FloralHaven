@@ -19,7 +19,7 @@ namespace FloralHaven.Models
 		public string Description { get; set; }
 
 		[Display(Name = "Category Id")]
-		public string CategoryId { get; set; }
+		public int CategoryId { get; set; }
 
 		[Display(Name = "Category")]
 		public string CategoryName { get; set; }

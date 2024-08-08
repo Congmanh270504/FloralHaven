@@ -38,7 +38,7 @@ commentEditor && new Quill(commentEditor, { modules: { toolbar: ".comment-toolba
                         responsivePriority: 2,
                         render: function (e, t, a, s) {
                             var o = a.category_name,
-                                r = a.id,
+                                r = a.slug,
                                 n = "",
                                 i = a.id;
                             return '<div class="d-flex align-items-center"><div class="avatar-wrapper me-3 rounded-2 bg-label-secondary"><div class="avatar">' + (n ? '<img src="' + n + '" alt="' + i + '" class="rounded-2">' : '<span class="avatar-initial rounded-2 bg-label-' + ["success", "danger", "warning", "info", "dark", "primary", "secondary"][Math.floor(6 * Math.random())] + '">' + (n = (((n = (o = a.category_name).match(/\b\w/g) || []).shift() || "") + (n.pop() || "")).toUpperCase()) + "</span>") + '</div></div><div class="d-flex flex-column justify-content-center"><span class="text-heading text-wrap fw-medium">' + o + '</span><span class="text-truncate mb-0 d-none d-sm-block"><small>' + r + "</small></span></div></div>";
@@ -57,7 +57,7 @@ commentEditor && new Quill(commentEditor, { modules: { toolbar: ".comment-toolba
                         searchable: !1,
                         orderable: !1,
                         render: function (e, t, a, s) {
-                            return '<div class="d-flex align-items-sm-center justify-content-sm-center"><button class="btn btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit"></i></button><button class="btn btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div>';
+                            return '<div class="d-flex align-items-sm-center justify-content-sm-center"><button data-id="' + a.id + '" class="edit-category btn btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit"></i></button><button class="btn btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/Category/' + a.slug + '" class="dropdown-item">View</a><button data-id="' + a.id + '" class="delete-category dropdown-item text-danger">Delete</button></div></div>';
                         },
                     },
                 ],
@@ -92,7 +92,18 @@ commentEditor && new Quill(commentEditor, { modules: { toolbar: ".comment-toolba
     (function () {
         var e = document.getElementById("eCommerceCategoryListForm");
         var ff = FormValidation.formValidation(e, {
-            fields: { categoryTitle: { validators: { notEmpty: { message: "Please enter category title" } } }, slug: { validators: { notEmpty: { message: "Please enter slug" } } } },
+            fields: {
+                categoryTitle: {
+                    validators: {
+                        notEmpty: { message: "Please enter category title" }
+                    }
+                }, slug: {
+                    validators: {
+                        notEmpty: { message: "Please enter slug" },
+                        blank: {}
+                    }
+                }
+            },
             plugins: {
                 trigger: new FormValidation.plugins.Trigger(),
                 bootstrap5: new FormValidation.plugins.Bootstrap5({
@@ -105,26 +116,214 @@ commentEditor && new Quill(commentEditor, { modules: { toolbar: ".comment-toolba
                 autoFocus: new FormValidation.plugins.AutoFocus(),
             },
         });
-    const submitBtn = e.querySelector('.data-submit[type="submit"]');
+        const submitBtn = e.querySelector('.add-submit.data-submit[type="submit"]');
         submitBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            ff.validate().then(function (e) {
+                if ("Valid" == e) {
+                    var form = $('#__AjaxAntiForgeryForm');
+                    var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+                    $.ajax({
+                        url: "/Category/Create",
+                        type: "POST",
+                        data: {
+                            __RequestVerificationToken: token,
+                            name: document.querySelector("#category-title").value,
+                            slug: document.querySelector("#category-slug").value,
+                        },
+                        success: function (e) {
+                            if (e.success) {
+                                // Close the offcanvas
+                                $('#offcanvasEcommerceCategoryList').offcanvas('hide');
+                                // Show Toastr
+                                toastr.options.timeOut = 4500;
+                                toastr.success("Category added successfully", "Success");
+                                // Reload the datatable
+                                $('.datatables-category-list').DataTable().ajax.reload();
+                            }
+                            else {
+                                if (e.message == "Category with the same slug already exists.") {
+                                    ff.updateValidatorOption('slug', 'blank', 'message', e.message).updateFieldStatus('slug', 'Invalid', 'blank');
+                                }
+                                else {
+                                    toastr.options.timeOut = 4500;
+                                    toastr.error(e.message, "Error");
+                                }
+                            }
+                        },
+                        error: function (e) {
+                            toastr.options.timeOut = 4500;
+                            toastr.error("Something went wrong", "Error");
+                        },
+                    });
+                }
+            });
+        });
+    })();
+
+(function () {
+    let e = document.getElementById("eCommerceCategoryEditForm");
+    let form = FormValidation.formValidation(e, {
+        fields: {
+            categoryTitle: {
+                validators: {
+                    notEmpty: { message: "Please enter category title" }
+                }
+            },
+            slug: {
+                validators: {
+                    notEmpty: { message: "Please enter slug" },
+                    blank: {}
+                }
+            }
+        },
+        plugins: {
+            trigger: new FormValidation.plugins.Trigger(),
+            bootstrap5: new FormValidation.plugins.Bootstrap5({
+                eleValidClass: "is-valid",
+                rowSelector: function (e, t) {
+                    return ".mb-6";
+                },
+            }),
+            submitButton: new FormValidation.plugins.SubmitButton(),
+            autoFocus: new FormValidation.plugins.AutoFocus(),
+        },
+    });
+
+    const submitBtn = e.querySelector('.edit-submit.data-submit[type="submit"]');
+    submitBtn.addEventListener("click", function (e) {
         e.preventDefault();
-        ff.validate().then(function (e) {
+        form.validate().then(function (e) {
             if ("Valid" == e) {
-                var formData = new FormData();
-                formData.append("name", document.querySelector("#category-title").value);
-                formData.append("slug", document.querySelector("#category-slug").value);                
+                var form2 = $('#__AjaxAntiForgeryForm2');
+                var token = $('input[name="__RequestVerificationToken"]', form2).val();
+                var id = document.querySelector("#category-id-edit").value;
+
                 $.ajax({
-                    url: "/test",
+                    url: "/Category/Edit/" + id,
                     type: "POST",
-                    data: formData,
-                    processData: !1,
-                    contentType: !1,
-                    success: function (e) {                        
-                        var t = document.querySelector("#offcanvasEcommerceCategoryList");
-                        t && new bootstrap.Offcanvas(t).hide();
+                    data: {
+                        __RequestVerificationToken: token,
+                        name: document.querySelector("#category-title-edit").value,
+                        slug: document.querySelector("#category-slug-edit").value,
+                    },
+                    success: function (e) {
+                        if (e.success) {
+                            // Close the offcanvas
+                            $('#offcanvasEcommerceCategoryEdit').offcanvas('hide');
+                            // Show Toastr
+                            toastr.options.timeOut = 4500;
+                            toastr.success("Category updated successfully", "Success");
+                            // Reload the datatable
+                            $('.datatables-category-list').DataTable().ajax.reload();
+                        } else {
+                            if (e.message == "Category with the same slug already exists.") {
+                                form.updateValidatorOption('slug', 'blank', 'message', e.message).updateFieldStatus('slug', 'Invalid', 'blank');
+                            } else {
+                                toastr.options.timeOut = 4500;
+                                toastr.error(e.message, "Error");
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        toastr.options.timeOut = 4500;
+                        toastr.error("Something went wrong", "Error");
                     },
                 });
             }
         });
     });
-    })();
+})();
+
+$(document).on('click', '.edit-category', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.ajax({
+        url: "/Category/Edit/" + id,
+        type: "GET",
+        success: function (e) {
+            if (e.success) {
+                let category = e.category;
+                let form = $('#eCommerceCategoryEditForm');
+                form.find('#category-title-edit').val(category.name);
+                form.find('#category-slug-edit').val(category.slug);
+                form.find('#category-id-edit').val(category.id);
+                $('#edit-id').text("#" + category.id);
+                $('#offcanvasEcommerceCategoryEdit').offcanvas('show');
+            }
+            else {
+                toastr.options.timeOut = 4500;
+                toastr.error(a.message, "Error");
+            }
+        },
+        error: function (e) {
+            toastr.options.timeOut = 4500;
+            toastr.error("Something went wrong", "Error");
+        },
+    });
+});
+
+$(document).on('click', '.delete-category', function (e) {
+    e.preventDefault();
+    let id = $(this).data('id');
+    $.ajax({
+        url: "/Category/Delete/" + id,
+        type: "GET",
+        success: function (e) {
+            if (e.success) {
+                let category = e.category;
+                let modal = $('#modalConfirm');
+                modal.find('.cid').text(category.id);
+                modal.find('.cname').text(category.name);
+                modal.find('.cslug').text(category.slug);
+                modal.find('.total-products').text(category.total_products);
+                modal.find('button.delete-confirm').attr('data-id', category.id);
+                modal.modal('show');
+            }
+            else {
+                toastr.options.timeOut = 4500;
+                toastr.error(e.message, "Error");
+            }
+        },
+    })
+});
+
+(function () {
+    let btn = document.querySelector('#modalConfirm .delete-confirm');
+    btn.addEventListener('click', function (e) {
+    let modal = $('#modalConfirm');
+        let delete_products = modal.find('.delete-products').prop("checked");
+        e.preventDefault();
+        let id = btn.dataset.id;
+        var form3 = $('#__AjaxAntiForgeryForm3');
+        var token = $('input[name="__RequestVerificationToken"]', form3).val();
+        $.ajax({
+            url: "/Category/Delete/" + id,
+            type: "POST",
+            data: {
+                deleteProducts: delete_products,
+                __RequestVerificationToken: token,
+            },
+            success: function (e) {
+                if (e.success) {
+                    // Close the modal
+                    modal.modal('hide');
+                    // Show Toastr
+                    toastr.options.timeOut = 4500;
+                    toastr.success("Category deleted successfully", "Success");
+                    // Reload the datatable
+                    $('.datatables-category-list').DataTable().ajax.reload();
+                }
+                else {
+                    toastr.options.timeOut = 4500;
+                    toastr.error(e.message, "Error");
+                }
+            },
+            error: function (e) {
+                toastr.options.timeOut = 4500;
+                toastr.error("Something went wrong", "Error");
+            },
+        });
+    });
+})();

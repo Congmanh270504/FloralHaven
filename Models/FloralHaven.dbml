@@ -73,14 +73,6 @@
       <Association Name="CATEGORY_PRODUCT" Member="CATEGORY" ThisKey="categoryid" OtherKey="id" Type="CATEGORY" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.IMAGE" Member="IMAGEs">
-    <Type Name="IMAGE">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="productid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="path" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="PRODUCT_IMAGE" Member="PRODUCT" ThisKey="productid" OtherKey="id" Type="PRODUCT" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.CATEGORY" Member="CATEGORies">
     <Type Name="CATEGORY">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

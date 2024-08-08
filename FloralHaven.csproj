@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44354</IISExpressSSLPort>
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -347,7 +347,6 @@
     <Content Include="adminassets\img\products\oneplus.png" />
     <Content Include="adminassets\img\products\play-station.png" />
     <Content Include="adminassets\img\products\woodenchair.png" />
-    <Content Include="adminassets\js\app-ecommerce-category-list.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-all.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-detail-overview.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-detail.js" />
@@ -368,6 +367,7 @@
     <Content Include="adminassets\vendor\css\rtl\core.css" />
     <Content Include="adminassets\vendor\css\rtl\theme-bordered.css" />
     <Content Include="adminassets\vendor\css\rtl\theme-default-dark.css" />
+    <Content Include="adminassets\vendor\css\rtl\theme-default.css" />
     <Content Include="adminassets\vendor\fonts\flag-icons.css" />
     <Content Include="adminassets\vendor\fonts\flags\1x1\ar.svg" />
     <Content Include="adminassets\vendor\fonts\flags\1x1\bt.svg" />
@@ -425,6 +425,8 @@
     <Content Include="adminassets\vendor\libs\sweetalert2\sweetalert2.js" />
     <Content Include="adminassets\vendor\libs\tagify\tagify.css" />
     <Content Include="adminassets\vendor\libs\tagify\tagify.js" />
+    <Content Include="adminassets\vendor\libs\toastr\toastr.css" />
+    <Content Include="adminassets\vendor\libs\toastr\toastr.js" />
     <Content Include="adminassets\vendor\libs\typeahead-js\typeahead.css" />
     <Content Include="adminassets\vendor\libs\typeahead-js\typeahead.js" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -712,6 +714,8 @@
     <Content Include="Views\Category\Category.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Category\CategoryList.cshtml" />
+    <Content Include="Views\Pages\TeamMember.cshtml" />
+    <Content Include="Views\Pages\BookingMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

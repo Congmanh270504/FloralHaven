@@ -2383,3 +2383,9 @@ html.prevent-scroll body {
 .desktop-header {
 	background-color: #F5EDED;
 }
+@font-face {
+	font-family: "tabler-icons";
+	font-style: normal;
+	font-weight: 400;
+	src: url("/adminassets/vendor/fonts/tabler/tabler-icons.woff2?v3.4.0") format("woff2"),url("/adminassets/vendor/fonts/tabler/tabler-icons.woff?") format("woff"),url("/adminassets/vendor/fonts/tabler/tabler-icons.ttf?v3.4.0") format("truetype")
+}

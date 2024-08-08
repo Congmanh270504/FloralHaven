@@ -79,7 +79,7 @@ $(function () {
                     searchable: !1,
                     orderable: !1,
                     render: function (t, e, s, a) {
-                        return '<div class="d-inline-block text-nowrap"><a href="/Product/Edit/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></a><a href="/Product/AddImages/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-photo-edit ti-md"></i></a><button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/Product/' + s.handle + '" class="dropdown-item">View</a><a href="/Product/Delete/' + s.id + '" class="dropdown-item">Delete</a></div></div>';
+                        return '<div class="d-inline-block text-nowrap"><a href="/Product/Edit/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-edit ti-md"></i></a><a href="/Product/AddImages/' + s.id + '" class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light"><i class="ti ti-photo-edit ti-md"></i></a><button class="btn btn-sm btn-icon btn-text-secondary rounded-pill waves-effect waves-light dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-md"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="/Product/' + s.handle + '" class="dropdown-item">View</a><a href="/Product/Delete/' + s.id + '" class="dropdown-item text-danger">Delete</a></div></div>';
                     },
                 },
             ],
@@ -240,3 +240,7 @@ $(function () {
             $(".dataTables_filter .form-control").removeClass("form-control-sm"), $(".dataTables_length .form-select").removeClass("form-select-sm");
         }, 300);
 });
+
+(function () {
+
+})();

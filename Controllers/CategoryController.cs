@@ -30,18 +30,152 @@ namespace FloralHaven.Controllers
 		[CustomAuthorize(Roles = "Admin")]
 		[Route("Category/Create")]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(FormCollection collection)
+		public ActionResult Create(string name, string slug)
 		{
-			try
+			if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
 			{
-				// TODO: Add insert logic here
+				return Json(new { success = false, message = "Please fill in all fields." }, JsonRequestBehavior.AllowGet);
+			}
 
-				return RedirectToAction("Index");
-			}
-			catch
+			if (_db.CATEGORies.Any(c => c.slug == slug))
 			{
-				return View();
+				return Json(new { success = false, message = "Category with the same slug already exists." }, JsonRequestBehavior.AllowGet);
 			}
+
+			var category = new CATEGORY
+			{
+				name = name,
+				slug = slug
+			};
+
+			_db.CATEGORies.InsertOnSubmit(category);
+			_db.SubmitChanges();
+
+			return Json(new { success = true, message = "Category created successfully." }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Edit/{id}")]
+		public ActionResult Edit(int id)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new
+			{
+				success = true,
+				category = new { id = category.id, slug = category.slug, name = category.name }
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Edit/{id}")]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, string name, string slug)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
+			{
+				return Json(new { success = false, message = "Please fill in all fields." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (_db.CATEGORies.Any(c => c.slug == slug && c.id != id))
+			{
+				return Json(new { success = false, message = "Category with the same slug already exists." }, JsonRequestBehavior.AllowGet);
+			}
+
+			category.name = name;
+			category.slug = slug;
+
+			_db.SubmitChanges();
+
+			return Json(new { success = true, message = "Category updated successfully." }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Delete/{id}")]
+		public ActionResult Delete(int id)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new
+			{
+				success = true,
+				category = new
+				{
+					id = category.id,
+					name = category.name,
+					slug = category.slug,
+					total_products = _db.PRODUCTs.Count(p => p.categoryid == category.id)
+				}
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Delete/{id}")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirm(int id, bool deleteProducts)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (deleteProducts)
+			{
+				var products = _db.PRODUCTs.Where(p => p.categoryid == id);
+				foreach (var product in products)
+				{
+					var images = _db.IMAGEs.Where(i => i.productid == product.id);
+					foreach (var image in images)
+					{
+						_db.IMAGEs.DeleteOnSubmit(image);
+					}
+					_db.PRODUCTs.DeleteOnSubmit(product);
+				}
+			}
+			else
+			{
+				var defaultCategory = _db.CATEGORies.FirstOrDefault(c => c.slug == "default");
+				if (defaultCategory == null)
+				{
+					defaultCategory = new CATEGORY { name = "Default", slug = "default" };
+					_db.CATEGORies.InsertOnSubmit(defaultCategory);
+					_db.SubmitChanges();
+				}
+
+				var products = _db.PRODUCTs.Where(p => p.categoryid == id);
+				foreach (var product in products)
+				{
+					product.categoryid = defaultCategory.id;
+				}
+			}
+
+			_db.CATEGORies.DeleteOnSubmit(category);
+			_db.SubmitChanges();
+
+			return Json(new { success = true, message = "Category deleted successfully." }, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpGet]
@@ -76,7 +210,7 @@ namespace FloralHaven.Controllers
 
 			if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
 			{
-				categories = categories.Where(p => p.name.Contains(search) || p.id.Contains(search));
+				categories = categories.Where(p => p.name.Contains(search) || p.slug.Contains(search));
 			}
 
 			if (!string.IsNullOrEmpty(order) && !string.IsNullOrWhiteSpace(order) && !string.IsNullOrEmpty(orderDir) && !string.IsNullOrWhiteSpace(orderDir))
@@ -109,6 +243,7 @@ namespace FloralHaven.Controllers
 				{
 					id = category.id,
 					category_name = category.name,
+					slug = category.slug,
 					total_products = _db.PRODUCTs.Count(p => p.categoryid == category.id)
 				})
 				.ToList();
@@ -117,10 +252,10 @@ namespace FloralHaven.Controllers
 		}
 
 		[HttpGet]
-		[Route("Category/{id}")]
-		public ActionResult Category(string id, string sortOrder, int? page)
+		[Route("Category/{slug}")]
+		public ActionResult Category(string slug, string sortOrder, int? page)
 		{
-			var category = _db.CATEGORies.FirstOrDefault(c => c.id.ToString() == id);
+			var category = _db.CATEGORies.FirstOrDefault(c => c.slug == slug);
 			if (category == null)
 			{
 				Response.StatusCode = 404;
@@ -134,7 +269,7 @@ namespace FloralHaven.Controllers
 			ViewBag.CategoryName = categoryName;
 			ViewBag.CurrentSort = sortOrder;
 
-			var products = _db.PRODUCTs.Where(product => product.categoryid.ToString() == id);
+			var products = _db.PRODUCTs.Where(product => product.categoryid == category.id);
 
 			switch (sortOrder)
 			{
@@ -166,7 +301,6 @@ namespace FloralHaven.Controllers
 			var totalCount = products.Count();
 
 			var productViewModels = products
-				.Where(product => product.categoryid.ToString() == id)
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize)
 				.Select(product => new ProductListViewModel
@@ -178,7 +312,7 @@ namespace FloralHaven.Controllers
 					Price = product.price,
 					SalePrice = product.saleprice,
 					MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
-					CategoryID = product.categoryid,
+					CategorySlug = category.slug,
 					CategoryName = categoryName,
 				})
 				.ToList();

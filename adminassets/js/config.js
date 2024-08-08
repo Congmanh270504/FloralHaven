@@ -48,6 +48,6 @@ if (typeof TemplateCustomizer !== "undefined") {
     themesPath: assetsPath + "vendor/css" + (rtlSupport ? "/rtl" : "") + "/",
     displayCustomizer: true,
     lang: localStorage.getItem("templateCustomizer-" + templateName + "--Lang") || "en",
-    controls: ["headerType", "contentLayout", "layoutCollapsed", "layoutNavbarOptions"]
+    controls: ["style", "headerType", "contentLayout", "layoutCollapsed", "layoutNavbarOptions"]
   });
 }
