@@ -33,7 +33,7 @@
                                     <span class="badge-inner"></span>
                                     @if (Session["cart"] != null)
                                     {
-                                        var item = Session["gh"] as ListCart;
+                                        var item = Session["cart"] as ListCart;
                                         if (item.SoMatHang() > 0)
                                         {
                                             <span class="badge-inner">@item.SoMatHang()</span>
