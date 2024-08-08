@@ -421,7 +421,7 @@ namespace FloralHaven.Controllers
 
 			base.Dispose(disposing);
 		}
-		//
+
 		[HttpGet]
 		[Route("Account/Orders")]
 		public ActionResult Orders()
@@ -494,7 +494,6 @@ namespace FloralHaven.Controllers
 					date = bill.date,
 					total = bill.total,
 					image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == _db.PRODUCTs.FirstOrDefault(t => t.id == _db.BILLDETAILs.FirstOrDefault(i => i.billid == bill.id).productid).id).path ?? "",
-
 				})
 				.ToList();
 
@@ -504,20 +503,95 @@ namespace FloralHaven.Controllers
 
 		//OrdersDetails
 		[HttpGet]
-		[Route("Account/OrdersDetails/{id}")]
-		public ActionResult OrdersDetails(int id)
+		[Route("Account/OrderDetails/{id}")]
+		public ActionResult OrderDetails(int id)
 		{
-			var bill = _db.BILLs.FirstOrDefault(p => p.id == id);
+			var userId = User.Identity.GetUserId();
+			var bill = _db.BILLs.FirstOrDefault(b => b.id == id && b.userid == userId);
 			if (bill == null)
 			{
 				Response.StatusCode = 404;
 				ViewBag.StatusCode = 404;
 				return View("NotFound");
 			}
-			ViewBag.id = bill.id;
+			ViewBag.Id = bill.id;
 			return View();
 		}
 
+		[HttpPost]
+		[Route("Account/GetOrderDetails/{id}")]
+		public JsonResult GetOrderDetails(int id)
+		{
+			string search = Request.Form.GetValues("search[value]")[0];
+			int draw = Convert.ToInt32(Request.Form.GetValues("draw")[0]);
+			string order = Request.Form.GetValues("order[0][column]")[0];
+			string orderDir = Request.Form.GetValues("order[0][dir]")[0];
+			int startRec = Convert.ToInt32(Request.Form.GetValues("start")[0]);
+			int pageSize = Convert.ToInt32(Request.Form.GetValues("length")[0]);
+			int page = (startRec / pageSize) + 1;
+
+			var userId = User.Identity.GetUserId();
+			var bill = _db.BILLs.FirstOrDefault(b => b.id == id && b.userid == userId);
+			IQueryable<BILLDETAIL> orderDetails = _db.BILLDETAILs.Where(p => p.billid == id);
+			var totalRecords = orderDetails.Count();
+
+			if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
+			{
+				orderDetails = orderDetails.Where(dt => _db.PRODUCTs.FirstOrDefault(pr => pr.id == dt.productid).title.Contains(search) || _db.CATEGORies.FirstOrDefault(c => c.id == _db.PRODUCTs.FirstOrDefault(pr => pr.id == dt.productid).categoryid).name.Contains(search));
+			}
+
+			if (!string.IsNullOrEmpty(order) && !string.IsNullOrWhiteSpace(order) && !string.IsNullOrEmpty(orderDir) && !string.IsNullOrWhiteSpace(orderDir))
+			{
+				switch (order)
+				{
+					case "1":
+						if (orderDir == "asc")
+							orderDetails = orderDetails.OrderBy(p => p.productid);
+						else if (orderDir == "desc")
+							orderDetails = orderDetails.OrderByDescending(p => p.productid);
+						break;
+					case "2":
+						if (orderDir == "asc")
+							orderDetails = orderDetails.OrderBy(p => p.quantity);
+						else if (orderDir == "desc")
+							orderDetails = orderDetails.OrderByDescending(p => p.quantity);
+						break;
+					case "3":
+						if (orderDir == "asc")
+							orderDetails = orderDetails.OrderBy(p => p.price);
+						else if (orderDir == "desc")
+							orderDetails = orderDetails.OrderByDescending(p => p.price);
+						break;
+					default:
+						break;
+				}
+			}
+
+			int recFilter = orderDetails.Count();
+			decimal totalAll = orderDetails.Sum(p => p.price.GetValueOrDefault() * p.quantity.GetValueOrDefault());
+
+			var mappedOrderDetails = orderDetails
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize)
+				.Select(item => new
+				{
+					id = item.productid,
+					qty = item.quantity,
+					price = item.price,
+					image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == item.productid).path ?? "",
+					name = _db.PRODUCTs.FirstOrDefault(t => t.id == item.productid).title,
+					handle = _db.PRODUCTs.FirstOrDefault(t => t.id == item.productid).handle,
+					category = _db.CATEGORies.FirstOrDefault(t => t.id == _db.PRODUCTs.FirstOrDefault(i => i.id == item.productid).categoryid).name
+				}).ToList();
+
+			return Json(new
+			{
+				draw = draw,
+				recordsTotal = totalRecords,
+				recordsFiltered = recFilter,
+				data = mappedOrderDetails
+			}, JsonRequestBehavior.AllowGet);
+		}
 		#region Helpers
 		// Used for XSRF protection when adding external logins
 		private const string XsrfKey = "XsrfId";

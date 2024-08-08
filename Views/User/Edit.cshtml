@@ -1,0 +1,105 @@
+﻿@model FloralHaven.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section vendorscss{
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/dropzone/dropzone.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/tagify/tagify.css" />
+}
+
+@section vendors{
+    <script src="~/adminassets/vendor/libs/quill/katex.js"></script>
+    <script src="~/adminassets/vendor/libs/quill/quill.js"></script>
+    <script src="~/adminassets/vendor/libs/select2/select2.js"></script>
+    <script src="~/adminassets/vendor/libs/dropzone/dropzone.js"></script>
+    <script src="~/adminassets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
+    <script src="~/adminassets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/adminassets/vendor/libs/tagify/tagify.js"></script>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="app">
+        @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.EmailConfirmed)
+            @Html.HiddenFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.SecurityStamp, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.PhoneNumberConfirmed)
+            @Html.HiddenFor(model => model.TwoFactorEnabled)
+            @Html.HiddenFor(model => model.LockoutEndDateUtc)
+            @Html.HiddenFor(model => model.LockoutEnabled)
+            @Html.HiddenFor(model => model.AccessFailedCount)
+            @Html.HiddenFor(model => model.UserName)
+            @Html.HiddenFor(model => model.Id)
+
+
+            <!-- Add Product -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+                <div class="d-flex flex-column justify-content-center">
+                    <h4 class="mb-1">Edit User #@Model.Id</h4>
+                    <p class="mb-0">@(Model.FirstName + " " + Model.LastName)</p>
+                </div>
+                <div class="d-flex align-content-center flex-wrap gap-4">
+                    <div class="d-flex gap-4">
+                        <a class="btn btn-label-secondary" href="@Url.Action("UserList","User")">Back</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- User Information -->
+                    <div class="card mb-6">
+                        <div class="card-header">
+                            <h5 class="card-tile mb-0">User information</h5>
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            @if (Model.Avatar != "" && Model.Avatar != null)
+                            {
+                                <div class="avatar">
+                                    <img src="@Model.Avatar" loading="lazy" alt="Avatar" class="rounded-circle bg-black" />
+                                </div>
+                            }
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @id = "user-email", @class = "form-control", placeholder = "Email", name = "email", @arial_label = "Email" } })
+                            </div>
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "user-firstname", @class = "form-control", placeholder = "First name", name = "firstName", @arial_label = "First name" } })
+                            </div>
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @id = "user-lastname", @class = "form-control", placeholder = "Last name", name = "lastName", @arial_label = "Last name" } })
+                            </div>
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @id = "user-avatar", @class = "form-control", placeholder = "Avatar URL", name = "avatar", @arial_label = "Avatar URL" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+}
+
+@section styles{
+    <link rel="stylesheet" href="~/css/Checkout.css" />
+}
+@if (Session["cart"] != null)
+{
+    var cart = (FloralHaven.Models.ListCart)Session["cart"];
+    var user = FloralHaven.Helpers.UserHelper.GetCurrentUser();
+    <section class="section-checkout">
+        <div class="container flex flex-wrap xl:w-[60%!important]">
+            <div class="w-full md:w-1/2 p-4 md:border-r">
+                <div class="checkout-form-container grid">
+                    <div class="checkout-form">
+                        <section class="express-checkout">
+                            <h2 class="checkout-form-title">Express Checkout</h2>
+                            <div class="contact-container w-full">
+                                <div class="mb-2">
+                                    <h2 class="text-2xl font-semibold">Account</h2>
+                                    <p class="flex flex-wrap justify-between items-baseline mb-2"><span id="email" class="my-2">@user.Email</span></p>
+                                    <hr />
+                                    <h2 class="text-xl my-2">Ship to</h2>
+                                    <div class="address-select">
+                                        <p>@(user.FirstName + " " + user.LastName)</p>
+                                        <span class="text-sm text-[#666]">Address here</span>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                            <div class="w-full mt-6 mb-2">
+                                <h2 class="text-2xl font-semibold">Payment</h2>
+                                <p>All transactions are secure and encrypted.</p>
+                            </div>
+                            <div class="payment-method rounded w-full border">
+                                <div class="paypal-method bg-[#eee] border">
+                                    <label for="payment[paypal]" class="flex justify-between items-center p-4 border rounded-b h-[57px]">
+                                        <div class="flex justify-center items-start">
+                                            <input class="block w-6 h-6" checked type="radio" name="payment" id="payment[paypal]" />
+                                            <span class="ml-2">Thanh toán khi giao hàng (COD)</span>
+                                        </div>
+                                        <div class="flex flex-row">
+
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                @using (Html.BeginForm("CreateBill", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="h-14 w-full relative bg-black text-white font-semibold rounded mt-4 uppercase active:top-1">Complete order</button>
+                                }
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 p-8 sticky">
+                <div class="product-list">
+
+                    @foreach (var item in cart.lst)
+                    {
+                        <div class="product-list__item flex flex-row py-2">
+                            <div class="product-list__item-img w-16 h-16 relative border flex justify-center items-center rounded bg-[#f5f5f5]">
+                                <img src="@item.MainImg" alt="@item.Name" />
+                                <span class="absolute top-[-0.5rem] right-[-0.5rem] rounded-full bg-[#777] text-white text-xs w-6 h-6 flex justify-center items-center">@item.Quantity</span>
+                            </div>
+                            <div class="product-list__item-content pl-4 flex-1 flex flex-col justify-center">
+                                <p class="text-sm">@item.Name</p>
+                            </div>
+                            <div class="product-list__item-price flex justify-end items-center">
+                                <p class="text-sm">$@Math.Floor(item.Price / 100)</p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <p class="discount-error mt-2 text-red-400 text-sm"></p>
+                <div class="subtotal-wrapper my-4">
+                    <p class="flex justify-between text-sm">
+                        <span>Subtotal</span>
+                        <span class="subtotal-price font-bold">
+                            @Math.Floor(cart.Total())
+                        </span>
+                    </p>
+                    <div class="order-discount text-sm my-2"></div>
+                    <p class="flex justify-between text-sm mt-2">
+                        <span>Shipping</span>
+                        <span class="shipping-price font-bold">FREE</span>
+                    </p>
+                    <p class="flex justify-between text-xl mt-2 font-bold">
+                        <span>Total</span>
+                        <span class="total-price">
+                            @Math.Floor(cart.Total())
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    Response.Redirect("/");
+}

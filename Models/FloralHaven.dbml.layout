@@ -64,7 +64,7 @@
         <classShapeMoniker Id="c2f87bc7-6207-45c5-9e37-c96fb5fab767" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 8.47280110677083); (1.75 : 10.2892976888021); (3.5 : 10.2892976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 8.47280110677083); (1.75 : 10.2892976888021); (2.19791916666667 : 10.2892976888021 : JumpStart); (2.36458583333333 : 10.2892976888021 : JumpEnd); (3.5 : 10.2892976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/FloralHavenDataContext/User/User_UserClaim" />
       <nodes>
         <classShapeMoniker Id="5825a8d1-f37b-4174-a89e-8c7b0c93cb9c" />

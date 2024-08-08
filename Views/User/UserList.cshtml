@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "List";
+}
+
+@section vendorscss{
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/form-validation/form-validation.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/toastr/toastr.css" />
+}
+
+@section vendors{
+    <script src="~/adminassets/vendor/libs/moment/moment.js"></script>
+    <script src="~/adminassets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="~/adminassets/vendor/libs/select2/select2.js"></script>
+    <script src="~/adminassets/vendor/libs/form-validation/popular.js"></script>
+    <script src="~/adminassets/vendor/libs/form-validation/bootstrap5.js"></script>
+    <script src="~/adminassets/vendor/libs/form-validation/auto-focus.js"></script>
+    <script src="~/adminassets/vendor/libs/quill/katex.js"></script>
+    <script src="~/adminassets/vendor/libs/quill/quill.js"></script>
+    <script src="~/adminassets/vendor/libs/toastr/toastr.js"></script>
+    <script src="~/adminassets/vendor/libs/cleavejs/cleave.js"></script>
+    <script src="~/adminassets/vendor/libs/cleavejs/cleave-phone.js"></script>
+}
+
+@section scripts{
+    <script src="~/adminassets/js/userlist.js"></script>
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <!-- customers List Table -->
+    <div class="card">
+        <div class="card-datatable table-responsive">
+            <table class="datatables-customers table border-top">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Customer</th>
+                        <th>Order</th>
+                        <th class="text-nowrap">Total Spent</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,3 @@
-using FloralHaven.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -20,10 +17,10 @@ namespace FloralHaven
 			FloralHaven.Helpers.RoleManagerHelper.InitializeRoles();
 
 			// Import users from CSV
-			var filePath = Server.MapPath("~/Uploads/TextFile1.csv");
-			var _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-			var userImportService = new UserImportService(_userManager);
-			userImportService.ImportUsersFromCsv(filePath);
+			//var filePath = Server.MapPath("~/Uploads/TextFile1.csv");
+			//var _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+			//var userImportService = new UserImportService(_userManager);
+			//userImportService.ImportUsersFromCsv(filePath);
 
 			// Create an admin user
 			//CreateAdminUser();

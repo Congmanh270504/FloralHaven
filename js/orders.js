@@ -17,7 +17,7 @@ $(function () {
 				type: "POST",
 				dataType: "json",
 			},
-			columns: [{ data: "id" }, { data: "order" }, { data: "image" }, { data: "date" }, { data: "total" }, { data: "" }],
+			columns: [{ data: "id" }, { data: "order" }, { data: "image" }, { data: "date" }, { data: "total" }],
 			columnDefs: [
 				{
 					className: "control",
@@ -56,15 +56,6 @@ $(function () {
 					targets: 4,
 					render: function (t, e, a, s) {
 						return '<div class="text-sm-end">' + a.total + "</div>";
-					},
-				},
-				{
-					targets: -1,
-					title: "Actions",
-					searchable: !1,
-					orderable: !1,
-					render: function (t, e, a, s) {
-						return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="app-ecommerce-order-details.html" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a></div></div>';
 					},
 				},
 			],

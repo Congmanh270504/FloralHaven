@@ -230,7 +230,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FloralHavenDBContextConfig.cs" />
@@ -238,6 +237,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -354,13 +354,14 @@
     <Content Include="adminassets\img\products\oneplus.png" />
     <Content Include="adminassets\img\products\play-station.png" />
     <Content Include="adminassets\img\products\woodenchair.png" />
-    <Content Include="adminassets\js\app-ecommerce-customer-all.js" />
+    <Content Include="adminassets\js\userlist.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-detail-overview.js" />
     <Content Include="adminassets\js\app-ecommerce-customer-detail.js" />
     <Content Include="adminassets\js\app-ecommerce-dashboard.js" />
     <Content Include="adminassets\js\app-ecommerce-order-details.js" />
-    <Content Include="adminassets\js\app-ecommerce-order-list.js" />
+    <Content Include="adminassets\js\order-list.js" />
     <Content Include="adminassets\js\category-list.js" />
+    <Content Include="js\orderdetails.js" />
     <Content Include="adminassets\js\product-add.js" />
     <Content Include="adminassets\js\product-list.js" />
     <Content Include="adminassets\js\app-ecommerce-reviews.js" />
@@ -725,8 +726,18 @@
     <Content Include="Views\Pages\TeamMember.cshtml" />
     <Content Include="Views\Pages\BookingMenu.cshtml" />
     <Content Include="Views\Account\Orders.cshtml" />
-    <Content Include="Views\Account\OderHistory.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Uploads\users.csv" />
+    <Content Include="Views\Account\OrderDetails.cshtml" />
+    <Content Include="Views\User\UserList.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\User\OrderList.cshtml" />
+    <Content Include="Views\User\OrderDetails.cshtml" />
+    <Content Include="Views\Home\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
