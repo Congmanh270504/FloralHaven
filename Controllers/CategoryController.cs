@@ -2,7 +2,6 @@
 using PagedList;
 using System;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 namespace FloralHaven.Controllers
@@ -35,8 +34,12 @@ namespace FloralHaven.Controllers
 		{
 			if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
 			{
-				TempData["Message"] = "Please fill in all fields.";
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return Json(new { success = false, message = "Please fill in all fields." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (_db.CATEGORies.Any(c => c.slug == slug))
+			{
+				return Json(new { success = false, message = "Category with the same slug already exists." }, JsonRequestBehavior.AllowGet);
 			}
 
 			var category = new CATEGORY
@@ -48,8 +51,131 @@ namespace FloralHaven.Controllers
 			_db.CATEGORies.InsertOnSubmit(category);
 			_db.SubmitChanges();
 
-			TempData["Message"] = "Category created successfully.";
-			return new HttpStatusCodeResult(HttpStatusCode.OK);
+			return Json(new { success = true, message = "Category created successfully." }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Edit/{id}")]
+		public ActionResult Edit(int id)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new
+			{
+				success = true,
+				category = new { id = category.id, slug = category.slug, name = category.name }
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Edit/{id}")]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, string name, string slug)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
+			{
+				return Json(new { success = false, message = "Please fill in all fields." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (_db.CATEGORies.Any(c => c.slug == slug && c.id != id))
+			{
+				return Json(new { success = false, message = "Category with the same slug already exists." }, JsonRequestBehavior.AllowGet);
+			}
+
+			category.name = name;
+			category.slug = slug;
+
+			_db.SubmitChanges();
+
+			return Json(new { success = true, message = "Category updated successfully." }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Delete/{id}")]
+		public ActionResult Delete(int id)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new
+			{
+				success = true,
+				category = new
+				{
+					id = category.id,
+					name = category.name,
+					slug = category.slug,
+					total_products = _db.PRODUCTs.Count(p => p.categoryid == category.id)
+				}
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[CustomAuthorize(Roles = "Admin")]
+		[Route("Category/Delete/{id}")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirm(int id, bool deleteProducts)
+		{
+			var category = _db.CATEGORies.FirstOrDefault(c => c.id == id);
+			if (category == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new { success = false, message = "Category not found." }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (deleteProducts)
+			{
+				var products = _db.PRODUCTs.Where(p => p.categoryid == id);
+				foreach (var product in products)
+				{
+					var images = _db.IMAGEs.Where(i => i.productid == product.id);
+					foreach (var image in images)
+					{
+						_db.IMAGEs.DeleteOnSubmit(image);
+					}
+					_db.PRODUCTs.DeleteOnSubmit(product);
+				}
+			}
+			else
+			{
+				var defaultCategory = _db.CATEGORies.FirstOrDefault(c => c.slug == "default");
+				if (defaultCategory == null)
+				{
+					defaultCategory = new CATEGORY { name = "Default", slug = "default" };
+					_db.CATEGORies.InsertOnSubmit(defaultCategory);
+					_db.SubmitChanges();
+				}
+
+				var products = _db.PRODUCTs.Where(p => p.categoryid == id);
+				foreach (var product in products)
+				{
+					product.categoryid = defaultCategory.id;
+				}
+			}
+
+			_db.CATEGORies.DeleteOnSubmit(category);
+			_db.SubmitChanges();
+
+			return Json(new { success = true, message = "Category deleted successfully." }, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpGet]

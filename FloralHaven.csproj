@@ -18,7 +18,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44354</IISExpressSSLPort>
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -425,6 +425,8 @@
     <Content Include="adminassets\vendor\libs\sweetalert2\sweetalert2.js" />
     <Content Include="adminassets\vendor\libs\tagify\tagify.css" />
     <Content Include="adminassets\vendor\libs\tagify\tagify.js" />
+    <Content Include="adminassets\vendor\libs\toastr\toastr.css" />
+    <Content Include="adminassets\vendor\libs\toastr\toastr.js" />
     <Content Include="adminassets\vendor\libs\typeahead-js\typeahead.css" />
     <Content Include="adminassets\vendor\libs\typeahead-js\typeahead.js" />
     <Content Include="Content\bootstrap-grid.css" />

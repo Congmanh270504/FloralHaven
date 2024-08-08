@@ -473,6 +473,7 @@ namespace FloralHaven.Controllers
 			_db.PRODUCTs.DeleteOnSubmit(product);
 			_db.SubmitChanges();
 
+			TempData["Message"] = "Product deleted successfully";
 			return RedirectToAction("ProductList");
 		}
 
