@@ -84,7 +84,7 @@
     <Type Name="BILLDETAIL">
       <Column Name="billid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="productid" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="quantity" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="int" CanBeNull="true" />
       <Column Name="price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Association Name="PRODUCT_BILLDETAIL" Member="PRODUCT" ThisKey="productid" OtherKey="id" Type="PRODUCT" IsForeignKey="true" />
       <Association Name="BILL_BILLDETAIL" Member="BILL" ThisKey="billid" OtherKey="id" Type="BILL" IsForeignKey="true" />

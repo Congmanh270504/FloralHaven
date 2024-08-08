@@ -1806,7 +1806,7 @@ namespace FloralHaven.Models
 		
 		private int _productid;
 		
-		private string _quantity;
+		private System.Nullable<int> _quantity;
 		
 		private System.Nullable<decimal> _price;
 		
@@ -1822,7 +1822,7 @@ namespace FloralHaven.Models
     partial void OnbillidChanged();
     partial void OnproductidChanging(int value);
     partial void OnproductidChanged();
-    partial void OnquantityChanging(string value);
+    partial void OnquantityChanging(System.Nullable<int> value);
     partial void OnquantityChanged();
     partial void OnpriceChanging(System.Nullable<decimal> value);
     partial void OnpriceChanged();
@@ -1883,8 +1883,8 @@ namespace FloralHaven.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="NChar(10)")]
-		public string quantity
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="int")]
+		public System.Nullable<int> quantity
 		{
 			get
 			{
