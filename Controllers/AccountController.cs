@@ -400,6 +400,12 @@ namespace FloralHaven.Controllers
 			return View();
 		}
 
+		[HttpGet]
+		public ActionResult Orders()
+		{
+			return View();
+		}
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing)

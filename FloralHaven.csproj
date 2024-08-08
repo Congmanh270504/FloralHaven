@@ -530,6 +530,7 @@
     <Content Include="js\lazyload.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\Navbar.js" />
+    <Content Include="js\orders.js" />
     <Content Include="js\photoswipe-lightbox.esm.js" />
     <Content Include="js\photoswipe.esm.js" />
     <Content Include="js\price-range.js" />
@@ -716,12 +717,11 @@
     <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\Pages\TeamMember.cshtml" />
     <Content Include="Views\Pages\BookingMenu.cshtml" />
+    <Content Include="Views\Account\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Error\" />
-    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
