@@ -492,7 +492,6 @@ namespace FloralHaven.Controllers
                     date = bill.date,
                     total = bill.total,
                     image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == _db.PRODUCTs.FirstOrDefault(t => t.id == _db.BILLDETAILs.FirstOrDefault(i => i.billid == bill.id).productid).id).path ?? "",
-
                 })
                 .ToList();
 
@@ -533,7 +532,7 @@ namespace FloralHaven.Controllers
 
             if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
             {
-                oderDetails = oderDetails.Where(p => p.productid == int.Parse(search) || p.quantity == search || p.price == decimal.Parse(search));
+                oderDetails = oderDetails.Where(p => _db.PRODUCTs.FirstOrDefault(pr => pr.id == p.productid).title.Contains(search) || _db.CATEGORies.FirstOrDefault(c => c.id == _db.PRODUCTs.FirstOrDefault(pr => pr.id == p.productid).categoryid).name.Contains(search));
             }
 
             if (!string.IsNullOrEmpty(order) && !string.IsNullOrWhiteSpace(order) && !string.IsNullOrEmpty(orderDir) && !string.IsNullOrWhiteSpace(orderDir))
@@ -564,21 +563,33 @@ namespace FloralHaven.Controllers
             }
 
             int recFilter = oderDetails.Count();
+            decimal totalAll = oderDetails.Sum(p => p.price.GetValueOrDefault() * p.quantity.GetValueOrDefault());
 
             var mappedOderDetails = oderDetails
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .Select(item => new
                 {
-                    id = item.billid,
                     productid = item.productid,
                     quantity = item.quantity,
-                    price=item.price,
-                    image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == _db.PRODUCTs.FirstOrDefault(t => t.id == _db.itemDETAILs.FirstOrDefault(i => i.itemid == item.id).productid).id).path ?? "",
+                    price = item.price,
+                    image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == _db.PRODUCTs.FirstOrDefault(t => t.id == item.productid).id).path ?? "",
+                    name = _db.PRODUCTs.FirstOrDefault(t => t.id == item.productid).handle,
+                    category = _db.CATEGORies.FirstOrDefault(t => t.id == _db.PRODUCTs.FirstOrDefault(i => i.id == item.productid).categoryid).name
                 })
                 .ToList();
 
-            return Json(new { draw = draw, recordsTotal = totalRecords, recordsFiltered = recFilter, data = mappedBills }, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                draw = draw,
+                recordsTotal = totalRecords,
+                recordsFiltered = recFilter,
+                data = new
+                {
+                    products = mappedOderDetails,
+                    total = totalAll,
+                }
+            }, JsonRequestBehavior.AllowGet);
         }
         #region Helpers
         // Used for XSRF protection when adding external logins
