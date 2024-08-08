@@ -367,6 +367,7 @@
     <Content Include="adminassets\vendor\css\rtl\core.css" />
     <Content Include="adminassets\vendor\css\rtl\theme-bordered.css" />
     <Content Include="adminassets\vendor\css\rtl\theme-default-dark.css" />
+    <Content Include="adminassets\vendor\css\rtl\theme-default.css" />
     <Content Include="adminassets\vendor\fonts\flag-icons.css" />
     <Content Include="adminassets\vendor\fonts\flags\1x1\ar.svg" />
     <Content Include="adminassets\vendor\fonts\flags\1x1\bt.svg" />
@@ -713,6 +714,8 @@
     <Content Include="Views\Category\Category.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Category\CategoryList.cshtml" />
+    <Content Include="Views\Pages\TeamMember.cshtml" />
+    <Content Include="Views\Pages\BookingMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

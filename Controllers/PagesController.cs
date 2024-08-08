@@ -84,7 +84,7 @@ namespace Floral_Haven.Controllers
 					Price = product.price,
 					SalePrice = product.saleprice,
 					MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
-					CategoryID = product.categoryid,
+					CategorySlug = category.slug,
 					CategoryName = categoryName
 				})
 				.ToList();

@@ -76,7 +76,7 @@ namespace FloralHaven.Controllers
 					Price = product.price,
 					SalePrice = product.saleprice,
 					MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
-					CategoryID = product.categoryid,
+					CategorySlug = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).slug ?? "",
 					CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid).name ?? "",
 				})
 				.ToList();
@@ -492,7 +492,8 @@ namespace FloralHaven.Controllers
 			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => image.path).ToList();
 
 			string CategoryName = (_db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid)?.name) ?? "";
-			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, product.categoryid, CategoryName, product.description, product.sku);
+			string CategorySlug = (_db.CATEGORies.FirstOrDefault(category => category.id == product.categoryid)?.slug) ?? "";
+			ProductViewModel productViewModel = new ProductViewModel(product.id, product.title, product.handle, product.instock, product.price, product.saleprice, productImages, CategorySlug, CategoryName, product.description, product.sku);
 			return View(productViewModel);
 		}
 	}
