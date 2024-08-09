@@ -287,9 +287,30 @@ namespace FloralHaven.Controllers
 
 		[HttpPost]
 		[Route("Admin/EditOrderDetails/{id}")]
-		public ActionResult EditOrderDetails(int id, int productid)
+		public JsonResult EditOrderDetails(int id, int productid, int qty, decimal price)
 		{
-			return View();
+			var billDetail = _db.BILLDETAILs.FirstOrDefault(b => b.billid == id && b.productid == productid);
+			if (billDetail == null)
+			{
+				Response.StatusCode = 404;
+				ViewBag.StatusCode = 404;
+				return Json(new { success = false, message = "Not found" }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (qty <= 0)
+			{
+				return Json(new { success = false, message = "Quantity must be greater than 0" }, JsonRequestBehavior.AllowGet);
+			}
+
+			if (price < 0)
+			{
+				return Json(new { success = false, message = "Price must be greater than or equal to 0" }, JsonRequestBehavior.AllowGet);
+			}
+
+			billDetail.quantity = qty;
+			billDetail.price = price;
+			_db.SubmitChanges();
+			return Json(new { success = true, message = "Updated" }, JsonRequestBehavior.AllowGet);
 		}
 
 		//OrdersDetails

@@ -361,6 +361,7 @@
     <Content Include="adminassets\js\app-ecommerce-order-details.js" />
     <Content Include="adminassets\js\order-list.js" />
     <Content Include="adminassets\js\category-list.js" />
+    <Content Include="js\ad-orderdetails.js" />
     <Content Include="js\orderdetails.js" />
     <Content Include="adminassets\js\product-add.js" />
     <Content Include="adminassets\js\product-list.js" />
