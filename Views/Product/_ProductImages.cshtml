@@ -1,0 +1,84 @@
+﻿@model List<FloralHaven.Models.IMAGE>
+
+@if (Model == null || (Model != null && Model.Count == 0))
+{
+    <div class="text-center p-12">Images of the product are displayed here <br />Image of the product not found</div>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="dz-preview dz-image-preview">
+            <div class="dz-details">
+                <div class="dz-thumbnail">
+                    <img data-dz-thumbnail="" alt="@item.path" src="@item.path" loading="lazy">
+                </div>
+                <div class="dz-filename" data-dz-name="">@item.path</div>
+                <div class="dz-size" data-dz-size=""></div>
+            </div>
+            @*@Ajax.ActionLink("Delete", "DeleteProductImage", new { imageId = item.id }, new AjaxOptions { HttpMethod = "POST", Confirm = "Delete image of product ?", OnComplete = "refreshProductPicture" }, new { @class = "dz-remove del-pic" })*@
+            <a href="" class="dz-remove del-pic" data-image-id="@item.id" data-image-path="@item.path" data-bs-toggle="modal" data-bs-target="#modalConfirm">
+                Delete
+            </a>
+        </div>
+    }
+    <div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalConfirm" tabindex="-1" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">Delete Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-light fw-medium mb-1">Image <span id="imageId"></span></p>
+                                <img id="imageDisplay" class="img-thumbnail" src="" alt="" loading="lazy"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger"><i class="ti ti-trash"></i>&nbsp;Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $("a.del-pic").prepend('<i class="ti ti-trash"></i>&nbsp;');
+    $(document).ready(function () {
+        // Open modal when delete link is clicked
+        $(".dz-remove").click(function (e) {
+            e.preventDefault();
+            var imageId = $(this).data("image-id");
+            var imagePath = $(this).data("image-path");
+            openModal(imageId, imagePath);
+        });
+
+        function openModal(imageId, imagePath) {
+            $("#imageId").text(imageId);
+            $("#imageDisplay").attr("src", imagePath).attr("alt", imagePath);
+            $("#modalConfirm .btn-danger").click(function () {
+                // Delete image
+                $.ajax({
+                    url: "/Product/DeleteProductImage",
+                    type: "POST",
+                    data: { imageId: imageId },
+                    success: function (data) {
+                            // Close modal
+                            $("#modalConfirm").modal("hide");
+                            // Refresh images
+                            refreshProductPicture();
+                        if (data) {
+                            console.log(data)
+                        }
+                    }
+                });
+            });
+        }
+    });
+</script>

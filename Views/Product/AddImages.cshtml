@@ -1,0 +1,234 @@
+﻿
+@{
+    ViewBag.Title = "Add Images";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section vendorscss{
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/dropzone/dropzone.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/tagify/tagify.css" />
+}
+
+@section vendors{
+    <script src="~/adminassets/vendor/libs/quill/katex.js"></script>
+    <script src="~/adminassets/vendor/libs/quill/quill.js"></script>
+    <script src="~/adminassets/vendor/libs/select2/select2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/adminassets/vendor/libs/dropzone/dropzone.js"></script>
+    <script src="~/adminassets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
+    <script src="~/adminassets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/adminassets/vendor/libs/tagify/tagify.js"></script>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        Dropzone.autoDiscover = false;
+
+        $(function () {
+
+            var dz = null;
+
+            $("#mydropzone").dropzone({
+                previewTemplate: `<div class="dz-preview dz-file-preview">
+                                                <div class="dz-details">
+                                                  <div class="dz-thumbnail">
+                                                    <img data-dz-thumbnail>
+                                                    <span class="dz-nopreview">No preview</span>
+                                                    <div class="dz-success-mark"></div>
+                                                    <div class="dz-error-mark"></div>
+                                                    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                                    <div class="progress">
+                                                      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="dz-filename" data-dz-name></div>
+                                                  <div class="dz-size" data-dz-size></div>
+                                                </div>
+                                                </div>`,
+                autoProcessQueue: false,
+                paramName: "images",
+                maxFilesize: 10, //mb
+                maxFiles: 10,
+                parallelUploads: 10,
+                acceptedFiles: ".jpeg,.png,.jpg,.gif",
+                uploadMultiple: true,
+                addRemoveLinks: true,
+                //resizeWidth:128,
+
+                init: function () {
+                    dz = this;
+
+                    $("#uploadbutton").click(function () {
+                        dz.processQueue();
+                        $(this).attr("disabled", "disabled");
+                    });
+
+                    this.on("addedfile", function (file) {
+                        $("#uploadbutton").removeAttr("disabled");
+                    });
+                    this.on("removedfile", function (file) {
+                        var files = dz.getQueuedFiles().length;
+                        if (files == 0) {
+                            $("#uploadbutton").attr("disabled", "disabled");
+                        }
+                    });
+                },
+                success: function (file) {
+                    var preview = $(file.previewElement);
+                    preview.addClass("dz-success text-success");
+
+                    setTimeout(function () {
+                        dz.removeFile(file);
+                        $("#refreshbutton").click();
+                    }, 2000);
+                },
+                queuecomplete: function () {
+                    $("#refreshbutton").click();
+                    $("#uploadbutton").removeAttr("disabled");
+                },
+                dictDefaultMessage: "You can drag and drop your images here.",
+                dictRemoveFile: "File Remove"
+            });
+
+            $("#refreshbutton").prepend('<i id="loading" class="ti ti-reload fa-spin" style="display:none;"></i>&nbsp;')
+            refreshProductPicture();
+        });
+        function refreshProductPicture() {
+            $("#refreshbutton").click();
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#AddFromURL").click(function () {
+                var imageUrl = $("#mediaURL").val();
+                if (imageUrl) {
+                    $.ajax({
+                        url: "@Url.Action("AddProductImageFromURL", "Product")",
+                        type: "POST",
+                        data: { productId: @ViewBag.ProductID, imageUrl: imageUrl },
+                        success: function (response) {
+                            // Handle success response
+                            console.log(response);
+                            // Close modal
+                            $("#modalURL").modal("hide");
+                            // Refresh images
+                            refreshProductPicture();
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error response
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+            $("#mediaURL").on("input", function () {
+                var imageUrl = $(this).val();
+                if (imageUrl && isValidUrl(imageUrl)) {
+                    $("#AddFromURLPreview").attr("src", imageUrl);
+                }
+            });
+
+            function isValidUrl(url) {
+                try {
+                    new URL(url);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+        });
+    </script>
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+        <div class="d-flex flex-column justify-content-center">
+            <h4 class="mb-1">Edit Product Images</h4>
+            <p class="mb-0">Product #@ViewBag.ProductID</p>
+        </div>
+        <div class="d-flex align-content-center flex-wrap gap-4">
+            <div class="d-flex gap-4">
+                <a class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-6">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 card-title">Product Images</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    @Ajax.ActionLink("Refresh", "GetProductImages", new { productId = ViewBag.ProductID }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "productpictures", LoadingElementId = "loading", LoadingElementDuration = 300 }, new { @class = "btn btn-primary mb-2", id = "refreshbutton" })
+                    <div id="productpictures" class="dropzone border-solid opacity-100 text-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Media -->
+    <div class="card mb-6">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 card-title">Upload Images</h5>
+            <a href="" class="fw-medium" data-bs-toggle="modal" data-bs-target="#modalURL">Add image from URL</a>
+            <!-- Modal -->
+            <div class="modal fade" id="modalURL" tabindex="-1" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">Add image from URL</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col mb-6">
+                                    <label for="mediaURL" class="form-label">URL</label>
+                                    <input type="text" id="mediaURL" class="form-control" placeholder="URL">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <img id="AddFromURLPreview" class="img-thumbnail" src="" alt="" loading="lazy" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button id="AddFromURL" type="button" class="btn btn-primary"><i class="ti ti-photo-plus"></i>&nbsp;Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <button id="uploadbutton" type="button" class="fw-medium btn btn-primary mb-2" disabled><i class="ti ti-upload"></i>&nbsp;Upload</button>
+                    @using (Ajax.BeginForm("UploadProductImages", "Product", new { productId = ViewBag.ProductID }, new AjaxOptions { HttpMethod = "POST" }, new { @class = "dropzone needsclick p-0", id = "mydropzone", enctype = "multipart/form-data" }))
+                    {
+                        <div class="dz-message needsclick">
+                            <p class="h4 needsclick pt-3 mb-2">Drag and drop your image here</p>
+                            <p class="h6 text-muted d-block fw-normal mb-2">or</p>
+                            <span class="note needsclick btn btn-sm btn-label-primary" id="btnBrowse">Browse image</span>
+                        </div>
+                        <div class="fallback">
+                            <input name="images" type="file" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Media -->
+</div>

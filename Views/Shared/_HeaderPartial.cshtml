@@ -1,17 +1,19 @@
-﻿<section class="section-header">
+﻿@using FloralHaven.Helpers;
+@using FloralHaven.Models;
+<section class="section-header">
     <header class="header | inset-x-0 z-[70] header__wrapper">
         <div class="desktop-header | hidden lg:block bg-white border-b border-[#ddd]">
             <div class="header_top | container">
                 <div class="logo-bar | flex -mx-4 items-center py-2">
                     <div class="logo | px-4 justify-center scroll-animation" data-animation="animate-fade" data-once="true">
                         <a href="@Url.Action("Index", "Home")" class="logo-img | block relative" style="width: 290px" title="Floral Haven">
-                            <h1 class="text-primary m-0 flex text-4xl">Floral Haven <img width="45" height="45" src="https://img.icons8.com/doodle/48/spa-flower.png" alt="spa-flower" /></h1>
+                            <h1 class="text-primary m-0 flex text-4xl">Floral Haven <img width="45" height="45" src="https://img.icons8.com/doodle/48/spa-flower.png" alt="Floral Haven" /></h1>
                         </a>
                     </div>
                     <div class="w-2/3 flex flex-grow justify-end items-center">
                         <div class="flex flex-grow justify-end items-center">
-                            <form id="menu-form-search" action="/pages/search-result" method="get" role="search" novalidate class="search-form | relative w-full md:mx-10 flex border-2 border-black rounded">
-                                <input type="search" name="s" id="s" required autocomplete="off" placeholder="Search products" aria-label="Search products" class="search-input | w-full h-11 border-none" />
+                            <form id="menu-form-search" action="/search" method="get" role="search" novalidate class="search-form | relative w-full md:mx-10 flex border-2 border-black rounded">
+                                <input type="search" name="input" id="input" required autocomplete="off" placeholder="Search products" aria-label="Search products" class="search-input | w-full h-11 border-none" />
                                 <button type="submit" class="search-submit | absolute top-px right-0 py-1 px-2">
                                     <svg class="w-[2.15rem] h-[2.15rem]" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path>
@@ -29,6 +31,14 @@
                                         <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2zM6.16 6h12.15l-2.76 5H8.53zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2m10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2"></path>
                                     </svg>
                                     <span class="badge-inner"></span>
+                                    @if (Session["cart"] != null)
+                                    {
+                                        var item = Session["cart"] as ListCart;
+                                        if (item.SoMatHang() > 0)
+                                        {
+                                            <span class="badge-inner">@item.SoMatHang()</span>
+                                        }
+                                    }
                                 </div>
                                 <span class="tooltip-content">Cart</span>
                             </div>
@@ -42,7 +52,25 @@
                     <ul class="menu-nav | flex flex-wrap font-medium whitespace-nowrap -ml-[20px] w-full relative justify-between">
                         <li class="menu-item | relative list-none"
                             data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Product", "Product")">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Home")">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("About", "Pages")">
+                                Về chúng tôi
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Service", "Pages")">
+                                Phục vụ
+                            </a>
+                        </li>
+                        <li class="menu-item | relative list-none"
+                            data-index="1">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Product")">
                                 Tất cả sản phẩm
                             </a>
                         </li>
@@ -58,32 +86,32 @@
                                         <div class="submenu__content | flex p-4">
                                             <ul class="submenu-items | flex flex-col w-full">
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "hoa-chuc-mung" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug = "hoa-chuc-mung" })" class="submenu-link | whitespace-normal block">
                                                         Hoa Chúc Mừng
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-nha-giao-viet-nam-20-11" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug = "ngay-nha-giao-viet-nam-20-11" })" class="submenu-link | whitespace-normal block">
                                                         Ngày nhà giáo Việt Nam 20/11
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-phu-nu-viet-nam-20-10" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug = "ngay-phu-nu-viet-nam-20-10" })" class="submenu-link | whitespace-normal block">
                                                         Ngày phụ nữ Việt Nam 20/10
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-quoc-te-phu-nu-8-3" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug = "ngay-quoc-te-phu-nu-8-3" })" class="submenu-link | whitespace-normal block">
                                                         Ngày quốc tế phụ nữ 8/3
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-cha" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug ="ngay-cua-cha" })" class="submenu-link | whitespace-normal block">
                                                         Ngày của cha
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-me" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug ="ngay-cua-me" })" class="submenu-link | whitespace-normal block">
                                                         Ngày của mẹ
                                                     </a>
                                                 </li>
@@ -105,17 +133,17 @@
                                         <div class="submenu__content | flex p-4">
                                             <ul class="submenu-items | flex flex-col w-full">
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "hoa-tet" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug ="hoa-tet" })" class="submenu-link | whitespace-normal block">
                                                         Hoa tết
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "giang-sinh" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug ="giang-sinh" })" class="submenu-link | whitespace-normal block">
                                                         Giáng sinh
                                                     </a>
                                                 </li>
                                                 <li class="submenu-item | list-none w-full leading-9">
-                                                    <a href="@Url.Action("Category", "Category", new { id = "valentine" })" class="submenu-link | whitespace-normal block">
+                                                    <a href="@Url.Action("Category", "Category", new { slug ="valentine" })" class="submenu-link | whitespace-normal block">
                                                         Valentine
                                                     </a>
                                                 </li>
@@ -127,28 +155,34 @@
                         </li>
                         <li class="menu-item | relative list-none"
                             data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "hoa-tang-hoa-dich-vu"})">
+                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { slug ="hoa-tang-hoa-dich-vu"})">
                                 Hoa tặng
                             </a>
                         </li>
-                        <li class="menu-item | relative list-none"
-                            data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "lan-ho-diep"})">
-                                Lan hồ điệp
-                            </a>
-                        </li>
-                        <li class="menu-item | relative list-none"
-                            data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "cay-xanh"})">
-                                Cây xanh
-                            </a>
-                        </li>
-                        <li class="menu-item | relative list-none"
-                            data-index="1">
-                            <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Category", "Category", new { id = "phu-lieu-hoa"})">
-                                Phụ liệu hoa
-                            </a>
-                        </li>
+                        @{
+                            if (Request.IsAuthenticated)
+                            {
+                                var user = UserHelper.GetCurrentUser();
+                                var currentRole = UserHelper.GetUserRole(user);
+                                if (currentRole == "Admin")
+                                {
+                                    <li class="menu-item | relative list-none"
+                                        data-index="1">
+                                        <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Admin")">
+                                            Edit
+                                        </a>
+                                    </li>
+
+                                }
+                                <li class="menu-item | relative list-none"
+                                    data-index="1">
+                                    <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Orders", "Account")">
+                                        Order History
+                                    </a>
+                                </li>
+                            }
+                        }
+
                     </ul>
                 </nav>
             </div>
@@ -189,7 +223,22 @@
                 <div class="menu-content | flex-grow flex flex-col justify-between transition-all opacity-100 duration-300">
                     <ul class="menu-links | w-full pt-8">
                         <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Product", "Product")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                            <a href="@Url.Action("Index", "Home")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Trang chủ</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("About", "Pages")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Về chúng tôi</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Service", "Pages")" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                <span>Phục vụ</span>
+                            </a>
+                        </li>
+                        <li class="menu-link | list-none flex items-center">
+                            <a href="@Url.Action("Index", "Product")" class="w-full px-4 py-3 flex items-center justify-between relative">
                                 <span>Tất cả sản phẩm</span>
                             </a>
                         </li>
@@ -222,42 +271,42 @@
                                     </button>
                                     <ul class="sub-links--2 | pb-4">
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "hoa-chuc-mung" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="hoa-chuc-mung" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Hoa Chúc Mừng
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-nha-giao-viet-nam-20-11" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="ngay-nha-giao-viet-nam-20-11" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Ngày nhà giáo Việt Nam 20/11
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-phu-nu-viet-nam-20-10" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="ngay-phu-nu-viet-nam-20-10" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Ngày phụ nữ Việt Nam 20/10
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-quoc-te-phu-nu-8-3" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="ngay-quoc-te-phu-nu-8-3" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Ngày quốc tế phụ nữ 8/3
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-cha" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="ngay-cua-cha" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Ngày của cha
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "ngay-cua-me" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="ngay-cua-me" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Ngày của mẹ
                                                 </span>
@@ -296,21 +345,21 @@
                                     </button>
                                     <ul class="sub-links--2 | pb-4">
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "hoa-tet" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="hoa-tet" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Hoa tết
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "giang-sinh" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="giang-sinh" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Giáng sinh
                                                 </span>
                                             </a>
                                         </li>
                                         <li class="menu-link | list-none flex items-center">
-                                            <a href="@Url.Action("Category", "Category", new { id = "valentine" })" class="w-full px-4 py-3 flex items-center justify-between relative">
+                                            <a href="@Url.Action("Category", "Category", new { slug ="valentine" })" class="w-full px-4 py-3 flex items-center justify-between relative">
                                                 <span>
                                                     Valentine
                                                 </span>
@@ -321,30 +370,15 @@
                             </div>
                         </li>
                         <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "hoa-tang-hoa-dich-vu"})" class="w-full px-4 py-3 flex items-center justify-between relative">
+                            <a href="@Url.Action("Category", "Category", new { slug ="hoa-tang-hoa-dich-vu"})" class="w-full px-4 py-3 flex items-center justify-between relative">
                                 <span>Hoa tặng</span>
                             </a>
                         </li>
-                        <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "lan-ho-diep"})" class="w-full px-4 py-3 flex items-center justify-between relative">
-                                <span>Lan hồ điệp</span>
-                            </a>
-                        </li>
-                        <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "cay-xanh"})" class="w-full px-4 py-3 flex items-center justify-between relative">
-                                <span>Cây xanh</span>
-                            </a>
-                        </li>
-                        <li class="menu-link | list-none flex items-center">
-                            <a href="@Url.Action("Category", "Category", new { id = "phu-lieu-hoa"})" class="w-full px-4 py-3 flex items-center justify-between relative">
-                                <span>Phụ liệu hoa</span>
-                            </a>
-                        </li>
+
                     </ul>
                     @Html.Partial("_AccountBlockPartial")
                 </div>
             </div>
         </div>
     </div>
-    <script src="~/js/Navbar.js"></script>
 </section>

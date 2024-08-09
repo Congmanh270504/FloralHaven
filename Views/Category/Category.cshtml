@@ -1,0 +1,183 @@
+﻿@model PagedList.IPagedList<FloralHaven.Models.ProductListViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Products";
+}
+@section styles{
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/products.css" rel="stylesheet" />
+    <link href="~/css/breadcrumb.css" rel="stylesheet" />
+    <style>
+        .hero-header {
+            margin-bottom: 0 !important;
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/js/lazyload.min.js"></script>
+    <script src="~/js/lazyload.js"></script>
+    <script src="~/js/products.js"></script>
+}
+<div class="layout-collection">
+    <section class="bread-crumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="home">
+                    @Html.ActionLink("Trang chủ", "Index", "Home", null, new { title = "Trang chủ" })
+                    <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
+                </li>
+                <li><strong><span>@ViewBag.CategoryName</span></strong></li>
+            </ul>
+        </div>
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-title">
+                <h1>@ViewBag.CategoryName</h1>
+            </div>
+            <div class="block-collection col-lg-12 col-12">
+                <div class="category-products products-view products-view-grid list_hover_pro">
+                    <div class="filter-containers">
+                        <div class="sort-cate clearfix">
+                            <div class="sort-cate-right">
+                                <h3>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-alpha-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10.082 5.629 9.664 7H8.598l1.789-5.332h1.234L13.402 7h-1.12l-.419-1.371h-1.781zm1.57-.785L11 2.687h-.047l-.652 2.157h1.351z"></path>
+                                        <path d="M12.96 14H9.028v-.691l2.579-3.72v-.054H9.098v-.867h3.785v.691l-2.567 3.72v.054h2.645V14zM4.5 2.5a.5.5 0 0 0-1 0v9.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L4.5 12.293V2.5z"></path>
+                                    </svg> Xếp theo
+                                </h3>
+                                <ul>
+                                    @{
+                                        var sortOrder = ViewBag.CurrentSort;
+
+                                        switch (sortOrder)
+                                        {
+                                            case "name_desc":
+                                            case "name_asc":
+                                            case "price_asc":
+                                            case "price_desc":
+                                            case "date":
+                                            case "date_desc":
+                                                break;
+                                            default:
+                                                sortOrder = "";
+                                                break;
+                                        }
+                                    }
+                                    <li class="btn-quick-sort default @if (sortOrder == "") { <text>active</text> }">
+                                        @Html.ActionLink("Mặc định", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "" }, new { title = "Mặc định" })
+                                    </li>
+                                    <li class="btn-quick-sort name_asc @if (sortOrder == "name_asc") { <text>active</text> }">
+                                        @Html.ActionLink("Tên A-Z", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "name_asc" }, new { title = "Tên A-Z" })
+                                    </li>
+                                    <li class="btn-quick-sort name_desc @if (sortOrder == "name_desc") { <text>active</text> }">
+                                        @Html.ActionLink("Tên Z-A", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "name_desc" }, new { title = "Tên Z-A" })
+                                    </li>
+                                    <li class="btn-quick-sort date @if (sortOrder == "date") { <text>active</text> }">
+                                        @Html.ActionLink("Hàng mới", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "date" }, new { title = "Hàng mới" })
+                                    </li>
+                                    <li class="btn-quick-sort price_asc @if (sortOrder == "price_asc") { <text>active</text> }">
+                                        @Html.ActionLink("Giá thấp đến cao", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "price_asc" }, new { title = "Giá thấp đến cao" })
+                                    </li>
+                                    <li class="btn-quick-sort price_desc @if (sortOrder == "price_desc") { <text>active</text> }">
+                                        @Html.ActionLink("Giá cao xuống thấp", "Category", "Category", new { id = ViewBag.CategoryId, sortOrder = "price_desc" }, new { title = "Giá cao xuống thấp" })
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="products-view products-view-grid list_hover_pro">
+                            <div class="row">
+                                @if (Model == null || Model.Count < 1)
+                                {
+                                    <p class="col-12">
+                                        No products found
+                                    </p>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <div class="col-6 col-md-3">
+                                            <div class="item_product_main">
+                                                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "variants product-action item-product-main duration-300", data_id = "product-actions-" + item.ProductID }))
+                                                {
+                                                    if (item.SalePrice != null)
+                                                    {
+                                                        var salepercent = Math.Round((item.Price - item.SalePrice.GetValueOrDefault()) / item.Price * 100);
+
+                                                        <span class="flash-sale">
+                                                            Sale @salepercent.ToString()%
+                                                        </span>
+                                                    }
+                                                    <div class="product-thumbnail">
+                                                        <a class="image_thumb scale_hover" href="/product/@item.Handle" title="@item.Name">
+                                                            <img class="lazyload duration-300" data-src="@item.MainImage" alt="@item.Name" />
+                                                            <span class="loader"></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <h3 class="product-name line-clamp line-clamp-2">
+                                                            <a href="/product/@item.Handle" title="@item.Name">@item.Name</a>
+                                                        </h3>
+                                                        <div class="product-price-cart">
+                                                            <div class="price-box">
+                                                                @if (item.SalePrice != null)
+                                                                {
+                                                                    <span class="compare-price">@item.Price.ToString("N0")₫</span>
+                                                                    <span class="price">@item.SalePrice.GetValueOrDefault().ToString("N0")₫</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="price">@item.Price.ToString("N0")₫</span>
+                                                                }
+                                                            </div>
+                                                            <div class="product-button">
+                                                                @if (item.Stock != null && item.Stock > 0)
+                                                                {
+                                                                    <button class="btn-cart btn-views add_to_cart" data-id="@item.ProductID" title="Thêm vào giỏ hàng">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                                            <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+                                                                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button type="button" class="btn-cart-disable btn-views disable" title="Hết hàng">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-x" viewBox="0 0 16 16">
+                                                                            <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"></path>
+                                                                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                        </svg>
+                                                                    </button>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="pagenav">
+                            <nav class="collection-paginate clearfix relative nav_pagi w_100">
+                                @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+                                @{
+                                    PagedListRenderOptions pagedListRenderOptions = new PagedListRenderOptions();
+                                    pagedListRenderOptions.MaximumPageNumbersToDisplay = 5;
+                                    pagedListRenderOptions.UlElementClasses = new[] { "pagination", "clearfix" };
+                                    pagedListRenderOptions.LiElementClasses = new[] { "page-item" };
+                                }
+
+                                @Html.PagedListPager(Model, page => Url.Action("Category", new { id = ViewBag.CategoryId, page = page, sortOrder = ViewBag.CurrentSort }), pagedListRenderOptions)
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

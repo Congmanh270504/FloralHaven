@@ -1,9 +1,4 @@
 ﻿@model FloralHaven.Models.ProductViewModel
-@section scripts{
-    <script src="~/Scripts/Slick/slick.min.js"></script>
-    <script src="~/js/jquery.bootstrap-touchspin.js"></script>
-    <script src="~/js/product_detail.js"></script>
-}
 @section styles{
     <link href="~/Content/Slick/slick.css" rel="stylesheet" />
     <link href="~/css/products.css" rel="stylesheet" />
@@ -15,6 +10,13 @@
         }
     </style>
 }
+
+@section scripts{
+    <script src="~/Scripts/Slick/slick.min.js"></script>
+    <script src="~/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/js/product_detail.js"></script>
+}
+
 <div class="container">
     <section class="bread-crumb">
         <div class="container">
@@ -24,7 +26,7 @@
                     <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
                 </li>
                 <li class="category">
-                    @Html.ActionLink(Model.CategoryName, "Index", "Home", null, new { title = Model.CategoryName })
+                    @Html.ActionLink(Model.CategoryName, "Category", "Category", new { slug = Model.CategorySlug }, new { title = Model.CategoryName })
                     <span class="mr_lr">&nbsp;<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-chevron-right fa-w-10"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" class=""></path></svg>&nbsp;</span>
                 </li>
                 <li><strong><span>@Model.Title</span></strong></li>
@@ -38,7 +40,7 @@
                     @foreach (var image in Model.Images)
                     {
                         <figure>
-                            <img src="@image" alt="@image">
+                            <img src="@image" alt="@image" width="800" height="800">
                         </figure>
                     }
                 </div>
@@ -46,7 +48,7 @@
                     @foreach (var image in Model.Images)
                     {
                         <div class="thumb-item">
-                            <img src="@image" alt="@image" />
+                            <img src="@image" alt="@image" width="200" height="200" />
                         </div>
                     }
                 </div>
@@ -64,7 +66,7 @@
                 <div class="product-info quantity">
                     <p>Số lượng</p>
                     <p>
-                        <input id="quantity" type="text" value="1" name="quantity" min="1" max="99" class="form-control">
+                        <input id="quantity" type="text" value="1" name="quantity" class="form-control">
                     </p>
                 </div>
                 <hr />

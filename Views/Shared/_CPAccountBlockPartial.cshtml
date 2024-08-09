@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNet.Identity
+@using FloralHaven.Helpers
+@using System.Web;
+
+@if (Request.IsAuthenticated)
+{
+    var currentUser = UserHelper.GetCurrentUser();
+    var avatar = UserHelper.GetUserAvatar(currentUser);
+    var fullName = currentUser.FirstName + " " + currentUser.LastName;
+    var role = UserHelper.GetUserRole(currentUser);
+    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+        <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+            <div class="avatar avatar-online">
+                <img src="@avatar" alt="" class="rounded-circle" />
+            </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+
+                <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0 me-2">
+                            <div class="avatar avatar-online">
+                                <img src="@avatar" alt="" class="rounded-circle" />
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0">@fullName</h6>
+                            <small class="text-muted">@role</small>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <div class="dropdown-divider my-1 mx-n2"></div>
+            </li>
+            <li>
+                <a class="dropdown-item" href="@Url.Action("Index","Manage")"> <i class="ti ti-user me-3 ti-md"></i><span class="align-middle">My Profile</span> </a>
+            </li>
+            <li>
+                <div class="d-grid px-2 pt-2 pb-1">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <button class="btn btn-sm btn-danger d-flex">
+                            <small class="align-middle">Logout</small>
+                            <i class="ti ti-logout ms-2 ti-14px"></i>
+                        </button>
+                    }
+                </div>
+            </li>
+        </ul>
+    </li>
+}
+else
+{
+    Response.Redirect("/Account/Login");
+}

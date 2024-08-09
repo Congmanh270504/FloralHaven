@@ -9,7 +9,7 @@ namespace Floral_Haven.Controllers
 	public class PagesController : Controller
 	{
 		private FloralHavenDataContext _db = FloralHavenDBContextConfig.GetFloralHavenDataContext();
-		string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
+		//string _imgPrefix = "https://congmanh270504.github.io/Db-FloralHaven/";
 
 		public ActionResult About()
 		{
@@ -40,22 +40,29 @@ namespace Floral_Haven.Controllers
 		{
 			return PartialView();
 		}
-
+		//Booking Page
 		public ActionResult Booking()
 		{
 			return View();
 		}
-
+		public ActionResult BookingMenu()
+		{
+			List<CATEGORY> categories = _db.CATEGORies.ToList();
+			return PartialView(categories);
+		}
 		public ActionResult Team()
+		{
+			return View();
+		}
+		public ActionResult TeamMember()
 		{
 			return PartialView();
 		}
 
 		public ActionResult Testimonial()
 		{
-			return View();
+			return PartialView();
 		}
-
 		public ActionResult GetProductsByCategory(string categoryName, int take = 8)
 		{
 			var category = _db.CATEGORies.FirstOrDefault(c => c.name == categoryName);
@@ -63,6 +70,7 @@ namespace Floral_Haven.Controllers
 			{
 				return PartialView(new List<ProductListViewModel>());
 			}
+
 
 			var products = _db.PRODUCTs.Where(p => p.categoryid == category.id)
 				.OrderByDescending(p => p.id)
@@ -75,13 +83,14 @@ namespace Floral_Haven.Controllers
 					Stock = product.instock,
 					Price = product.price,
 					SalePrice = product.saleprice,
-					MainImage = _imgPrefix + product.handle + "/" + _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
-					CategoryID = product.categoryid,
+					MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == product.id).path ?? "",
+					CategorySlug = category.slug,
 					CategoryName = categoryName
 				})
 				.ToList();
-
 			return PartialView("_SubmenuProductList", products);
 		}
-	}
+       
+    }
+
 }

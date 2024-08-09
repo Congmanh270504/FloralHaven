@@ -15,13 +15,14 @@
                     <span class="ml-2">@currentUser.FirstName</span>
                 </div>
             </a>
-            @using (Html.BeginForm("LogOff","Account",FormMethod.Post)) { 
-            <button class="w-full text-center btn-logout rounded-md border border-black whitespace-nowrap" type="submit">
-                Log Out
-                @*<a href="${currentPath}/logout" class="block p-3">Log Out</a>*@
-            </button>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <button class="w-full text-center btn-logout rounded-md border border-black whitespace-nowrap" type="submit">
+                    Log Out
+                    @*<a href="${currentPath}/logout" class="block p-3">Log Out</a>*@
+                </button>
             }
-
         </div>
     }
 

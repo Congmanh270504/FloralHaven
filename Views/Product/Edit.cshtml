@@ -1,0 +1,159 @@
+﻿@model FloralHaven.Models.ProductEditViewModal
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+@section vendorscss{
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/quill/editor.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/dropzone/dropzone.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="~/adminassets/vendor/libs/tagify/tagify.css" />
+}
+
+@section vendors{
+    <script src="~/adminassets/vendor/libs/quill/katex.js"></script>
+    <script src="~/adminassets/vendor/libs/quill/quill.js"></script>
+    <script src="~/adminassets/vendor/libs/select2/select2.js"></script>
+    <script src="~/adminassets/vendor/libs/dropzone/dropzone.js"></script>
+    <script src="~/adminassets/vendor/libs/jquery-repeater/jquery-repeater.js"></script>
+    <script src="~/adminassets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="~/adminassets/vendor/libs/tagify/tagify.js"></script>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/adminassets/js/product-add.js"></script>
+    <script>
+        $(".select2").val("@Model.CategoryId")
+    </script>
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="app-ecommerce">
+        @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { id = "edit_product", enctype = "multipart/form-data" }))
+        {
+            <!-- Add Product -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-6 row-gap-4">
+                <div class="d-flex flex-column justify-content-center">
+                    <h4 class="mb-1">Edit Product</h4>
+                    <p class="mb-0">Product #@Model.Id</p>
+                </div>
+                <div class="d-flex align-content-center flex-wrap gap-4">
+                    <div class="d-flex gap-4">                        
+                        <a type="button" class="btn btn-label-secondary" href="@Url.Action("ProductList","Product")">Back</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary" form="edit_product">Save product</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- First column-->
+                <div class="col-12 col-lg-8">
+                    <!-- Product Information -->
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="card mb-6">
+                        <div class="card-header">
+                            <h5 class="card-tile mb-0">Product information</h5>
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })                            
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @id = "product-name", @class = "form-control", placeholder = "Product title", name = "productTitle", @arial_label = "Product title" } })
+                            </div>
+                            <div class="mb-6">
+
+                                @Html.LabelFor(model => model.Handle, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Handle, new { htmlAttributes = new { @id = "product-handle", @class = "form-control", placeholder = "Product handle", name = "productHandle", @arial_label = "Product handle" } })
+                            </div>
+                            <div class="row mb-6">
+                                <div class="col">
+                                    @Html.LabelFor(model => model.SKU, htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.SKU, new { htmlAttributes = new { @id = "product-sku", @class = "form-control", placeholder = "SKU", name = "productSku", @arial_label = "Product SKU" } })
+                                </div>
+                                <div class="col">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="mb-6 col category-select2-dropdown">
+                                            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "form-label mb-1", @for = "category-org" })
+                                            @Html.DropDownListFor(model => model.CategoryId, ViewBag.CategoryID as SelectList, "Select Category", htmlAttributes: new { @id = "category-org", @class = "select2 form-select", @data_placeholder = "Select Category" })
+
+                                        </div>
+                                        <a href="@Url.Action("Create","Category")" class="fw-medium btn btn-icon btn-label-primary ms-4"><i class="ti ti-plus ti-md"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description -->
+                            <div>
+                                <label class="mb-1">Description (Optional)</label>
+                                <div class="form-control p-0">
+                                    <div class="comment-toolbar border-0 border-bottom">
+                                        <div class="d-flex justify-content-start">
+                                            <span class="ql-formats me-0">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                                <button class="ql-link"></button>
+                                                <button class="ql-image"></button>
+                                                <select class="ql-color ql-picker ql-color-picker"></select>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="comment-editor border-0 pb-6" id="category-description">
+                                        @Html.Raw(Model.Description)
+                                    </div>
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "d-none", id = "description-input" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Product Information -->
+                    
+                </div>
+                <!-- /First column -->
+                <!-- Second column -->
+                <div class="col-12 col-lg-4">
+                    <!-- Pricing Card -->
+                    <div class="card mb-6">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Pricing</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Base Price -->
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @id = "product-price", @class = "form-control", placeholder = "Price", name = "productPrice", @arial_label = "Product price" } })
+                            </div>
+                            <!-- Discounted Price -->
+                            <div class="mb-6">
+                                @Html.LabelFor(model => model.SalePrice, htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.SalePrice, new { htmlAttributes = new { @id = "product-discount-price", @class = "form-control", placeholder = "Discounted Price", name = "productDiscountedPrice", @arial_label = "Product discounted price" } })
+                            </div>
+                            <!-- Add to Stock -->
+                            <label class="form-label" for="product-stock">Add to Stock</label>
+                            <div class="row mb-4 g-4 pe-md-4">
+                                <div class="col-12">
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @id = "product-stock", @class = "form-control", placeholder = "Quantity", name = "quantity", @arial_label = "Quantity" } })
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Pricing Card -->
+                </div>
+                <!-- /Second column -->
+            </div>
+        }
+    </div>
+</div>
