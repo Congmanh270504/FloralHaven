@@ -1,4 +1,9 @@
 ﻿@model FloralHaven.Models.ProductViewModel
+@using PagedList.Mvc;
+@using FloralHaven.Models;
+@{
+    List<ProductViewModel> listSubItem = ViewBag.subItem;
+}
 @section styles{
     <link href="~/Content/Slick/slick.css" rel="stylesheet" />
     <link href="~/css/products.css" rel="stylesheet" />
@@ -109,6 +114,100 @@
                         <li><img width="40" src="~/Imgs/present-box.png"><span>Miễn phí thiệp chúc mừng</span></li>
                         <li><img width="40" src="~/Imgs/eco-nature.png"><span>Đảm bảo hoa tươi trong 3 ngày</span></li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Sản phẩm liên quan</h1>
+<div class="container">
+    <div class="row">
+        <div class="block-collection col-lg-12 col-12">
+            <div class="category-products products-view products-view-grid list_hover_pro">
+                <div class="filter-containers">
+                    <div class="products-view products-view-grid list_hover_pro">
+                        <div class="row">
+                            @if (listSubItem == null || listSubItem.Count < 1)
+                            {
+                                <p class="col-12">
+                                    No products found
+                                </p>
+                            }
+                            else
+                            {
+                                foreach (var item in listSubItem)
+                                {
+                                    <div class="col-6 col-md-3">
+                                        <div class="item_product_main">
+                                            @using (Html.BeginForm("AddToCart", "Home", FormMethod.Post, new { @class = "variants product-action item-product-main duration-300", data_id = "product-actions-" + item.Id }))
+                                            {
+                                                if (item.SalePrice != null)
+                                                {
+                                                    var salepercent = Math.Round((item.Price - item.SalePrice.GetValueOrDefault()) / item.Price * 100);
+
+                                                    <span class="flash-sale">
+                                                        Sale @salepercent.ToString()%
+                                                    </span>
+                                                }
+                                                <div class="product-thumbnail">
+                                                    <a class="image_thumb scale_hover" href="/product/@item.Handle" title="@item.Title">
+                                                        <img class="lazyload duration-300" data-src="@item.Images[0]" alt="@item.Title" />
+                                                        @*@foreach (var image in item.Images)
+                                                        {
+                                                            <figure>
+                                                                <img src="@image" alt="@image" width="800" height="800">
+                                                            </figure>
+                                                        }
+                                                        <span class="loader"></span>*@
+                                                    </a>
+                                                </div>
+                                                <div class="product-info">
+                                                    <h3 class="product-name line-clamp line-clamp-2">
+                                                        <a href="/product/@item.Handle" title="@item.Title">@item.Title</a>
+                                                    </h3>
+                                                    <div class="product-price-cart">
+                                                        <div class="price-box">
+                                                            @if (item.SalePrice != null)
+                                                            {
+                                                                <span class="compare-price">@item.Price.ToString("N0")₫</span>
+                                                                <span class="price">@item.SalePrice.GetValueOrDefault().ToString("N0")₫</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="price">@item.Price.ToString("N0")₫</span>
+                                                            }
+                                                        </div>
+                                                        <div class="product-button">
+                                                            @if (item.Instock != null && item.Instock > 0)
+                                                            {
+                                                                <button class="btn-cart btn-views add_to_cart" data-id="@item.Id" title="Thêm vào giỏ hàng" type="submit">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+                                                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button type="button" class="btn-cart-disable btn-views disable" title="Hết hàng">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart-x" viewBox="0 0 16 16">
+                                                                        <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"></path>
+                                                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
