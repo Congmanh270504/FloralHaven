@@ -491,7 +491,7 @@ namespace FloralHaven.Controllers
 				.Select(bill => new
 				{
 					id = bill.id,
-					date = bill.date,
+					date = bill.date.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss"),
 					total = bill.total,
 					image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == _db.PRODUCTs.FirstOrDefault(t => t.id == _db.BILLDETAILs.FirstOrDefault(i => i.billid == bill.id).productid).id).path ?? "",
 				})
@@ -514,7 +514,11 @@ namespace FloralHaven.Controllers
 				ViewBag.StatusCode = 404;
 				return View("NotFound");
 			}
+
 			ViewBag.Id = bill.id;
+			ViewBag.User = _db.Users.FirstOrDefault(u => u.Id == bill.userid);
+			ViewBag.Total = bill.total;
+			ViewBag.Date = bill.date;
 			return View();
 		}
 

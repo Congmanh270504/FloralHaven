@@ -253,7 +253,7 @@ namespace FloralHaven.Controllers
 				.Select(bill => new
 				{
 					id = bill.id,
-					date = bill.date,
+					date = bill.date.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss"),
 					total = bill.total,
 					image = _db.IMAGEs.FirstOrDefault(imgs => imgs.productid == _db.PRODUCTs.FirstOrDefault(t => t.id == _db.BILLDETAILs.FirstOrDefault(i => i.billid == bill.id).productid).id).path ?? "",
 					customer = _db.Users.FirstOrDefault(u => u.Id == bill.userid).FirstName + " " + _db.Users.FirstOrDefault(u => u.Id == bill.userid).LastName,
