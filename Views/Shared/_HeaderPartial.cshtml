@@ -12,8 +12,8 @@
                     </div>
                     <div class="w-2/3 flex flex-grow justify-end items-center">
                         <div class="flex flex-grow justify-end items-center">
-                            <form id="menu-form-search" action="/pages/search-result" method="get" role="search" novalidate class="search-form | relative w-full md:mx-10 flex border-2 border-black rounded">
-                                <input type="search" name="s" id="s" required autocomplete="off" placeholder="Search products" aria-label="Search products" class="search-input | w-full h-11 border-none" />
+                            <form id="menu-form-search" action="/search" method="get" role="search" novalidate class="search-form | relative w-full md:mx-10 flex border-2 border-black rounded">
+                                <input type="search" name="input" id="input" required autocomplete="off" placeholder="Search products" aria-label="Search products" class="search-input | w-full h-11 border-none" />
                                 <button type="submit" class="search-submit | absolute top-px right-0 py-1 px-2">
                                     <svg class="w-[2.15rem] h-[2.15rem]" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path>
@@ -168,7 +168,7 @@
                                 {
                                     <li class="menu-item | relative list-none"
                                         data-index="1">
-                                        <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Home")">
+                                        <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Index", "Admin")">
                                             Edit
                                         </a>
                                     </li>
@@ -176,8 +176,8 @@
                                 }
                                 <li class="menu-item | relative list-none"
                                     data-index="1">
-                                    <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("OderHistory", "Account")">
-                                        Oder History
+                                    <a class="menu-link | px-4 py-5 flex items-center uppercase font-bold" href="@Url.Action("Orders", "Account")">
+                                        Order History
                                     </a>
                                 </li>
                             }
@@ -381,5 +381,4 @@
             </div>
         </div>
     </div>
-    <script src="~/js/Navbar.js"></script>
 </section>

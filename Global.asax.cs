@@ -16,6 +16,12 @@ namespace FloralHaven
 			// Initialize roles
 			FloralHaven.Helpers.RoleManagerHelper.InitializeRoles();
 
+			// Import users from CSV
+			//var filePath = Server.MapPath("~/Uploads/TextFile1.csv");
+			//var _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+			//var userImportService = new UserImportService(_userManager);
+			//userImportService.ImportUsersFromCsv(filePath);
+
 			// Create an admin user
 			//CreateAdminUser();
 		}

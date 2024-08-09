@@ -9,8 +9,15 @@ $(function () {
 		o = { 1: { title: "Paid", class: "text-success" }, 2: { title: "Pending", class: "text-warning" }, 3: { title: "Failed", class: "text-danger" }, 4: { title: "Cancelled", class: "text-secondary" } };
 	n.length &&
 		((t = n.DataTable({
-			ajax: assetsPath + "json/ecommerce-customer-order.json",
-			columns: [{ data: "id" }, { data: "id" }, { data: "order" }, { data: "date" }, { data: "customer" }, { data: "payment" }, { data: "status" }, { data: "method" }, { data: "" }],
+			serverSide: true,
+			processing: true,
+			orderMulti: false,
+			ajax: {
+				url: "/Account/GetOrders",
+				type: "POST",
+				dataType: "json",
+			},
+			columns: [{ data: "id" }, { data: "order" }, { data: "image" }, { data: "date" }, { data: "total" }],
 			columnDefs: [
 				{
 					className: "control",
@@ -24,66 +31,31 @@ $(function () {
 				},
 				{
 					targets: 1,
-					orderable: !1,
-					checkboxes: { selectAllRender: '<input type="checkbox" class="form-check-input">' },
-					render: function () {
-						return '<input type="checkbox" class="dt-checkboxes form-check-input" >';
+					render: function (t, e, a, s) {
+						return '<a href="/Account/OrderDetails/'+ a.id + '"><span>#' + a.id + "</span></a>";
 					},
-					searchable: !1,
 				},
 				{
 					targets: 2,
+					responsivePriority: 1,
 					render: function (t, e, a, s) {
-						return '<a href="app-ecommerce-order-details.html"><span>#' + a.order + "</span></a>";
+						var n = a.id,
+							o = a.image;
+						return '<div class="d-flex justify-content-start align-items-center order-name text-nowrap"><div class="avatar-wrapper"><div class="avatar avatar-sm me-3">' + (o ? '<img src="' + o + '" alt="Image" class="rounded-circle">' : '<span class="avatar-initial rounded-circle bg-label-' + ["success", "danger", "warning", "info", "dark", "primary", "secondary"][Math.floor(6 * Math.random())] + '">' + (o = (((o = (n = a.id).match(/\b\w/g) || []).shift() || "") + (o.pop() || "")).toUpperCase()) + "</span>") + '</div></div></div>';
 					},
 				},
 				{
 					targets: 3,
 					render: function (t, e, a, s) {
-						var n = new Date(a.date),
-							a = a.time.substring(0, 5);
-						return '<span class="text-nowrap">' + n.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", time: "numeric" }) + ", " + a + "</span>";
+						var n = new Date(a.date);
+						var time = n.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric" });
+						return '<span class="text-nowrap">' + n.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", time: "numeric" }) + ", " + time + "</span>";
 					},
 				},
 				{
 					targets: 4,
-					responsivePriority: 1,
 					render: function (t, e, a, s) {
-						var n = a.customer,
-							r = a.email,
-							o = a.avatar;
-						return '<div class="d-flex justify-content-start align-items-center order-name text-nowrap"><div class="avatar-wrapper"><div class="avatar avatar-sm me-3">' + (o ? '<img src="' + assetsPath + "img/avatars/" + o + '" alt="Avatar" class="rounded-circle">' : '<span class="avatar-initial rounded-circle bg-label-' + ["success", "danger", "warning", "info", "dark", "primary", "secondary"][Math.floor(6 * Math.random())] + '">' + (o = (((o = (n = a.customer).match(/\b\w/g) || []).shift() || "") + (o.pop() || "")).toUpperCase()) + "</span>") + '</div></div><div class="d-flex flex-column"><h6 class="m-0"><a href="pages-profile-user.html" class="text-heading">' + n + "</a></h6><small>" + r + "</small></div></div>";
-					},
-				},
-				{
-					targets: 5,
-					render: function (t, e, a, s) {
-						(a = a.payment), (a = o[a]);
-						return a ? '<h6 class="mb-0 align-items-center d-flex w-px-100 ' + a.class + '"><i class="ti ti-circle-filled fs-tiny me-1"></i>' + a.title + "</h6>" : t;
-					},
-				},
-				{
-					targets: -3,
-					render: function (t, e, a, s) {
-						a = a.status;
-						return '<span class="badge px-2 ' + r[a].class + '" text-capitalized>' + r[a].title + "</span>";
-					},
-				},
-				{
-					targets: -2,
-					render: function (t, e, a, s) {
-						var n = a.method,
-							a = a.method_number;
-						return "paypal" == n && (a = "@gmail.com"), '<div class="d-flex align-items-center text-nowrap"><img src="' + assetsPath + "img/icons/payments/" + n + '.png" alt="' + n + '" width="29"><span><i class="ti ti-dots me-1 mt-1"></i>' + a + "</span></div>";
-					},
-				},
-				{
-					targets: -1,
-					title: "Actions",
-					searchable: !1,
-					orderable: !1,
-					render: function (t, e, a, s) {
-						return '<div class="d-flex justify-content-sm-start align-items-sm-center"><button class="btn btn-icon btn-text-secondary waves-effect waves-light rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="app-ecommerce-order-details.html" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item delete-record">Delete</a></div></div>';
+						return '<div class="text-sm-end">' + a.total + "</div>";
 					},
 				},
 			],
@@ -126,7 +98,7 @@ $(function () {
 							text: '<i class="ti ti-file me-2"></i>Csv',
 							className: "dropdown-item",
 							exportOptions: {
-								columns: [2, 3, 4, 5, 6, 7],
+								columns: [1,2, 3, 4],
 								format: {
 									body: function (t, e, a) {
 										var s;
@@ -147,7 +119,7 @@ $(function () {
 							text: '<i class="ti ti-file-export me-2"></i>Excel',
 							className: "dropdown-item",
 							exportOptions: {
-								columns: [2, 3, 4, 5, 6, 7],
+								columns: [1,2, 3, 4],
 								format: {
 									body: function (t, e, a) {
 										var s;
@@ -168,7 +140,7 @@ $(function () {
 							text: '<i class="ti ti-file-text me-2"></i>Pdf',
 							className: "dropdown-item",
 							exportOptions: {
-								columns: [2, 3, 4, 5, 6, 7],
+								columns: [1,2, 3, 4],
 								format: {
 									body: function (t, e, a) {
 										var s;
@@ -189,7 +161,7 @@ $(function () {
 							text: '<i class="ti ti-copy me-2"></i>Copy',
 							className: "dropdown-item",
 							exportOptions: {
-								columns: [2, 3, 4, 5, 6, 7],
+								columns: [1,2, 3, 4],
 								format: {
 									body: function (t, e, a) {
 										var s;
