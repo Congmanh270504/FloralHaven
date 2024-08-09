@@ -285,6 +285,13 @@ namespace FloralHaven.Controllers
 			return RedirectToAction("OrderList");
 		}
 
+		[HttpPost]
+		[Route("Admin/EditOrderDetails/{id}")]
+		public ActionResult EditOrderDetails(int id, int productid)
+		{
+			return View();
+		}
+
 		//OrdersDetails
 		[HttpGet]
 		[Route("Admin/OrderDetails/{id}")]
