@@ -17,6 +17,18 @@ namespace FloralHaven.Controllers
 		[Route("Admin")]
 		public ActionResult Admin()
 		{
+			ViewBag.Orders = _db.BILLs.Count();
+			ViewBag.Sales = _db.BILLDETAILs.Sum(b => b.quantity);
+			ViewBag.Revenue = _db.BILLs.Sum(b => b.total);
+			ViewBag.Products = _db.PRODUCTs.Count();
+			ViewBag.Users = _db.Users.Count();
+			var dayNow = DateTime.Now;
+			ViewBag.m1 = _db.BILLs.Where(b => b.date.HasValue && b.date.Value.Month == dayNow.Month && b.date.Value.Year == dayNow.Year).Sum(b => _db.BILLDETAILs.Where(d => d.billid == b.id).Sum(d => d.quantity)) ?? 0;
+			ViewBag.m2 = _db.BILLs.Where(b => b.date.HasValue && b.date.Value.Month == dayNow.AddMonths(-1).Month && b.date.Value.Year == dayNow.AddMonths(-1).Year).Sum(b => _db.BILLDETAILs.Where(d => d.billid == b.id).Sum(d => d.quantity)) ?? 0;
+			ViewBag.m3 = _db.BILLs.Where(b => b.date.HasValue && b.date.Value.Month == dayNow.AddMonths(-2).Month && b.date.Value.Year == dayNow.AddMonths(-2).Year).Sum(b => _db.BILLDETAILs.Where(d => d.billid == b.id).Sum(d => d.quantity)) ?? 0;
+			ViewBag.m4 = _db.BILLs.Where(b => b.date.HasValue && b.date.Value.Month == dayNow.AddMonths(-3).Month && b.date.Value.Year == dayNow.AddMonths(-3).Year).Sum(b => _db.BILLDETAILs.Where(d => d.billid == b.id).Sum(d => d.quantity)) ?? 0;
+			ViewBag.m5 = _db.BILLs.Where(b => b.date.HasValue && b.date.Value.Month == dayNow.AddMonths(-4).Month && b.date.Value.Year == dayNow.AddMonths(-4).Year).Sum(b => _db.BILLDETAILs.Where(d => d.billid == b.id).Sum(d => d.quantity)) ?? 0;
+			ViewBag.m6 = _db.BILLs.Where(b => b.date.HasValue && b.date.Value.Month == dayNow.AddMonths(-5).Month && b.date.Value.Year == dayNow.AddMonths(-5).Year).Sum(b => _db.BILLDETAILs.Where(d => d.billid == b.id).Sum(d => d.quantity)) ?? 0;
 			return View();
 		}
 
@@ -24,7 +36,7 @@ namespace FloralHaven.Controllers
 		[Route("Search")]
 		public ViewResult Search(string sortOrder, int? page, string input)
 		{
-			ViewBag.CurrentSort = sortOrder;
+			ViewBag.ViewBag.CurrentSort = sortOrder;
 			ViewBag.CurrentSearch = input;
 			IQueryable<PRODUCT> products = _db.PRODUCTs.Where(p => p.title.Contains(input));
 

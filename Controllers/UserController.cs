@@ -1,5 +1,4 @@
 using FloralHaven.Models;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -267,14 +266,31 @@ namespace FloralHaven.Controllers
 			return Json(new { draw = draw, recordsTotal = totalRecords, recordsFiltered = recFilter, data = mappedBills }, JsonRequestBehavior.AllowGet);
 		}
 
+		[HttpPost]
+		[Route("Admin/DeleteOrder/{id}")]
+		public ActionResult DeleteOrder(int id)
+		{
+			var bill = _db.BILLs.FirstOrDefault(b => b.id == id);
+			if (bill == null)
+			{
+				Response.StatusCode = 404;
+				ViewBag.StatusCode = 404;
+				return View("NotFound");
+			}
+
+			_db.BILLDETAILs.DeleteAllOnSubmit(_db.BILLDETAILs.Where(b => b.billid == id));
+
+			_db.BILLs.DeleteOnSubmit(bill);
+			_db.SubmitChanges();
+			return RedirectToAction("OrderList");
+		}
 
 		//OrdersDetails
 		[HttpGet]
 		[Route("Admin/OrderDetails/{id}")]
 		public ActionResult OrderDetails(int id)
 		{
-			var userId = User.Identity.GetUserId();
-			var bill = _db.BILLs.FirstOrDefault(b => b.id == id && b.userid == userId);
+			var bill = _db.BILLs.FirstOrDefault(b => b.id == id);
 			if (bill == null)
 			{
 				Response.StatusCode = 404;
@@ -282,6 +298,9 @@ namespace FloralHaven.Controllers
 				return View("NotFound");
 			}
 			ViewBag.Id = bill.id;
+			ViewBag.User = _db.Users.FirstOrDefault(u => u.Id == bill.userid);
+			ViewBag.Total = bill.total;
+			ViewBag.Date = bill.date;
 			return View();
 		}
 

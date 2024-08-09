@@ -11,7 +11,7 @@ $(function () {
 				type: "POST",
 				dataType: "json",
 			},
-			columns: [{ data: "id" }, { data: "name" }, { data: "price" }, { data: "qty" }, { data: "" }],
+			columns: [{ data: "id" }, { data: "name" }, { data: "price" }, { data: "qty" }, { data: "total" }],
 			columnDefs: [
 				{
 					className: "control",
