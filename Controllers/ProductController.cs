@@ -488,6 +488,28 @@ namespace FloralHaven.Controllers
 				ViewBag.StatusCode = 404;
 				return View("NotFound");
 			}
+
+			// Add items to the subItem list
+			var subItem = _db.PRODUCTs
+				.Where(p => p.categoryid == product.categoryid && p.id != product.id)
+				.Take(4)
+				.Select(p => new ProductListViewModel
+				{
+					ProductID = p.id,
+					Name = p.title,
+					Handle = p.handle,
+					Stock = p.instock,
+					Price = p.price,
+					SalePrice = p.saleprice,
+					MainImage = _db.IMAGEs.FirstOrDefault(image => image.productid == p.id).path ?? "",
+					CategorySlug = _db.CATEGORies.FirstOrDefault(category => category.id == p.categoryid).slug ?? "",
+					CategoryName = _db.CATEGORies.FirstOrDefault(category => category.id == p.categoryid).name ?? "",
+				})
+				.ToList();
+
+			var listSubItem = new List<ProductListViewModel>(subItem);
+			ViewBag.subItem = listSubItem;
+
 			ViewBag.Title = product.title + "- FloralHaven";
 			var productImages = _db.IMAGEs.Where(image => image.productid == product.id).Select(image => image.path).ToList();
 
